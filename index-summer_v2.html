@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les Belles Bulles — Agents Commerciaux Vins & Champagne</title>
+<meta name="description" content="Les Belles Bulles — Agents commerciaux spécialisés dans la vente de vins, champagnes et spiritueux d'exception.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ciel: #4AADE8;
+    --ciel-fonce: #3A8FC5;
+    --ciel-profond: #2B7AAF;
+    --or: #D4A843;
+    --or-clair: #E8C76A;
+    --or-pale: #F0D88A;
+    --blanc: #FFFFFF;
+    --blanc-doux: #F8FBFF;
+    --sable: #F5EFE0;
+    --texte: #1A3A5C;
+    --texte-clair: #4A7A9E;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Lato', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--blanc);
+    color: var(--texte);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(74, 173, 232, 0);
+    backdrop-filter: blur(0px);
+    transition: all 0.5s;
+  }
+  nav.scrolled {
+    background: rgba(74, 173, 232, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 2px 30px rgba(0,0,0,0.1);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--blanc);
+    text-decoration: none;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blanc);
+    text-decoration: none;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    transition: opacity 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
+    width: 0; height: 2px;
+    background: var(--or);
+    transition: width 0.3s;
+    border-radius: 1px;
+  }
+  .nav-links a:hover { opacity: 0.9; }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-hamburger {
+    display: none; cursor: pointer; flex-direction: column;
+    gap: 5px; background: none; border: none; padding: 4px;
+  }
+  .nav-hamburger span {
+    width: 24px; height: 2px; background: var(--blanc); transition: 0.3s; border-radius: 1px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    position: relative;
+    background: var(--ciel);
+    overflow: hidden;
+  }
+  .hero-banner {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(212,168,67,0.1) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 120%, rgba(43,122,175,0.6) 0%, transparent 60%),
+      linear-gradient(180deg, #5CBDF0 0%, #4AADE8 40%, #3A9AD8 100%);
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: none;
+  }
+  .hero-content {
+    position: relative; z-index: 1;
+    padding: 2rem;
+  }
+  .hero-logo {
+    width: min(400px, 75vw);
+    margin: 0 auto 2.5rem;
+    opacity: 0; animation: fadeScale 1.2s 0.3s forwards;
+    filter: drop-shadow(0 4px 25px rgba(0,0,0,0.12));
+    border-radius: 8px;
+  }
+  .hero-sub {
+    font-family: var(--sans);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 300;
+    color: var(--blanc);
+    max-width: 600px; margin: 0 auto 1rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    letter-spacing: 0.03em;
+    line-height: 1.7;
+    opacity: 0; animation: fadeUp 1s 0.7s forwards;
+  }
+  .hero-tag {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    color: var(--or-clair);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 1s 0.9s forwards;
+  }
+  .hero-cta {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--texte);
+    background: var(--blanc);
+    padding: 1rem 2.8rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.4s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    opacity: 0; animation: fadeUp 1s 1.1s forwards;
+  }
+  .hero-cta:hover {
+    background: var(--or);
+    color: var(--blanc);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(212,168,67,0.3);
+  }
+
+  /* Floating bubbles */
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+    animation: floatBubble linear infinite;
+  }
+  @keyframes floatBubble {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 0.15; }
+    90% { opacity: 0.15; }
+    100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 4rem; position: relative; }
+  .section-tag {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 500;
+    color: var(--texte);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  .section-title em { font-style: italic; color: var(--ciel); }
+
+  /* ── ABOUT ── */
+  .about {
+    background: var(--blanc-doux);
+    overflow: hidden;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 1rem;
+    line-height: 2;
+    color: var(--texte-clair);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-card {
+    background: var(--ciel);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    color: var(--blanc);
+    position: relative;
+    overflow: hidden;
+  }
+  .about-card::before {
+    content: '';
+    position: absolute; top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+  }
+  .about-card::after {
+    content: '';
+    position: absolute; bottom: -20px; left: -20px;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: rgba(212,168,67,0.2);
+  }
+  .about-card h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .about-card p {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    font-weight: 300;
+    opacity: 0.9;
+  }
+  .about-stat-row {
+    display: flex; gap: 2rem;
+    margin-top: 2rem;
+  }
+  .about-stat {
+    text-align: center; flex: 1;
+    background: rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 1.2rem 1rem;
+  }
+  .about-stat-number {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--or-clair);
+  }
+  .about-stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-top: 0.3rem;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 120px;
+    background: url('divider-summer.jpg') center center / cover no-repeat;
+    position: relative;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    position: absolute; left: 0; right: 0; height: 40px;
+  }
+  .divider::before { top: 0; background: linear-gradient(180deg, var(--blanc-doux), transparent); }
+  .divider::after { bottom: 0; background: linear-gradient(0deg, var(--blanc), transparent); }
+
+  /* ── SERVICES ── */
+  .services {
+    background: var(--blanc);
+  }
+  .services-header {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 4rem;
+  }
+  .services-header p {
+    font-size: 1rem; line-height: 1.8;
+    color: var(--texte-clair); font-weight: 300;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .service-card {
+    background: var(--blanc-doux);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(74,173,232,0.08);
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--ciel), var(--or));
+    opacity: 0; transition: opacity 0.4s;
+    border-radius: 16px 16px 0 0;
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(74,173,232,0.12);
+  }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, var(--ciel), var(--ciel-fonce));
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--blanc);
+    box-shadow: 0 4px 15px rgba(74,173,232,0.25);
+  }
+  .service-card h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--texte);
+    margin-bottom: 0.8rem;
+  }
+  .service-card p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--texte-clair);
+    font-weight: 300;
+  }
+
+  /* ── TERROIRS ── */
+  .terroirs {
+    background: var(--ciel);
+    color: var(--blanc);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .terroirs::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(212,168,67,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 40%);
+  }
+  .terroirs .section-tag { color: var(--or-clair); }
+  .terroirs .section-title { color: var(--blanc); }
+  .terroirs .section-title em { color: var(--or-clair); }
+  .terroirs-intro {
+    font-size: 1rem; color: rgba(255,255,255,0.85);
+    font-weight: 300; max-width: 600px; margin: 0 auto 3rem; line-height: 1.8;
+    position: relative;
+  }
+  .terroirs-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .terroir-chip {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--blanc);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.75rem 1.8rem;
+    border-radius: 50px;
+    letter-spacing: 0.03em;
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .terroir-chip:hover {
+    background: rgba(212,168,67,0.25);
+    border-color: var(--or);
+    transform: translateY(-2px);
+  }
+
+  /* ── VALEURS ── */
+  .valeurs {
+    background: var(--blanc);
+  }
+  .valeurs-header {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 4rem;
+  }
+  .valeurs-header p {
+    font-size: 1rem; line-height: 1.8;
+    color: var(--texte-clair); font-weight: 300;
+  }
+  .valeurs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .valeur-item {
+    text-align: center;
+    padding: 2rem 1.5rem;
+  }
+  .valeur-icon {
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .valeur-item h3 {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--texte);
+    margin-bottom: 0.6rem;
+  }
+  .valeur-item p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--texte-clair);
+    font-weight: 300;
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: var(--sable);
+    text-align: center;
+    position: relative;
+  }
+  .contact-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .contact-content > p {
+    font-size: 1rem; line-height: 1.8;
+    color: var(--texte-clair); font-weight: 300;
+    margin-bottom: 2.5rem;
+  }
+  .contact-email {
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--ciel);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 4px;
+  }
+  .contact-email::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--or);
+    transform: scaleX(0.3);
+    transition: transform 0.3s;
+  }
+  .contact-email:hover::after { transform: scaleX(1); }
+  .contact-details {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
+  .contact-item-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 0.4rem;
+  }
+  .contact-item-value {
+    font-size: 0.95rem;
+    color: var(--texte-clair);
+    font-weight: 300;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 4rem;
+    background: var(--ciel-profond);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer p {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeScale {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(35px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: rgba(74,173,232,0.97);
+      padding: 1.5rem;
+      gap: 1.2rem;
+    }
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .valeurs-grid { grid-template-columns: 1fr; }
+    .contact-details { flex-direction: column; gap: 1.5rem; }
+    footer { flex-direction: column; text-align: center; padding: 1.5rem; }
+    .divider { height: 80px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Les Belles Bulles</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">Notre Maison</a></li>
+    <li><a href="#services">Expertise</a></li>
+    <li><a href="#terroirs">Terroirs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-banner"></div>
+  <div class="hero-overlay"></div>
+  <!-- Bubbles -->
+  <div id="bubbles"></div>
+  <div class="hero-content">
+    <img src="logo-summer.jpg" alt="Les Belles Bulles" class="hero-logo">
+    <p class="hero-sub">Agents commerciaux spécialisés dans la représentation et la valorisation de vins, champagnes et spiritueux d'exception.</p>
+    <p class="hero-tag">L'élégance du terroir, l'exigence du service</p>
+    <a href="#contact" class="hero-cta">Découvrir notre maison</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <p class="section-tag reveal">Notre Maison</p>
+      <h2 class="section-title reveal">La passion du terroir,<br>au service du <em>commerce</em></h2>
+      <p class="reveal">Les Belles Bulles est une société d'agents commerciaux dédiée à la représentation, la prospection et la négociation pour le compte de producteurs, négociants et distributeurs de vins, champagnes et spiritueux.</p>
+      <p class="reveal">Notre mission : créer des ponts durables entre les plus belles maisons et les professionnels les plus exigeants — cavistes, restaurateurs, hôteliers — à travers un accompagnement sur mesure et une connaissance approfondie du marché.</p>
+    </div>
+    <div class="about-visual reveal">
+      <div class="about-card">
+        <h3>Notre engagement</h3>
+        <p>Intermédiation commerciale, développement de clientèle, fidélisation et promotion des produits représentés — nous mettons en œuvre toutes les actions nécessaires à la valorisation de vos cuvées.</p>
+        <div class="about-stat-row">
+          <div class="about-stat">
+            <div class="about-stat-number">—</div>
+            <div class="about-stat-label">Maisons</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number">—</div>
+            <div class="about-stat-label">Régions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <p class="section-tag reveal">Notre Expertise</p>
+    <h2 class="section-title reveal">Un accompagnement <em>complet</em></h2>
+    <p class="reveal">De la prospection à la fidélisation, nous offrons un mandat de représentation commerciale adapté aux ambitions de chaque maison.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <h3>Représentation commerciale</h3>
+      <p>Prospection ciblée, négociation et suivi de clientèle pour le compte de producteurs et négociants sur l'ensemble du territoire.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div>
+      <h3>Stratégie & Développement</h3>
+      <p>Mise en relation, intermédiation commerciale et mise en œuvre de toutes les actions nécessaires au développement et à la gestion de votre clientèle.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <h3>Promotion & Valorisation</h3>
+      <p>Participation aux actions de promotion, communication et valorisation de vos produits auprès des professionnels les plus exigeants.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TERROIRS -->
+<section class="terroirs" id="terroirs">
+  <p class="section-tag reveal">Nos Terroirs</p>
+  <h2 class="section-title reveal">Des appellations <em>d'exception</em></h2>
+  <p class="terroirs-intro reveal">Nous travaillons avec des maisons et vignerons sélectionnés dans les plus grandes régions viticoles françaises.</p>
+  <div class="terroirs-grid">
+    <div class="terroir-chip reveal">Champagne</div>
+    <div class="terroir-chip reveal">Bourgogne</div>
+    <div class="terroir-chip reveal">Bordeaux</div>
+    <div class="terroir-chip reveal">Vallée du Rhône</div>
+    <div class="terroir-chip reveal">Loire</div>
+    <div class="terroir-chip reveal">Alsace</div>
+    <div class="terroir-chip reveal">Cognac</div>
+    <div class="terroir-chip reveal">Armagnac</div>
+    <div class="terroir-chip reveal">Provence</div>
+  </div>
+</section>
+
+<!-- VALEURS -->
+<section class="valeurs">
+  <div class="valeurs-header">
+    <p class="section-tag reveal">Nos Valeurs</p>
+    <h2 class="section-title reveal">Ce qui nous <em>anime</em></h2>
+    <p class="reveal">Trois piliers guident notre approche commerciale au quotidien.</p>
+  </div>
+  <div class="valeurs-grid">
+    <div class="valeur-item reveal reveal-delay-1">
+      <span class="valeur-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4AADE8" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+      <h3>Authenticité</h3>
+      <p>Nous sélectionnons et représentons des maisons dont les cuvées reflètent un terroir, un savoir-faire et une histoire.</p>
+    </div>
+    <div class="valeur-item reveal reveal-delay-2">
+      <span class="valeur-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+      <h3>Excellence</h3>
+      <p>Chaque partenariat est construit sur l'exigence — dans la qualité des produits comme dans la relation commerciale.</p>
+    </div>
+    <div class="valeur-item reveal reveal-delay-3">
+      <span class="valeur-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4AADE8" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+      <h3>Proximité</h3>
+      <p>Un suivi personnalisé, une écoute attentive et une réactivité permanente auprès de nos clients et partenaires.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-content">
+    <p class="section-tag reveal">Contact</p>
+    <h2 class="section-title reveal">Travaillons <em>ensemble</em></h2>
+    <p class="reveal">Vous êtes producteur, négociant ou distributeur de vins et spiritueux ? Parlons de la manière dont nous pouvons valoriser vos produits.</p>
+    <a href="mailto:contact@lesbellesbulles.com" class="contact-email reveal">contact@lesbellesbulles.com</a>
+    <div class="contact-details reveal">
+      <div>
+        <div class="contact-item-label">Téléphone</div>
+        <div class="contact-item-value">+33 6 20 11 04 22</div>
+      </div>
+      <div>
+        <div class="contact-item-label">Siège</div>
+        <div class="contact-item-value">Paris, France</div>
+      </div>
+      <div>
+        <div class="contact-item-label">Web</div>
+        <div class="contact-item-value">lesbellesbulles.com</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Les Belles Bulles — SAS — Tous droits réservés</p>
+  <p>Agents commerciaux · Vins, Champagnes & Spiritueux</p>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Floating bubbles
+  const bubblesContainer = document.getElementById('bubbles');
+  function createBubble() {
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    const size = Math.random() * 30 + 10;
+    const isGold = Math.random() > 0.5;
+    bubble.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: ${Math.random() * 100}%;
+      background: ${isGold ? 'rgba(212,168,67,0.3)' : 'rgba(255,255,255,0.3)'};
+      border: 1px solid ${isGold ? 'rgba(212,168,67,0.2)' : 'rgba(255,255,255,0.2)'};
+      animation-duration: ${Math.random() * 8 + 8}s;
+      animation-delay: ${Math.random() * 5}s;
+    `;
+    bubblesContainer.appendChild(bubble);
+    setTimeout(() => bubble.remove(), 16000);
+  }
+  setInterval(createBubble, 800);
+  for (let i = 0; i < 8; i++) setTimeout(createBubble, i * 300);
+</script>
+
+</body>
+</html>
