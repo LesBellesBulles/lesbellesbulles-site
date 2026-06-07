@@ -39,9 +39,9 @@
   .hero-top::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(0deg, var(--ciel), transparent); }
   .hero-bottom { background: var(--ciel); text-align: center; padding: 3rem 2rem 5rem; position: relative; overflow: hidden; }
   .hero-bottom-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
-  .hero-bottom h1 { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 400; color: var(--blanc); line-height: 1.2; margin-bottom: 1.5rem; text-shadow: 0 2px 12px rgba(0,0,0,0.1); opacity: 0; animation: fadeUp 1s 0.3s forwards; }
+  .hero-bottom h1 { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 600; color: var(--blanc); line-height: 1.2; margin-bottom: 1.5rem; text-shadow: 0 2px 12px rgba(0,0,0,0.1); opacity: 0; animation: fadeUp 1s 0.3s forwards; }
   .hero-bottom h1 em { font-style: italic; color: var(--or-clair); }
-  .hero-sub { font-family: var(--sans); font-size: clamp(1rem, 2vw, 1.15rem); font-weight: 400; color: rgba(255,255,255,0.9); max-width: 580px; margin: 0 auto 2.5rem; letter-spacing: 0.02em; line-height: 1.8; opacity: 0; animation: fadeUp 1s 0.6s forwards; }
+  .hero-sub { font-family: var(--sans); font-size: clamp(1.05rem, 2vw, 1.2rem); font-weight: 400; color: rgba(255,255,255,0.9); max-width: 580px; margin: 0 auto 2.5rem; letter-spacing: 0.02em; line-height: 1.8; opacity: 0; animation: fadeUp 1s 0.6s forwards; }
   .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 1s 0.9s forwards; }
   .hero-cta { display: inline-block; font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; transition: all 0.4s; }
   .hero-cta-primary { color: var(--texte); background: var(--blanc); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
@@ -65,17 +65,17 @@
   /* PROMESSE */
   .promesse { background: var(--blanc-doux); overflow: hidden; }
   .promesse-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; max-width: 1100px; margin: 0 auto; align-items: center; }
-  .promesse-text p { font-size: 1rem; line-height: 2; color: var(--texte-clair); margin-bottom: 1.5rem; font-weight: 300; }
+  .promesse-text p { font-size: 1.08rem; line-height: 2; color: var(--texte-clair); margin-bottom: 1.5rem; font-weight: 300; }
   .promesse-highlights { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
   .highlight-item { display: flex; gap: 1rem; align-items: flex-start; }
   .highlight-icon { width: 44px; height: 44px; min-width: 44px; background: linear-gradient(135deg, var(--ciel), var(--ciel-fonce)); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 12px rgba(74,173,232,0.2); }
   .highlight-text h4 { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--texte); margin-bottom: 0.15rem; }
-  .highlight-text p { font-size: 0.85rem; line-height: 1.5; color: var(--texte-clair); font-weight: 300; margin: 0; }
+  .highlight-text p { font-size: 0.95rem; line-height: 1.5; color: var(--texte-clair); font-weight: 300; margin: 0; }
   .promesse-card { background: var(--ciel); border-radius: 20px; padding: 3rem 2.5rem; color: var(--blanc); position: relative; overflow: hidden; }
   .promesse-card::before { content: ''; position: absolute; top: -40px; right: -40px; width: 140px; height: 140px; border-radius: 50%; background: rgba(255,255,255,0.08); }
   .promesse-card::after { content: ''; position: absolute; bottom: -25px; left: -25px; width: 90px; height: 90px; border-radius: 50%; background: rgba(212,168,67,0.15); }
   .promesse-card h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 500; margin-bottom: 1rem; }
-  .promesse-card p { font-size: 0.95rem; line-height: 1.7; font-weight: 300; opacity: 0.9; }
+  .promesse-card p { font-size: 1.05rem; line-height: 1.7; font-weight: 300; opacity: 0.9; }
   .promesse-card .gold { color: var(--or-clair); font-weight: 500; }
 
   /* DIVIDER */
@@ -87,7 +87,7 @@
   /* SERVICES */
   .services { background: var(--blanc); }
   .services-header { text-align: center; max-width: 650px; margin: 0 auto 4rem; }
-  .services-header p { font-size: 1rem; line-height: 1.8; color: var(--texte-clair); font-weight: 300; }
+  .services-header p { font-size: 1.08rem; line-height: 1.8; color: var(--texte-clair); font-weight: 300; }
   .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto; }
   .service-card { background: var(--blanc-doux); border-radius: 16px; padding: 2.5rem 2rem; transition: all 0.4s; position: relative; overflow: hidden; border: 1px solid rgba(74,173,232,0.08); }
   .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--ciel), var(--or)); opacity: 0; transition: opacity 0.4s; border-radius: 16px 16px 0 0; }
@@ -95,7 +95,7 @@
   .service-card:hover::before { opacity: 1; }
   .service-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--ciel), var(--ciel-fonce)); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(74,173,232,0.25); }
   .service-card h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; color: var(--texte); margin-bottom: 0.8rem; }
-  .service-card p { font-size: 0.9rem; line-height: 1.7; color: var(--texte-clair); font-weight: 300; }
+  .service-card p { font-size: 1.02rem; line-height: 1.7; color: var(--texte-clair); font-weight: 300; }
 
   /* CHAMPAGNE */
   .champagne { background: var(--ciel); color: var(--blanc); text-align: center; position: relative; overflow: hidden; }
@@ -103,23 +103,23 @@
   .champagne .section-tag { color: var(--or-clair); }
   .champagne .section-title { color: var(--blanc); }
   .champagne .section-title em { color: var(--or-clair); }
-  .champagne-intro { font-size: 1.05rem; color: rgba(255,255,255,0.85); font-weight: 300; max-width: 620px; margin: 0 auto 3rem; line-height: 1.9; position: relative; }
+  .champagne-intro { font-size: 1.12rem; color: rgba(255,255,255,0.85); font-weight: 300; max-width: 620px; margin: 0 auto 3rem; line-height: 1.9; position: relative; }
   .champagne-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto; position: relative; }
   .champagne-item { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15); padding: 1.8rem 1.2rem; border-radius: 16px; transition: all 0.3s; }
   .champagne-item:hover { background: rgba(212,168,67,0.15); border-color: var(--or); transform: translateY(-4px); }
   .champagne-item h4 { font-family: var(--serif); font-size: 1.1rem; font-weight: 500; margin-bottom: 0.5rem; }
-  .champagne-item p { font-size: 0.78rem; line-height: 1.5; opacity: 0.75; font-weight: 300; }
+  .champagne-item p { font-size: 0.9rem; line-height: 1.5; opacity: 0.75; font-weight: 300; }
 
   /* ÉVÉNEMENTS */
   .evenements { background: var(--blanc); }
   .evenements-header { text-align: center; max-width: 650px; margin: 0 auto 4rem; }
-  .evenements-header p { font-size: 1rem; line-height: 1.8; color: var(--texte-clair); font-weight: 300; }
+  .evenements-header p { font-size: 1.08rem; line-height: 1.8; color: var(--texte-clair); font-weight: 300; }
   .evenements-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto; }
   .event-card { text-align: center; padding: 2.5rem 1.5rem; border-radius: 16px; border: 1px solid rgba(74,173,232,0.1); transition: all 0.4s; }
   .event-card:hover { border-color: var(--or); box-shadow: 0 10px 30px rgba(74,173,232,0.08); transform: translateY(-4px); }
   .event-icon { width: 48px; height: 48px; margin: 0 auto 1.2rem; }
   .event-card h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; color: var(--texte); margin-bottom: 0.6rem; }
-  .event-card p { font-size: 0.88rem; line-height: 1.7; color: var(--texte-clair); font-weight: 300; }
+  .event-card p { font-size: 1rem; line-height: 1.7; color: var(--texte-clair); font-weight: 300; }
 
   /* CONTACT */
   .contact { background: var(--ciel); text-align: center; color: var(--blanc); position: relative; overflow: hidden; padding: 6rem 4rem 5rem; }
@@ -128,22 +128,23 @@
   .contact .section-tag { color: var(--or-clair); }
   .contact .section-title { color: var(--blanc); font-size: clamp(2.2rem, 5vw, 3.5rem); }
   .contact .section-title em { color: var(--or-clair); }
-  .contact-intro { font-size: 1.1rem; line-height: 1.8; color: rgba(255,255,255,0.85); font-weight: 300; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
-  .contact-email { font-family: var(--serif); font-size: clamp(1.3rem, 3vw, 2rem); color: var(--blanc); text-decoration: none; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 1rem 2.5rem; border-radius: 50px; display: inline-block; transition: all 0.3s; backdrop-filter: blur(4px); }
-  .contact-email:hover { background: rgba(212,168,67,0.2); border-color: var(--or); transform: translateY(-2px); }
+  .contact-intro { font-size: 1.15rem; line-height: 1.8; color: rgba(255,255,255,0.85); font-weight: 300; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .contact-email { font-family: var(--serif); font-size: clamp(1.3rem, 3vw, 2rem); color: var(--blanc); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.3s; }
+  .contact-email::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--or-clair); transform: scaleX(0.4); transition: transform 0.3s; border-radius: 1px; }
+  .contact-email:hover::after { transform: scaleX(1); }
   .contact-separator { width: 60px; height: 2px; background: var(--or); margin: 3rem auto; border-radius: 1px; }
   .contact-team-title { font-family: var(--sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--or-clair); margin-bottom: 2rem; }
   .contact-team { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 800px; margin: 0 auto; }
   .team-card { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 1.8rem 1.5rem; text-align: left; transition: all 0.3s; }
   .team-card:hover { background: rgba(255,255,255,0.14); border-color: rgba(212,168,67,0.3); transform: translateY(-3px); }
   .team-name { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--blanc); margin-bottom: 0.3rem; }
-  .team-role { font-size: 0.8rem; font-weight: 400; color: var(--or-clair); letter-spacing: 0.03em; margin-bottom: 0.8rem; }
-  .team-phone { font-size: 0.9rem; font-weight: 300; color: rgba(255,255,255,0.8); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
+  .team-role { font-size: 0.9rem; font-weight: 400; color: var(--or-clair); letter-spacing: 0.03em; margin-bottom: 0.8rem; }
+  .team-phone { font-size: 0.98rem; font-weight: 300; color: rgba(255,255,255,0.8); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
   .team-phone:hover { color: var(--blanc); }
   .team-phone svg { opacity: 0.6; }
   .contact-location { margin-top: 2.5rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
   .contact-loc-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--or-clair); margin-bottom: 0.3rem; }
-  .contact-loc-value { font-size: 0.95rem; color: rgba(255,255,255,0.8); font-weight: 300; }
+  .contact-loc-value { font-size: 1.02rem; color: rgba(255,255,255,0.8); font-weight: 300; }
 
   /* FOOTER */
   footer { padding: 2rem 4rem; background: var(--ciel-profond); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
