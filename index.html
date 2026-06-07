@@ -39,7 +39,7 @@
   .hero-top::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(0deg, var(--ciel), transparent); }
   .hero-bottom { background: var(--ciel); text-align: center; padding: 3rem 2rem 5rem; position: relative; overflow: hidden; }
   .hero-bottom-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
-  .hero-bottom h1 { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 400; color: var(--blanc); line-height: 1.2; margin-bottom: 1.5rem; text-shadow: 0 2px 12px rgba(0,0,0,0.1); opacity: 0; animation: fadeUp 1s 0.3s forwards; }
+  .hero-bottom h1 { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 600; color: var(--blanc); line-height: 1.2; margin-bottom: 1.5rem; text-shadow: 0 2px 12px rgba(0,0,0,0.1); opacity: 0; animation: fadeUp 1s 0.3s forwards; }
   .hero-bottom h1 em { font-style: italic; color: var(--or-clair); }
   .hero-sub { font-family: var(--sans); font-size: clamp(1.05rem, 2vw, 1.2rem); font-weight: 400; color: rgba(255,255,255,0.9); max-width: 580px; margin: 0 auto 2.5rem; letter-spacing: 0.02em; line-height: 1.8; opacity: 0; animation: fadeUp 1s 0.6s forwards; }
   .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 1s 0.9s forwards; }
@@ -122,29 +122,29 @@
   .event-card p { font-size: 1rem; line-height: 1.7; color: var(--texte-clair); font-weight: 300; }
 
   /* CONTACT */
-  .contact { background: var(--ciel); text-align: center; color: var(--blanc); position: relative; overflow: hidden; padding: 6rem 4rem 5rem; }
-  .contact::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.08) 0%, transparent 50%), radial-gradient(circle at 20% 100%, rgba(212,168,67,0.1) 0%, transparent 40%); }
+  .contact { background: var(--sable); text-align: center; color: var(--texte); position: relative; overflow: hidden; padding: 6rem 4rem 5rem; }
+  .contact::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(74,173,232,0.04) 0%, transparent 50%), radial-gradient(circle at 20% 100%, rgba(212,168,67,0.06) 0%, transparent 40%); }
   .contact-content { max-width: 900px; margin: 0 auto; position: relative; }
-  .contact .section-tag { color: var(--or-clair); }
-  .contact .section-title { color: var(--blanc); font-size: clamp(2.2rem, 5vw, 3.5rem); }
-  .contact .section-title em { color: var(--or-clair); }
-  .contact-intro { font-size: 1.15rem; line-height: 1.8; color: rgba(255,255,255,0.85); font-weight: 300; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
-  .contact-email { font-family: var(--serif); font-size: clamp(1.3rem, 3vw, 2rem); color: var(--blanc); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.3s; }
-  .contact-email::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--or-clair); transform: scaleX(0.4); transition: transform 0.3s; border-radius: 1px; }
+  .contact .section-tag { color: var(--or); }
+  .contact .section-title { color: var(--texte); font-size: clamp(2.2rem, 5vw, 3.5rem); }
+  .contact .section-title em { color: var(--ciel); }
+  .contact-intro { font-size: 1.15rem; line-height: 1.8; color: var(--texte-clair); font-weight: 300; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .contact-email { font-family: var(--serif); font-size: clamp(1.3rem, 3vw, 2rem); color: var(--ciel); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.3s; }
+  .contact-email::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--or); transform: scaleX(0.4); transition: transform 0.3s; border-radius: 1px; }
   .contact-email:hover::after { transform: scaleX(1); }
   .contact-separator { width: 60px; height: 2px; background: var(--or); margin: 3rem auto; border-radius: 1px; }
-  .contact-team-title { font-family: var(--sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--or-clair); margin-bottom: 2rem; }
+  .contact-team-title { font-family: var(--sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--or); margin-bottom: 2rem; }
   .contact-team { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 800px; margin: 0 auto; }
-  .team-card { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 1.8rem 1.5rem; text-align: left; transition: all 0.3s; }
-  .team-card:hover { background: rgba(255,255,255,0.14); border-color: rgba(212,168,67,0.3); transform: translateY(-3px); }
-  .team-name { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--blanc); margin-bottom: 0.3rem; }
-  .team-role { font-size: 0.9rem; font-weight: 400; color: var(--or-clair); letter-spacing: 0.03em; margin-bottom: 0.8rem; }
-  .team-phone { font-size: 0.98rem; font-weight: 300; color: rgba(255,255,255,0.8); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
-  .team-phone:hover { color: var(--blanc); }
-  .team-phone svg { opacity: 0.6; }
+  .team-card { background: var(--blanc); border: 1px solid rgba(74,173,232,0.1); border-radius: 16px; padding: 1.8rem 1.5rem; text-align: left; transition: all 0.3s; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+  .team-card:hover { border-color: var(--or); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.07); }
+  .team-name { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--texte); margin-bottom: 0.3rem; }
+  .team-role { font-size: 0.9rem; font-weight: 400; color: var(--ciel-fonce); letter-spacing: 0.03em; margin-bottom: 0.8rem; }
+  .team-phone { font-size: 0.98rem; font-weight: 300; color: var(--texte-clair); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
+  .team-phone:hover { color: var(--texte); }
+  .team-phone svg { opacity: 0.5; }
   .contact-location { margin-top: 2.5rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
-  .contact-loc-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--or-clair); margin-bottom: 0.3rem; }
-  .contact-loc-value { font-size: 1.02rem; color: rgba(255,255,255,0.8); font-weight: 300; }
+  .contact-loc-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--or); margin-bottom: 0.3rem; }
+  .contact-loc-value { font-size: 1.02rem; color: var(--texte-clair); font-weight: 300; }
 
   /* FOOTER */
   footer { padding: 2rem 4rem; background: var(--ciel-profond); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
@@ -200,7 +200,7 @@
   <div id="bubbles"></div>
   <div class="hero-bottom-content">
     <h1>Des champagnes <em>d'exception</em>,<br>à prix privilégiés</h1>
-    <p class="hero-sub">Particuliers et professionnels, découvrez notre sélection de champagnes soigneusement choisis auprès des meilleures maisons. Conseils personnalisés, commandes sur-mesure et événements inoubliables.</p>
+    <p class="hero-sub">Particuliers et professionnels, découvrez notre sélection de champagnes soigneusement choisis auprès des meilleures maisons. Conseil personnalisé, commandes sur mesure et événements inoubliables.</p>
     <div class="hero-ctas">
       <a href="#contact" class="hero-cta hero-cta-primary">Commander</a>
       <a href="#evenements" class="hero-cta hero-cta-secondary">Nos événements</a>
@@ -213,15 +213,15 @@
     <div class="promesse-text">
       <p class="section-tag reveal">Notre Maison</p>
       <h2 class="section-title reveal">Le champagne <em>autrement</em></h2>
-      <p class="reveal">Les Belles Bulles, c'est l'accès à des champagnes d'exception à des tarifs privilégiés. En tant qu'agents commerciaux, nous travaillons en direct avec les Maisons pour vous proposer le meilleur rapport qualité-prix.</p>
+      <p class="reveal">Les Belles Bulles, c'est l'accès à des champagnes d'exception à des tarifs privilégiés. En tant qu'agents commerciaux, nous travaillons en direct avec les producteurs pour vous proposer le meilleur rapport qualité-prix, sans intermédiaire superflu.</p>
       <div class="promesse-highlights reveal">
         <div class="highlight-item">
           <div class="highlight-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-          <div class="highlight-text"><h4>Prix privilégiés</h4><p>Des tarifs négociés en direct auprès des Maisons</p></div>
+          <div class="highlight-text"><h4>Prix privilégiés</h4><p>Des tarifs négociés en direct auprès des producteurs</p></div>
         </div>
         <div class="highlight-item">
           <div class="highlight-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-          <div class="highlight-text"><h4>Conseils personnalisés</h4><p>Un accompagnement sur-mesure pour chaque client</p></div>
+          <div class="highlight-text"><h4>Conseil personnalisé</h4><p>Un accompagnement sur mesure pour chaque client</p></div>
         </div>
         <div class="highlight-item">
           <div class="highlight-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="23 7 16 12 16 2 23 7"/></svg></div>
@@ -232,7 +232,7 @@
     <div class="reveal">
       <div class="promesse-card">
         <h3>Pourquoi choisir Les Belles Bulles ?</h3>
-        <p>Nous sélectionnons chaque cuvée avec exigence pour vous offrir des champagnes qui font la différence, que ce soit pour une grande occasion, un cadeau d'entreprise ou le plaisir de chaque jour.</p>
+        <p>Nous sélectionnons chaque cuvée avec exigence pour vous offrir des champagnes qui font la différence — que ce soit pour une grande occasion, un cadeau d'entreprise ou le plaisir de chaque jour.</p>
         <p style="margin-top: 1.2rem;">Notre promesse : <span class="gold">des bulles d'exception, accessibles à tous.</span></p>
       </div>
     </div>
@@ -250,7 +250,7 @@
   <div class="services-grid">
     <div class="service-card reveal reveal-delay-1">
       <div class="service-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
-      <h3>Commandes sur-mesure</h3>
+      <h3>Commandes sur mesure</h3>
       <p>Composez votre sélection parmi nos cuvées ou laissez-vous guider par nos recommandations. Commandes à l'unité ou en volume pour les professionnels.</p>
     </div>
     <div class="service-card reveal reveal-delay-2">
@@ -261,7 +261,7 @@
     <div class="service-card reveal reveal-delay-3">
       <div class="service-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
       <h3>Cadeaux & Entreprises</h3>
-      <p>Offrez l'excellence. Coffrets personnalisés, cadeaux d'affaires et dotations événementielles : nous créons des expériences mémorables.</p>
+      <p>Offrez l'excellence. Coffrets personnalisés, cadeaux d'affaires et dotations événementielles — nous créons des expériences mémorables.</p>
     </div>
   </div>
 </section>
@@ -269,7 +269,7 @@
 <section class="champagne" id="champagne">
   <p class="section-tag reveal">Nos Champagnes</p>
   <h2 class="section-title reveal">Une sélection <em>d'exception</em></h2>
-  <p class="champagne-intro reveal">Brut, rosé, millésimé ou cuvée prestige, nous sélectionnons chaque bouteille pour sa qualité, son caractère et son rapport qualité-prix.</p>
+  <p class="champagne-intro reveal">Brut, rosé, millésimé ou cuvée prestige — nous sélectionnons chaque bouteille pour sa qualité, son caractère et son rapport qualité-prix.</p>
   <div class="champagne-grid">
     <div class="champagne-item reveal reveal-delay-1"><h4>Brut Classique</h4><p>L'élégance au quotidien, des cuvées fraîches et équilibrées</p></div>
     <div class="champagne-item reveal reveal-delay-2"><h4>Rosé</h4><p>Finesse et caractère, parfait pour l'apéritif et les beaux jours</p></div>
@@ -281,19 +281,19 @@
 <section class="evenements" id="evenements">
   <div class="evenements-header">
     <p class="section-tag reveal">Événements</p>
-    <h2 class="section-title reveal">Des moments <em>sur-mesure</em></h2>
+    <h2 class="section-title reveal">Des moments <em>sur mesure</em></h2>
     <p class="reveal">Nous organisons des événements autour du champagne pour vos réceptions privées, séminaires d'entreprise ou soirées entre amis.</p>
   </div>
   <div class="evenements-grid">
     <div class="event-card reveal reveal-delay-1">
       <div class="event-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADE8" stroke-width="1.3" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
       <h3>Réceptions privées</h3>
-      <p>Anniversaires, mariages, fêtes de famille,  nous vous aidons à choisir les cuvées parfaites et organisons la dégustation.</p>
+      <p>Anniversaires, mariages, fêtes de famille — nous vous aidons à choisir les cuvées parfaites et organisons la dégustation.</p>
     </div>
     <div class="event-card reveal reveal-delay-2">
       <div class="event-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="1.3" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
       <h3>Séminaires d'entreprise</h3>
-      <p>Team building, soirée clients, lancement de produit : une expérience champagne clé en main pour vos événements corporate.</p>
+      <p>Team building, soirée clients, lancement de produit — une expérience champagne clé en main pour vos événements corporate.</p>
     </div>
     <div class="event-card reveal reveal-delay-3">
       <div class="event-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADE8" stroke-width="1.3" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
@@ -307,7 +307,7 @@
   <div class="contact-content">
     <p class="section-tag reveal">Contact</p>
     <h2 class="section-title reveal">Envie de <em>bulles</em> ?</h2>
-    <p class="contact-intro reveal">Commande, conseils, événement ou simple question : contactez-nous et nous vous répondrons dans les plus brefs délais.</p>
+    <p class="contact-intro reveal">Commande, conseil, événement ou simple question — contactez-nous et nous vous répondrons dans les plus brefs délais.</p>
     <a href="mailto:contact@lesbellesbulles.com" class="contact-email reveal">contact@lesbellesbulles.com</a>
     <div class="contact-separator reveal"></div>
     <p class="contact-team-title reveal">Notre équipe</p>
