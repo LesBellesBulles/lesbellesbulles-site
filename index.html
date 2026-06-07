@@ -19,8 +19,6 @@
   }
   html { scroll-behavior: smooth; }
   body { font-family: var(--sans); background: var(--blanc); color: var(--texte); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-
-  /* NAV */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 4rem; background: rgba(52,178,229,0.95); transition: all 0.5s; }
   nav.scrolled { background: rgba(52,178,229,0.95); backdrop-filter: blur(20px); box-shadow: 0 2px 30px rgba(0,0,0,0.1); }
   .nav-logo-img { height: 50px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15)); transition: height 0.4s; }
@@ -32,8 +30,6 @@
   .nav-links a:hover::after { width: 100%; }
   .nav-hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
   .nav-hamburger span { width: 24px; height: 2px; background: var(--blanc); transition: 0.3s; border-radius: 1px; }
-
-  /* HERO */
   .hero-top { width: 100%; position: relative; padding-top: 65px; background: var(--ciel); }
   .hero-top img { width: 100%; display: block; }
   .hero-top::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(0deg, var(--ciel), transparent); }
@@ -48,21 +44,15 @@
   .hero-cta-primary:hover { background: var(--or); color: var(--blanc); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(212,168,67,0.3); }
   .hero-cta-secondary { color: var(--blanc); border: 1.5px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.08); backdrop-filter: blur(4px); }
   .hero-cta-secondary:hover { border-color: var(--or); background: rgba(212,168,67,0.15); transform: translateY(-3px); }
-
-  /* Bubbles */
   #bubbles { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
   .bubble { position: absolute; border-radius: 50%; animation: floatBubble linear infinite; pointer-events: none; }
   .bubble-inner { width: 100%; height: 100%; border-radius: 50%; position: relative; }
   .bubble-inner::after { content: ''; position: absolute; top: 18%; left: 22%; width: 30%; height: 20%; border-radius: 50%; background: rgba(255,255,255,0.5); transform: rotate(-30deg); }
   @keyframes floatBubble { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 8% { opacity: var(--bubble-opacity, 0.25); } 85% { opacity: var(--bubble-opacity, 0.25); } 100% { transform: translateY(-15vh) rotate(360deg); opacity: 0; } }
-
-  /* SECTIONS */
   section { padding: 6rem 4rem; position: relative; }
   .section-tag { font-family: var(--sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--or); margin-bottom: 1rem; }
   .section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; color: var(--texte); margin-bottom: 1.5rem; line-height: 1.2; }
   .section-title em { font-style: italic; color: var(--ciel); }
-
-  /* PROMESSE */
   .promesse { background: var(--blanc-doux); overflow: hidden; }
   .promesse-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; max-width: 1100px; margin: 0 auto; align-items: center; }
   .promesse-text p { font-size: 1.08rem; line-height: 2; color: var(--texte-clair); margin-bottom: 1.5rem; font-weight: 300; }
@@ -77,14 +67,10 @@
   .promesse-card h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 500; margin-bottom: 1rem; }
   .promesse-card p { font-size: 1.05rem; line-height: 1.7; font-weight: 300; opacity: 0.9; }
   .promesse-card .gold { color: var(--or-clair); font-weight: 500; }
-
-  /* DIVIDER */
   .divider { width: 100%; height: 200px; background: url('divider-summer.jpg') center center / cover no-repeat; position: relative; }
   .divider::before, .divider::after { content: ''; position: absolute; left: 0; right: 0; height: 50px; }
   .divider::before { top: 0; background: linear-gradient(180deg, var(--blanc-doux), transparent); }
   .divider::after { bottom: 0; background: linear-gradient(0deg, var(--blanc), transparent); }
-
-  /* SERVICES */
   .services { background: var(--blanc); }
   .services-header { text-align: center; max-width: 650px; margin: 0 auto 4rem; }
   .services-header p { font-size: 1.08rem; line-height: 1.8; color: var(--texte-clair); font-weight: 300; }
@@ -96,8 +82,6 @@
   .service-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--ciel), var(--ciel-fonce)); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(74,173,232,0.25); }
   .service-card h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; color: var(--texte); margin-bottom: 0.8rem; }
   .service-card p { font-size: 1.02rem; line-height: 1.7; color: var(--texte-clair); font-weight: 300; }
-
-  /* CHAMPAGNE */
   .champagne { background: var(--ciel); color: var(--blanc); text-align: center; position: relative; overflow: hidden; }
   .champagne::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 80%, rgba(212,168,67,0.12) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 40%); }
   .champagne .section-tag { color: var(--or-clair); }
@@ -109,8 +93,6 @@
   .champagne-item:hover { background: rgba(212,168,67,0.15); border-color: var(--or); transform: translateY(-4px); }
   .champagne-item h4 { font-family: var(--serif); font-size: 1.1rem; font-weight: 500; margin-bottom: 0.5rem; }
   .champagne-item p { font-size: 0.9rem; line-height: 1.5; opacity: 0.75; font-weight: 300; }
-
-  /* ÉVÉNEMENTS */
   .evenements { background: var(--blanc); }
   .evenements-header { text-align: center; max-width: 650px; margin: 0 auto 4rem; }
   .evenements-header p { font-size: 1.08rem; line-height: 1.8; color: var(--texte-clair); font-weight: 300; }
@@ -120,8 +102,6 @@
   .event-icon { width: 48px; height: 48px; margin: 0 auto 1.2rem; }
   .event-card h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; color: var(--texte); margin-bottom: 0.6rem; }
   .event-card p { font-size: 1rem; line-height: 1.7; color: var(--texte-clair); font-weight: 300; }
-
-  /* CONTACT */
   .contact { background: var(--sable); text-align: center; color: var(--texte); position: relative; overflow: hidden; padding: 6rem 4rem 5rem; }
   .contact::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(74,173,232,0.04) 0%, transparent 50%), radial-gradient(circle at 20% 100%, rgba(212,168,67,0.06) 0%, transparent 40%); }
   .contact-content { max-width: 900px; margin: 0 auto; position: relative; }
@@ -145,20 +125,14 @@
   .contact-location { margin-top: 2.5rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
   .contact-loc-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--or); margin-bottom: 0.3rem; }
   .contact-loc-value { font-size: 1.02rem; color: var(--texte-clair); font-weight: 300; }
-
-  /* FOOTER */
   footer { padding: 2rem 4rem; background: var(--ciel-profond); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
   footer p { font-size: 0.72rem; color: rgba(255,255,255,0.6); letter-spacing: 0.08em; }
-
-  /* ANIMATIONS */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   .reveal { opacity: 0; transform: translateY(35px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
   .reveal-delay-1 { transition-delay: 0.15s; }
   .reveal-delay-2 { transition-delay: 0.3s; }
   .reveal-delay-3 { transition-delay: 0.45s; }
-
-  /* RESPONSIVE */
   @media (max-width: 900px) {
     nav { padding: 0.8rem 1.5rem; }
     .nav-links { display: none; }
@@ -176,7 +150,6 @@
 </style>
 </head>
 <body>
-
 <nav id="navbar">
   <a href="#" style="display:flex;align-items:center;gap:0.8rem;text-decoration:none;">
     <img src="logo-summer.jpg" alt="Les Belles Bulles" class="nav-logo-img">
@@ -191,11 +164,9 @@
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
-
 <div class="hero-top">
   <img src="banner-summer.jpg" alt="Les Belles Bulles — Summer">
 </div>
-
 <section class="hero-bottom">
   <div id="bubbles"></div>
   <div class="hero-bottom-content">
@@ -207,7 +178,6 @@
     </div>
   </div>
 </section>
-
 <section class="promesse" id="promesse">
   <div class="promesse-grid">
     <div class="promesse-text">
@@ -238,9 +208,7 @@
     </div>
   </div>
 </section>
-
 <div class="divider"></div>
-
 <section class="services" id="services">
   <div class="services-header">
     <p class="section-tag reveal">Nos Services</p>
@@ -265,7 +233,6 @@
     </div>
   </div>
 </section>
-
 <section class="champagne" id="champagne">
   <p class="section-tag reveal">Nos Champagnes</p>
   <h2 class="section-title reveal">Une sélection <em>d'exception</em></h2>
@@ -277,7 +244,6 @@
     <div class="champagne-item reveal"><h4>Cuvée Prestige</h4><p>Le sommet de l'art champenois, pour les moments d'exception</p></div>
   </div>
 </section>
-
 <section class="evenements" id="evenements">
   <div class="evenements-header">
     <p class="section-tag reveal">Événements</p>
@@ -302,7 +268,6 @@
     </div>
   </div>
 </section>
-
 <section class="contact" id="contact">
   <div class="contact-content">
     <p class="section-tag reveal">Contact</p>
@@ -325,7 +290,7 @@
       <div class="team-card reveal reveal-delay-3">
         <div class="team-name">Jacques Lagrange-Mauduit</div>
         <div class="team-role">Responsable Financier et Stratégie</div>
-        <a href="tel:+33787146296" class="team-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +33 7 87 14 62 96</a>
+        <a href="tel:+16194050027" class="team-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> (+1) 619-405-0027</a>
       </div>
       <div class="team-card reveal">
         <div class="team-name">Pierre Macquart de Terline</div>
@@ -339,12 +304,10 @@
     </div>
   </div>
 </section>
-
 <footer>
   <p>&copy; 2026 Les Belles Bulles — SAS — Tous droits réservés</p>
   <p>Champagnes d'exception · Particuliers & Professionnels</p>
 </footer>
-
 <script>
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 80); });
@@ -354,8 +317,6 @@
   navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
   const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // Enhanced bubbles
   const bubblesContainer = document.getElementById('bubbles');
   function createBubble() {
     const bubble = document.createElement('div');
