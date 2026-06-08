@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les Belles Bulles - Champagnes d'Exception</title>
+<meta name="description" content="Les Belles Bulles - Champagnes d'exception à prix privilégiés. Conseils, commandes et événements sur-mesure pour particuliers et professionnels.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ciel: #34B2E5; --ciel-fonce: #3A8FC5; --ciel-profond: #2B7AAF;
+    --or: #D4A843; --or-clair: #E8C76A; --or-pale: #F0D88A;
+    --blanc: #FFFFFF; --blanc-doux: #F8FBFF; --sable: #F5EFE0;
+    --texte: #1A3A5C; --texte-clair: #4A7A9E;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Lato', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--blanc); color: var(--texte); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  body.splash-active { overflow: hidden; }
+
+  /* ═══════════════════════════════════════════
+     SPLASH SCREEN
+     ═══════════════════════════════════════════ */
+  #splash {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--ciel);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.9s ease, transform 0.9s ease;
+    overflow: hidden;
+  }
+  #splash.hidden {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+  }
+  #splash::before {
+    content: '';
+    position: absolute; inset: -50%;
+    background: radial-gradient(circle at 30% 60%, rgba(212,168,67,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(43,122,175,0.3) 0%, transparent 50%);
+    animation: bgShift 8s ease-in-out infinite alternate;
+  }
+  @keyframes bgShift {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(-5%,3%) scale(1.1); }
+  }
+  #splash-bubbles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .splash-content { position: relative; z-index: 2; text-align: center; padding: 2rem; }
+  .splash-icon {
+    margin-bottom: 2rem;
+    opacity: 0; animation: splashFadeUp 1s 0.1s forwards;
+  }
+  .splash-icon svg { filter: drop-shadow(0 4px 15px rgba(212,168,67,0.3)); }
+  .splash-logo {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 7vw, 4.5rem);
+    font-weight: 500; color: var(--blanc);
+    letter-spacing: 0.02em; line-height: 1.2;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    opacity: 0; animation: splashFadeUp 1s 0.2s forwards;
+  }
+  .splash-logo em { font-style: italic; color: var(--or-clair); }
+  .splash-tagline {
+    font-family: var(--sans);
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
+    font-weight: 300; color: rgba(255,255,255,0.75);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 3.5rem;
+    opacity: 0; animation: splashFadeUp 1s 0.5s forwards;
+  }
+  .splash-enter {
+    font-family: var(--sans);
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--blanc); background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    padding: 1.1rem 3rem; border-radius: 60px;
+    cursor: pointer; transition: all 0.4s ease;
+    backdrop-filter: blur(4px);
+    opacity: 0; animation: splashFadeUp 1s 0.8s forwards;
+  }
+  .splash-enter:hover {
+    border-color: var(--or);
+    background: rgba(212,168,67,0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(212,168,67,0.2);
+  }
+  .splash-enter:active { transform: scale(0.97); }
+  .splash-age {
+    position: absolute; bottom: 2rem;
+    left: 50%; transform: translateX(-50%);
+    font-size: 0.7rem; color: rgba(255,255,255,0.4);
+    letter-spacing: 0.08em; text-align: center;
+    line-height: 1.6; z-index: 2; white-space: nowrap;
+  }
+  @keyframes splashFadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .s-bubble {
+    position: absolute; border-radius: 50%;
+    animation: sBubbleFloat linear infinite;
+    pointer-events: none;
+  }
+  @keyframes sBubbleFloat {
+    0%   { transform: translateY(0) scale(1); opacity: 0; }
+    10%  { opacity: var(--op); }
+    90%  { opacity: var(--op); }
+    100% { transform: translateY(-105vh) scale(0.6); opacity: 0; }
+  }
+
+  /* Site wrapper — hidden until splash dismissed */
+  #site-wrapper { opacity: 0; transition: opacity 1s 0.3s ease; }
+  #site-wrapper.visible { opacity: 1; }
+
+  /* ═══════════════════════════════════════════
+     SITE STYLES
+     ═══════════════════════════════════════════ */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 4rem; background: rgba(52,178,229,0.95); transition: all 0.5s; }
+  nav.scrolled { background: rgba(52,178,229,0.95); backdrop-filter: blur(20px); box-shadow: 0 2px 30px rgba(0,0,0,0.1); }
+  .nav-logo-img { height: 50px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15)); transition: height 0.4s; }
+  nav.scrolled .nav-logo-img { height: 40px; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blanc); text-decoration: none; text-shadow: 0 1px 3px rgba(0,0,0,0.15); transition: opacity 0.3s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--or); transition: width 0.3s; border-radius: 1px; }
+  .nav-links a:hover { opacity: 0.9; }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
+  .nav-hamburger span { width: 24px; height: 2px; background: var(--blanc); transition: 0.3s; border-radius: 1px; }
+  .hero-top { width: 100%; position: relative; padding-top: 65px; background: var(--ciel); }
+  .hero-top img { width: 100%; display: block; }
+  .hero-top::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(0deg, var(--ciel), transparent); }
+  .hero-bottom { background: var(--ciel); text-align: center; padding: 3rem 2rem 5rem; position: relative; overflow: hidden; }
+  .hero-bottom-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+  .hero-bottom h1 { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 400; color: var(--blanc); line-height: 1.2; margin-bottom: 1.5rem; text-shadow: 0 2px 12px rgba(0,0,0,0.1); opacity: 0; animation: fadeUp 1s 0.3s forwards; }
+  .hero-bottom h1 em { font-style: italic; color: var(--or-clair); }
+  .hero-sub { font-family: var(--sans); font-size: clamp(1.05rem, 2vw, 1.2rem); font-weight: 400; color: rgba(255,255,255,0.9); max-width: 580px; margin: 0 auto 2.5rem; letter-spacing: 0.02em; line-height: 1.8; opacity: 0; animation: fadeUp 1s 0.6s forwards; }
+  .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 1s 0.9s forwards; }
+  .hero-cta { display: inline-block; font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; transition: all 0.4s; }
+  .hero-cta-primary { color: var(--texte); background: var(--blanc); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+  .hero-cta-primary:hover { background: var(--or); color: var(--blanc); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(212,168,67,0.3); }
+  .hero-cta-secondary { color: var(--blanc); border: 1.5px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.08); backdrop-filter: blur(4px); }
+  .hero-cta-secondary:hover { border-color: var(--or); background: rgba(212,168,67,0.15); transform: translateY(-3px); }
+  #bubbles { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+  .bubble { position: absolute; border-radius: 50%; animation: floatBubble linear infinite; pointer-events: none; }
+  .bubble-inner { width: 100%; height: 100%; border-radius: 50%; position: relative; }
+  .bubble-inner::after { content: ''; position: absolute; top: 18%; left: 22%; width: 30%; height: 20%; border-radius: 50%; background: rgba(255,255,255,0.5); transform: rotate(-30deg); }
+  @keyframes floatBubble { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 8% { opacity: var(--bubble-opacity, 0.25); } 85% { opacity: var(--bubble-opacity, 0.25); } 100% { transform: translateY(-15vh) rotate(360deg); opacity: 0; } }
+  section { padding: 6rem 4rem; position: relative; }
+  .section-tag { font-family: var(--sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--or); margin-bottom: 1rem; }
+  .section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; color: var(--texte); margin-bottom: 1.5rem; line-height: 1.2; }
+  .section-title em { font-style: italic; color: var(--ciel); }
+  .promesse { background: var(--blanc-doux); overflow: hidden; }
+  .promesse-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; max-width: 1100px; margin: 0 auto; align-items: center; }
+  .promesse-text p { font-size: 1.08rem; line-height: 2; color: var(--texte-clair); margin-bottom: 1.5rem; font-weight: 300; }
+  .promesse-highlights { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+  .highlight-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .highlight-icon { width: 44px; height: 44px; min-width: 44px; background: linear-gradient(135deg, var(--ciel), var(--ciel-fonce)); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 12px rgba(74,173,232,0.2); }
+  .highlight-text h4 { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--texte); margin-bottom: 0.15rem; }
+  .highlight-text p { font-size: 0.95rem; line-height: 1.5; color: var(--texte-clair); font-weight: 300; margin: 0; }
+  .promesse-card { background: var(--ciel); border-radius: 20px; padding: 3rem 2.5rem; color: var(--blanc); position: relative; overflow: hidden; }
+  .promesse-card::before { content: ''; position: absolute; top: -40px; right: -40px; width: 140px; height: 140px; border-radius: 50%; background: rgba(255,255,255,0.08); }
+  .promesse-card::after { content: ''; position: absolute; bottom: -25px; left: -25px; width: 90px; height: 90px; border-radius: 50%; background: rgba(212,168,67,0.15); }
+  .promesse-card h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 500; margin-bottom: 1rem; }
+  .promesse-card p { font-size: 1.05rem; line-height: 1.7; font-weight: 300; opacity: 0.9; }
+  .promesse-card .gold { color: var(--or-clair); font-weight: 500; }
+  .divider { width: 100%; height: 200px; background: url('divider-summer.jpg') center center / cover no-repeat; position: relative; }
+  .divider::before, .divider::after { content: ''; position: absolute; left: 0; right: 0; height: 50px; }
+  .divider::before { top: 0; background: linear-gradient(180deg, var(--blanc-doux), transparent); }
+  .divider::after { bottom: 0; background: linear-gradient(0deg, var(--blanc), transparent); }
+  .services { background: var(--blanc); }
+  .services-header { text-align: center; max-width: 650px; margin: 0 auto 4rem; }
+  .services-header p { font-size: 1.08rem; line-height: 1.8; color: var(--texte-clair); font-weight: 300; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto; }
+  .service-card { background: var(--blanc-doux); border-radius: 16px; padding: 2.5rem 2rem; transition: all 0.4s; position: relative; overflow: hidden; border: 1px solid rgba(74,173,232,0.08); }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--ciel), var(--or)); opacity: 0; transition: opacity 0.4s; border-radius: 16px 16px 0 0; }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 15px 40px rgba(74,173,232,0.12); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--ciel), var(--ciel-fonce)); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(74,173,232,0.25); }
+  .service-card h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; color: var(--texte); margin-bottom: 0.8rem; }
+  .service-card p { font-size: 1.02rem; line-height: 1.7; color: var(--texte-clair); font-weight: 300; }
+  .champagne { background: var(--ciel); color: var(--blanc); text-align: center; position: relative; overflow: hidden; }
+  .champagne::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 80%, rgba(212,168,67,0.12) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 40%); }
+  .champagne .section-tag { color: var(--or-clair); }
+  .champagne .section-title { color: var(--blanc); }
+  .champagne .section-title em { color: var(--or-clair); }
+  .champagne-intro { font-size: 1.12rem; color: rgba(255,255,255,0.85); font-weight: 300; max-width: 620px; margin: 0 auto 3rem; line-height: 1.9; position: relative; }
+  .champagne-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto; position: relative; }
+  .champagne-item { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15); padding: 1.8rem 1.2rem; border-radius: 16px; transition: all 0.3s; }
+  .champagne-item:hover { background: rgba(212,168,67,0.15); border-color: var(--or); transform: translateY(-4px); }
+  .champagne-item h4 { font-family: var(--serif); font-size: 1.1rem; font-weight: 500; margin-bottom: 0.5rem; }
+  .champagne-item p { font-size: 0.9rem; line-height: 1.5; opacity: 0.75; font-weight: 300; }
+  .evenements { background: var(--blanc); }
+  .evenements-header { text-align: center; max-width: 650px; margin: 0 auto 4rem; }
+  .evenements-header p { font-size: 1.08rem; line-height: 1.8; color: var(--texte-clair); font-weight: 300; }
+  .evenements-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto; }
+  .event-card { text-align: center; padding: 2.5rem 1.5rem; border-radius: 16px; border: 1px solid rgba(74,173,232,0.1); transition: all 0.4s; }
+  .event-card:hover { border-color: var(--or); box-shadow: 0 10px 30px rgba(74,173,232,0.08); transform: translateY(-4px); }
+  .event-icon { width: 48px; height: 48px; margin: 0 auto 1.2rem; }
+  .event-card h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; color: var(--texte); margin-bottom: 0.6rem; }
+  .event-card p { font-size: 1rem; line-height: 1.7; color: var(--texte-clair); font-weight: 300; }
+  .contact { background: var(--sable); text-align: center; color: var(--texte); position: relative; overflow: hidden; padding: 6rem 4rem 5rem; }
+  .contact::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(74,173,232,0.04) 0%, transparent 50%), radial-gradient(circle at 20% 100%, rgba(212,168,67,0.06) 0%, transparent 40%); }
+  .contact-content { max-width: 900px; margin: 0 auto; position: relative; }
+  .contact .section-tag { color: var(--or); }
+  .contact .section-title { color: var(--texte); font-size: clamp(2.2rem, 5vw, 3.5rem); }
+  .contact .section-title em { color: var(--ciel); }
+  .contact-intro { font-size: 1.15rem; line-height: 1.8; color: var(--texte-clair); font-weight: 300; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .contact-email { font-family: var(--serif); font-size: clamp(1.3rem, 3vw, 2rem); color: var(--ciel); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.3s; }
+  .contact-email::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--or); transform: scaleX(0.4); transition: transform 0.3s; border-radius: 1px; }
+  .contact-email:hover::after { transform: scaleX(1); }
+  .contact-separator { width: 60px; height: 2px; background: var(--or); margin: 3rem auto; border-radius: 1px; }
+  .contact-team-title { font-family: var(--sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--or); margin-bottom: 2rem; }
+  .contact-team { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 800px; margin: 0 auto; }
+  .team-card { background: var(--blanc); border: 1px solid rgba(74,173,232,0.1); border-radius: 16px; padding: 1.8rem 1.5rem; text-align: left; transition: all 0.3s; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+  .team-card:hover { border-color: var(--or); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.07); }
+  .team-name { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--texte); margin-bottom: 0.3rem; }
+  .team-role { font-size: 0.9rem; font-weight: 400; color: var(--ciel-fonce); letter-spacing: 0.03em; margin-bottom: 0.8rem; }
+  .team-phone { font-size: 0.98rem; font-weight: 300; color: var(--texte-clair); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
+  .team-phone:hover { color: var(--texte); }
+  .team-phone svg { opacity: 0.5; }
+  .contact-location { margin-top: 2.5rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+  .contact-loc-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--or); margin-bottom: 0.3rem; }
+  .contact-loc-value { font-size: 1.02rem; color: var(--texte-clair); font-weight: 300; }
+  footer { padding: 2rem 4rem; background: var(--ciel-profond); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  footer p { font-size: 0.72rem; color: rgba(255,255,255,0.6); letter-spacing: 0.08em; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(35px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+  @media (max-width: 900px) {
+    nav { padding: 0.8rem 1.5rem; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(74,173,232,0.97); padding: 1.5rem; gap: 1.2rem; }
+    section { padding: 4rem 1.5rem; }
+    .promesse-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .services-grid, .evenements-grid { grid-template-columns: 1fr; }
+    .champagne-grid { grid-template-columns: 1fr 1fr; }
+    .contact-details, .contact-location { flex-direction: column; gap: 1.5rem; }
+    .contact-team { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; padding: 1.5rem; }
+    .divider { height: 130px; }
+    .splash-age { white-space: normal; padding: 0 2rem; }
+  }
+</style>
+</head>
+<body class="splash-active">
+
+<!-- ══════════════════════════════════════════════
+     SPLASH SCREEN
+     ══════════════════════════════════════════════ -->
+<div id="splash">
+  <div id="splash-bubbles"></div>
+  <div class="splash-content">
+    <div class="splash-icon">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+        <path d="M32 8 C32 8 24 20 24 32 C24 40 28 44 32 44 C36 44 40 40 40 32 C40 20 32 8 32 8Z" stroke="rgba(232,199,106,0.9)" stroke-width="1.5" fill="rgba(232,199,106,0.12)"/>
+        <line x1="32" y1="44" x2="32" y2="56" stroke="rgba(232,199,106,0.7)" stroke-width="1.5"/>
+        <line x1="25" y1="56" x2="39" y2="56" stroke="rgba(232,199,106,0.7)" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="29" cy="24" r="1.5" fill="rgba(255,255,255,0.5)"/>
+        <circle cx="34" cy="19" r="1" fill="rgba(255,255,255,0.4)"/>
+        <circle cx="31" cy="30" r="1.2" fill="rgba(255,255,255,0.35)"/>
+      </svg>
+    </div>
+    <div class="splash-logo">Les Belles <em>Bulles</em></div>
+    <div class="splash-tagline">Champagnes d'exception</div>
+    <button class="splash-enter" id="enterBtn">Découvrir</button>
+  </div>
+  <div class="splash-age">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SITE
+     ══════════════════════════════════════════════ -->
+<div id="site-wrapper">
+
+<nav id="navbar">
+  <a href="#" style="display:flex;align-items:center;gap:0.8rem;text-decoration:none;">
+    <img src="logo-summer.jpg" alt="Les Belles Bulles" class="nav-logo-img">
+    <span style="font-family:var(--serif);font-size:1.3rem;font-weight:500;color:var(--blanc);letter-spacing:0.05em;text-shadow:0 1px 3px rgba(0,0,0,0.15);">Les Belles Bulles</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#promesse">Notre Maison</a></li>
+    <li><a href="#services">Nos Services</a></li>
+    <li><a href="#champagne">Champagnes</a></li>
+    <li><a href="#evenements">Événements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="hero-top">
+  <img src="banner-summer.jpg" alt="Les Belles Bulles — Summer">
+</div>
+
+<section class="hero-bottom">
+  <div id="bubbles"></div>
+  <div class="hero-bottom-content">
+    <h1>Des champagnes <em>d'exception</em>,<br>à prix privilégiés</h1>
+    <p class="hero-sub">Particuliers et professionnels, découvrez notre sélection de champagnes soigneusement choisis auprès des meilleures maisons. Conseils personnalisés, commandes sur-mesure et événements inoubliables.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="hero-cta hero-cta-primary">Commander</a>
+      <a href="#evenements" class="hero-cta hero-cta-secondary">Nos événements</a>
+    </div>
+  </div>
+</section>
+
+<section class="promesse" id="promesse">
+  <div class="promesse-grid">
+    <div class="promesse-text">
+      <p class="section-tag reveal">Notre Maison</p>
+      <h2 class="section-title reveal">Le champagne <em>autrement</em></h2>
+      <p class="reveal">Les Belles Bulles, c'est l'accès à des champagnes d'exception à des tarifs privilégiés. En tant qu'agents commerciaux, nous travaillons en direct avec les Maisons pour vous proposer le meilleur rapport qualité-prix.</p>
+      <div class="promesse-highlights reveal">
+        <div class="highlight-item">
+          <div class="highlight-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="highlight-text"><h4>Prix privilégiés</h4><p>Des tarifs négociés en direct auprès des Maisons</p></div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="highlight-text"><h4>Conseils personnalisés</h4><p>Un accompagnement sur-mesure pour chaque client</p></div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="23 7 16 12 16 2 23 7"/></svg></div>
+          <div class="highlight-text"><h4>Livraison soignée</h4><p>Vos commandes livrées dans les meilleures conditions</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="promesse-card">
+        <h3>Pourquoi choisir Les Belles Bulles ?</h3>
+        <p>Nous sélectionnons chaque cuvée avec exigence pour vous offrir des champagnes qui font la différence, que ce soit pour une grande occasion, un cadeau d'entreprise ou le plaisir de chaque jour.</p>
+        <p style="margin-top: 1.2rem;">Notre promesse : <span class="gold">des bulles d'exception, accessibles à tous.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="services" id="services">
+  <div class="services-header">
+    <p class="section-tag reveal">Nos Services</p>
+    <h2 class="section-title reveal">À votre <em>service</em></h2>
+    <p class="reveal">Que vous soyez particulier ou professionnel, nous vous accompagnons de la sélection à la dégustation.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+      <h3>Commandes sur mesure</h3>
+      <p>Composez votre sélection parmi nos cuvées ou laissez-vous guider par nos recommandations. Commandes à l'unité ou en volume pour les professionnels.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <h3>Conseil & Accompagnement</h3>
+      <p>Besoin d'un conseil pour un accord mets-champagne, un cadeau ou une commande groupée ? Nous sommes à votre écoute pour vous orienter.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <h3>Cadeaux & Entreprises</h3>
+      <p>Offrez l'excellence. Coffrets personnalisés, cadeaux d'affaires et dotations événementielles, nous créons des expériences mémorables.</p>
+    </div>
+  </div>
+</section>
+
+<section class="champagne" id="champagne">
+  <p class="section-tag reveal">Nos Champagnes</p>
+  <h2 class="section-title reveal">Une sélection <em>d'exception</em></h2>
+  <p class="champagne-intro reveal">Brut, rosé, millésimé ou cuvée prestige : nous sélectionnons chaque bouteille pour sa qualité, son caractère et son rapport qualité-prix.</p>
+  <div class="champagne-grid">
+    <div class="champagne-item reveal reveal-delay-1"><h4>Brut Classique</h4><p>L'élégance au quotidien, des cuvées fraîches et équilibrées</p></div>
+    <div class="champagne-item reveal reveal-delay-2"><h4>Rosé</h4><p>Finesse et caractère, parfait pour l'apéritif et les beaux jours</p></div>
+    <div class="champagne-item reveal reveal-delay-3"><h4>Millésimé</h4><p>Les grandes années, des cuvées de garde et de prestige</p></div>
+    <div class="champagne-item reveal"><h4>Cuvée Prestige</h4><p>Le sommet de l'art champenois, pour les moments d'exception</p></div>
+  </div>
+</section>
+
+<section class="evenements" id="evenements">
+  <div class="evenements-header">
+    <p class="section-tag reveal">Événements</p>
+    <h2 class="section-title reveal">Des moments <em>sur mesure</em></h2>
+    <p class="reveal">Nous organisons des événements autour du champagne pour vos réceptions privées, séminaires d'entreprise ou soirées entre amis.</p>
+  </div>
+  <div class="evenements-grid">
+    <div class="event-card reveal reveal-delay-1">
+      <div class="event-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#34B2E5" stroke-width="1.3" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <h3>Réceptions privées</h3>
+      <p>Anniversaires, mariages, fêtes de famille, nous vous aidons à choisir les cuvées parfaites et organisons la dégustation.</p>
+    </div>
+    <div class="event-card reveal reveal-delay-2">
+      <div class="event-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="1.3" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <h3>Séminaires d'entreprise</h3>
+      <p>Team building, soirée clients, lancement de produit, une expérience champagne clé en main pour vos événements corporate.</p>
+    </div>
+    <div class="event-card reveal reveal-delay-3">
+      <div class="event-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#34B2E5" stroke-width="1.3" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <h3>Dégustations privées</h3>
+      <p>Découvrez nos cuvées lors d'une dégustation commentée chez vous ou dans le lieu de votre choix. Une expérience unique et conviviale.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-content">
+    <p class="section-tag reveal">Contact</p>
+    <h2 class="section-title reveal">Envie de <em>bulles</em> ?</h2>
+    <p class="contact-intro reveal">Commande, conseils, événement ou simple question : contactez-nous et nous vous répondrons dans les plus brefs délais.</p>
+    <a href="mailto:contact@lesbellesbulles.com" class="contact-email reveal">contact@lesbellesbulles.com</a>
+    <div class="contact-separator reveal"></div>
+    <p class="contact-team-title reveal">Notre équipe</p>
+    <div class="contact-team">
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-name">Léonard Brault</div>
+        <div class="team-role">Président Directeur Général</div>
+        <a href="tel:+33652558257" class="team-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +33 6 52 55 82 57</a>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <div class="team-name">Virgile Grandchamp des Raux</div>
+        <div class="team-role">Responsable Développement Commercial</div>
+        <a href="tel:+33620110422" class="team-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +33 6 20 11 04 22</a>
+      </div>
+      <div class="team-card reveal reveal-delay-3">
+        <div class="team-name">Jacques Lagrange-Mauduit</div>
+        <div class="team-role">Responsable Financier et Stratégie</div>
+        <a href="tel:+16194050027" class="team-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> (+1) 619-405-0027</a>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-name">Pierre Macquart de Terline</div>
+        <div class="team-role">Responsable Communication et Promotion</div>
+        <a href="tel:+33611541794" class="team-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +33 6 11 54 17 94</a>
+      </div>
+    </div>
+    <div class="contact-location reveal">
+      <div><div class="contact-loc-label">Basés à</div><div class="contact-loc-value">Paris, France</div></div>
+      <div><div class="contact-loc-label">Web</div><div class="contact-loc-value">lesbellesbulles.com</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Les Belles Bulles — SAS — Tous droits réservés</p>
+  <p>Champagnes d'exception · Particuliers & Professionnels</p>
+</footer>
+
+</div><!-- /site-wrapper -->
+
+<script>
+// ══════════════════════════════════════════════
+// CHAMPAGNE SOUND — Web Audio API
+// ══════════════════════════════════════════════
+function playChampagneSound() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const now = ctx.currentTime;
+
+  // ── POP ──
+  const popOsc = ctx.createOscillator();
+  const popGain = ctx.createGain();
+  const popFilter = ctx.createBiquadFilter();
+  popOsc.type = 'sine';
+  popOsc.frequency.setValueAtTime(400, now);
+  popOsc.frequency.exponentialRampToValueAtTime(80, now + 0.12);
+  popGain.gain.setValueAtTime(0.6, now);
+  popGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+  popFilter.type = 'lowpass';
+  popFilter.frequency.value = 2000;
+  popOsc.connect(popFilter).connect(popGain).connect(ctx.destination);
+  popOsc.start(now);
+  popOsc.stop(now + 0.2);
+
+  // ── POP noise ──
+  const noiseLen = ctx.sampleRate * 0.08;
+  const noiseBuf = ctx.createBuffer(1, noiseLen, ctx.sampleRate);
+  const nd = noiseBuf.getChannelData(0);
+  for (let i = 0; i < noiseLen; i++) nd[i] = (Math.random() * 2 - 1) * 0.8;
+  const noiseSrc = ctx.createBufferSource();
+  const noiseGain = ctx.createGain();
+  const noiseFilt = ctx.createBiquadFilter();
+  noiseSrc.buffer = noiseBuf;
+  noiseFilt.type = 'bandpass';
+  noiseFilt.frequency.value = 3000;
+  noiseFilt.Q.value = 0.8;
+  noiseGain.gain.setValueAtTime(0.5, now);
+  noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+  noiseSrc.connect(noiseFilt).connect(noiseGain).connect(ctx.destination);
+  noiseSrc.start(now);
+
+  // ── FIZZ bubbles ──
+  function fizzBubble(t, freq, dur, vol) {
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    const f = ctx.createBiquadFilter();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(freq, t);
+    o.frequency.exponentialRampToValueAtTime(freq * 0.7, t + dur);
+    f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = 2;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o.connect(f).connect(g).connect(ctx.destination);
+    o.start(t); o.stop(t + dur + 0.05);
+  }
+  const fizzStart = now + 0.12;
+  for (let i = 0; i < 60; i++) {
+    fizzBubble(
+      fizzStart + Math.random() * 2.5,
+      2000 + Math.random() * 6000,
+      0.03 + Math.random() * 0.08,
+      0.01 + Math.random() * 0.04
+    );
+  }
+
+  // ── Continuous fizz noise ──
+  const fLen = ctx.sampleRate * 3;
+  const fBuf = ctx.createBuffer(1, fLen, ctx.sampleRate);
+  const fd = fBuf.getChannelData(0);
+  for (let i = 0; i < fLen; i++) fd[i] = Math.random() * 2 - 1;
+  const fSrc = ctx.createBufferSource();
+  const fGain = ctx.createGain();
+  const fFilt = ctx.createBiquadFilter();
+  fSrc.buffer = fBuf;
+  fFilt.type = 'highpass'; fFilt.frequency.value = 4000;
+  fGain.gain.setValueAtTime(0, fizzStart);
+  fGain.gain.linearRampToValueAtTime(0.06, fizzStart + 0.3);
+  fGain.gain.setValueAtTime(0.06, fizzStart + 1.0);
+  fGain.gain.exponentialRampToValueAtTime(0.001, fizzStart + 3.0);
+  fSrc.connect(fFilt).connect(fGain).connect(ctx.destination);
+  fSrc.start(fizzStart);
+  fSrc.stop(fizzStart + 3.2);
+}
+
+// ══════════════════════════════════════════════
+// SPLASH INTERACTION
+// ══════════════════════════════════════════════
+const splash = document.getElementById('splash');
+const siteWrapper = document.getElementById('site-wrapper');
+const enterBtn = document.getElementById('enterBtn');
+
+enterBtn.addEventListener('click', () => {
+  playChampagneSound();
+  setTimeout(() => {
+    splash.classList.add('hidden');
+    siteWrapper.classList.add('visible');
+    document.body.classList.remove('splash-active');
+  }, 150);
+  setTimeout(() => { splash.style.display = 'none'; }, 1200);
+});
+
+// ══════════════════════════════════════════════
+// SPLASH BUBBLES
+// ══════════════════════════════════════════════
+const splashBubbles = document.getElementById('splash-bubbles');
+function createSplashBubble() {
+  const b = document.createElement('div');
+  b.className = 's-bubble';
+  const size = 4 + Math.random() * 25;
+  const isGold = Math.random() > 0.5;
+  const op = 0.08 + Math.random() * 0.15;
+  const dur = 8 + Math.random() * 10;
+  const color = isGold ? `rgba(212,168,67,${op})` : `rgba(255,255,255,${op})`;
+  const border = isGold ? `1px solid rgba(212,168,67,${op+0.05})` : `1px solid rgba(255,255,255,${op+0.08})`;
+  b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:-${size}px;background:${color};border:${border};--op:${op};animation-duration:${dur}s;animation-delay:${Math.random()*2}s;`;
+  splashBubbles.appendChild(b);
+  setTimeout(() => b.remove(), (dur + 3) * 1000);
+}
+const splashBubbleInterval = setInterval(createSplashBubble, 600);
+for (let i = 0; i < 12; i++) setTimeout(createSplashBubble, i * 150);
+// Stop creating splash bubbles once dismissed
+enterBtn.addEventListener('click', () => { clearInterval(splashBubbleInterval); }, { once: true });
+
+// ══════════════════════════════════════════════
+// SITE SCRIPTS (nav, reveal, hero bubbles)
+// ══════════════════════════════════════════════
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 80); });
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const bubblesContainer = document.getElementById('bubbles');
+function createBubble() {
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  const size = Math.random() * 40 + 8;
+  const isGold = Math.random() > 0.4;
+  const opacity = 0.12 + Math.random() * 0.18;
+  const bg = isGold
+    ? 'radial-gradient(circle at 35% 35%, rgba(232,199,106,' + (opacity+0.15) + '), rgba(212,168,67,' + opacity + '))'
+    : 'radial-gradient(circle at 35% 35%, rgba(255,255,255,' + (opacity+0.2) + '), rgba(255,255,255,' + opacity + '))';
+  const border = isGold
+    ? '1px solid rgba(212,168,67,' + (opacity+0.1) + ')'
+    : '1px solid rgba(255,255,255,' + (opacity+0.15) + ')';
+  const duration = 10 + Math.random() * 12;
+  bubble.style.cssText = 'width:' + size + 'px;height:' + size + 'px;left:' + (Math.random()*100) + '%;background:' + bg + ';border:' + border + ';--bubble-opacity:' + opacity + ';animation-duration:' + duration + 's;animation-delay:' + (Math.random()*3) + 's;box-shadow:inset 0 -2px 4px rgba(255,255,255,' + (opacity*0.5) + '),0 0 ' + (size*0.3) + 'px rgba(' + (isGold?'212,168,67':'255,255,255') + ',' + (opacity*0.3) + ');';
+  bubble.innerHTML = '<div class="bubble-inner"></div>';
+  bubblesContainer.appendChild(bubble);
+  setTimeout(() => bubble.remove(), (duration+3)*1000);
+}
+setInterval(createBubble, 500);
+for (let i = 0; i < 15; i++) setTimeout(createBubble, i * 200);
+</script>
+</body>
+</html>
