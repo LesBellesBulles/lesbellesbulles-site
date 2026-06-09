@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les Belles Bulles — Champagnes d'exception</title>
+<meta name="description" content="Les Belles Bulles — Agent commercial spécialisé dans les champagnes d'exception. Conseils, commandes et événements pour particuliers et professionnels.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ciel: #34B2E5;
+  --ciel-fonce: #1B7AB5;
+  --ciel-profond: #0E5286;
+  --encre: #0E2746;
+  --encre-clair: #1F3A5C;
+  --gris: #647890;
+  --gris-clair: #9DAEC1;
+  --or: #C9A047;
+  --or-clair: #E5C77E;
+  --or-pale: #F4E4B8;
+  --blanc: #FFFFFF;
+  --creme: #FAF7F2;
+  --ligne: #E8EEF3;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Lato', -apple-system, sans-serif;
+  --max-w: 1200px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans); background: var(--blanc); color: var(--encre);
+  -webkit-font-smoothing: antialiased; font-weight: 400; line-height: 1.6;
+}
+body.lock-scroll { overflow: hidden; }
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+img { max-width: 100%; display: block; }
+input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+
+/* SPLASH */
+.splash {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--ciel); overflow: hidden;
+  transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+.splash.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+.splash::before {
+  content: ''; position: absolute; inset: -10%;
+  background:
+    radial-gradient(circle at 25% 70%, rgba(201,160,71,0.16) 0%, transparent 45%),
+    radial-gradient(circle at 75% 30%, rgba(255,255,255,0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(14,82,134,0.35) 0%, transparent 55%);
+  animation: splashBg 14s ease-in-out infinite alternate;
+}
+@keyframes splashBg {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(-4%,2%) scale(1.08); }
+}
+.splash-bubbles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.s-bubble { position: absolute; border-radius: 50%; animation: sBubbleRise linear infinite; }
+@keyframes sBubbleRise {
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  12%  { opacity: var(--op); }
+  88%  { opacity: var(--op); }
+  100% { transform: translateY(-105vh) scale(0.6); opacity: 0; }
+}
+.splash-inner { position: relative; z-index: 2; text-align: center; padding: 2rem; max-width: 640px; }
+.splash-mark {
+  width: 64px; height: 64px; margin: 0 auto 1.8rem;
+  border: 1.5px solid rgba(255,255,255,0.45);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(10px);
+  animation: splashIn 0.9s 0.1s forwards ease;
+}
+.splash-mark svg { filter: drop-shadow(0 2px 10px rgba(201,160,71,0.35)); }
+.splash-logo {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.5rem, 6.5vw, 4rem);
+  color: var(--blanc); letter-spacing: 0.01em; line-height: 1.1; margin-bottom: 0.5rem;
+  opacity: 0; transform: translateY(15px); animation: splashIn 0.9s 0.25s forwards ease;
+}
+.splash-logo em { font-style: italic; color: var(--or-clair); }
+.splash-tag {
+  font-family: var(--sans);
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.4em; text-transform: uppercase;
+  color: rgba(255,255,255,0.78); margin-bottom: 3.5rem;
+  opacity: 0; transform: translateY(15px); animation: splashIn 0.9s 0.45s forwards ease;
+}
+.splash-prompt { opacity: 0; transform: translateY(15px); animation: splashIn 0.9s 0.7s forwards ease; }
+.splash-question {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+  color: var(--blanc); margin-bottom: 1.6rem; letter-spacing: 0.01em;
+}
+.splash-actions { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
+.splash-btn {
+  font-family: var(--sans);
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--blanc); background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  padding: 1rem 2.6rem; border-radius: 2px;
+  cursor: pointer; transition: all 0.35s ease;
+  backdrop-filter: blur(4px);
+}
+.splash-btn:hover { border-color: var(--or); background: rgba(201,160,71,0.12); transform: translateY(-2px); }
+.splash-btn.primary { background: var(--blanc); color: var(--encre); border-color: var(--blanc); }
+.splash-btn.primary:hover { background: var(--or); border-color: var(--or); color: var(--blanc); box-shadow: 0 8px 24px rgba(201,160,71,0.3); }
+.splash-rejected {
+  font-family: var(--serif); color: rgba(255,255,255,0.85);
+  font-size: 1.1rem; margin-top: 1rem;
+  opacity: 0; animation: splashIn 0.6s forwards;
+}
+.splash-legal {
+  position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%);
+  font-size: 0.65rem; color: rgba(255,255,255,0.5);
+  letter-spacing: 0.06em; text-align: center; z-index: 2; width: 100%; padding: 0 1.5rem;
+}
+@keyframes splashIn { to { opacity: 1; transform: translateY(0); } }
+
+/* SPLASH 2 — choice */
+.splash-choice .splash-inner { max-width: 880px; }
+.choice-cards {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2rem; margin-top: 2rem;
+  opacity: 0; transform: translateY(15px);
+  animation: splashIn 0.9s 0.6s forwards ease;
+}
+.choice-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 4px; padding: 2.5rem 1.8rem;
+  backdrop-filter: blur(6px); transition: all 0.4s ease;
+  cursor: pointer; text-align: left; position: relative; overflow: hidden;
+}
+.choice-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 2px; background: var(--or); transition: width 0.4s ease;
+}
+.choice-card:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.4); transform: translateY(-4px); }
+.choice-card:hover::after { width: 100%; }
+.choice-icon {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.3rem; color: var(--or-clair);
+}
+.choice-card h3 {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 1.5rem; color: var(--blanc); margin-bottom: 0.5rem;
+}
+.choice-card p { font-size: 0.92rem; color: rgba(255,255,255,0.78); line-height: 1.6; font-weight: 300; }
+.choice-card .choice-arrow {
+  margin-top: 1.4rem;
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--or-clair); display: flex; align-items: center; gap: 0.6rem;
+}
+
+/* SITE wrapper */
+.site { opacity: 0; transition: opacity 0.7s 0.25s ease; }
+.site.visible { opacity: 1; }
+.site:not(.visible) { pointer-events: none; }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
+
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.36em; text-transform: uppercase;
+  color: var(--or); margin-bottom: 0.9rem;
+}
+h2.section-h {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+  color: var(--encre); line-height: 1.15; margin-bottom: 1rem;
+}
+h2.section-h em { font-style: italic; color: var(--ciel-fonce); }
+.lead { font-size: 1.05rem; color: var(--gris); line-height: 1.8; font-weight: 400; }
+.divider-line { width: 48px; height: 2px; background: var(--or); margin: 1.5rem 0; }
+.divider-line.center { margin-left: auto; margin-right: auto; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  font-family: var(--sans);
+  font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 1rem 2rem; border-radius: 2px;
+  transition: all 0.32s ease; cursor: pointer; white-space: nowrap;
+}
+.btn-primary { background: var(--encre); color: var(--blanc); }
+.btn-primary:hover { background: var(--or); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,160,71,0.28); }
+.btn-ghost { background: transparent; color: var(--encre); border: 1.5px solid var(--encre); }
+.btn-ghost:hover { background: var(--encre); color: var(--blanc); transform: translateY(-2px); }
+.btn-ghost-light { background: transparent; color: var(--blanc); border: 1.5px solid rgba(255,255,255,0.5); backdrop-filter: blur(4px); }
+.btn-ghost-light:hover { border-color: var(--or); background: rgba(201,160,71,0.15); transform: translateY(-2px); }
+.btn-block { width: 100%; }
+.btn:disabled { background: var(--ligne); color: var(--gris-clair); cursor: not-allowed; transform: none; box-shadow: none; }
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.12s; }
+.reveal.d2 { transition-delay: 0.24s; }
+.reveal.d3 { transition-delay: 0.36s; }
+.reveal.d4 { transition-delay: 0.48s; }
+
+/* PARTICULIER NAV */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 2.5rem;
+  background: rgba(255,255,255,0.97);
+  border-bottom: 1px solid var(--ligne);
+  transition: all 0.4s ease;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 0.8rem;
+  font-family: var(--serif); font-weight: 500;
+  font-size: 1.15rem; letter-spacing: 0.02em; color: var(--encre);
+}
+.nav-brand img { height: 38px; width: auto; }
+.nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
+.nav-links a {
+  font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--encre); position: relative; transition: color 0.3s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 1.5px; background: var(--or); transition: width 0.3s;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-back {
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gris); display: inline-flex; align-items: center; gap: 0.4rem;
+  transition: color 0.3s;
+}
+.nav-back:hover { color: var(--encre); }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; }
+.nav-hamburger span { width: 22px; height: 1.5px; background: var(--encre); transition: 0.3s; }
+
+/* HERO */
+.hero { position: relative; padding-top: 70px; background: var(--ciel); overflow: hidden; }
+.hero-banner img { width: 100%; display: block; }
+.hero-content { background: var(--ciel); text-align: center; padding: 3rem 2rem 5rem; position: relative; }
+.hero-bubbles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.bubble { position: absolute; border-radius: 50%; animation: bubbleFloat linear infinite; pointer-events: none; }
+.bubble-inner { width: 100%; height: 100%; border-radius: 50%; position: relative; }
+.bubble-inner::after {
+  content: ''; position: absolute; top: 18%; left: 22%;
+  width: 28%; height: 18%; border-radius: 50%;
+  background: rgba(255,255,255,0.45); transform: rotate(-30deg);
+}
+@keyframes bubbleFloat {
+  0%   { transform: translateY(100%) rotate(0); opacity: 0; }
+  10%  { opacity: var(--op, 0.22); }
+  85%  { opacity: var(--op, 0.22); }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+.hero-content-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+.hero-content h1 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.4rem, 5.4vw, 3.9rem);
+  color: var(--blanc); line-height: 1.16; margin-bottom: 1.6rem;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+.hero-content h1 em { font-style: italic; color: var(--or-clair); }
+.hero-content .hero-sub {
+  font-size: 1.08rem; color: rgba(255,255,255,0.9); font-weight: 400;
+  max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.8;
+}
+.hero-ctas { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+
+/* SECTIONS */
+section.s { padding: 6.5rem 2rem; position: relative; }
+section.s.bg-cream { background: var(--creme); }
+section.s.bg-ciel { background: var(--ciel); color: var(--blanc); }
+section.s.bg-ciel .eyebrow { color: var(--or-clair); }
+section.s.bg-ciel h2.section-h { color: var(--blanc); }
+section.s.bg-ciel h2.section-h em { color: var(--or-clair); }
+section.s.bg-ciel .lead { color: rgba(255,255,255,0.85); }
+
+.maison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.maison-text p { font-size: 1.04rem; line-height: 1.9; color: var(--encre-clair); margin-bottom: 1.4rem; }
+.values-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.4rem; }
+.value-item { display: flex; gap: 1.1rem; align-items: flex-start; }
+.value-icon { width: 38px; height: 38px; min-width: 38px; background: var(--ciel); color: var(--blanc); display: flex; align-items: center; justify-content: center; }
+.value-text h4 { font-family: var(--serif); font-size: 1.05rem; font-weight: 500; color: var(--encre); margin-bottom: 0.2rem; }
+.value-text p { font-size: 0.95rem; color: var(--gris); line-height: 1.55; }
+
+.promise-block { background: var(--encre); color: var(--blanc); padding: 3rem 2.5rem; border-left: 3px solid var(--or); position: relative; }
+.promise-block .quote-mark { font-family: var(--serif); font-size: 4rem; line-height: 0.8; color: var(--or); position: absolute; top: 1.5rem; left: 2rem; opacity: 0.6; }
+.promise-block h3 { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; line-height: 1.5; margin-bottom: 1.2rem; margin-top: 2.5rem; }
+.promise-block p { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.85); font-weight: 300; }
+.promise-block .gold { color: var(--or-clair); font-weight: 500; }
+
+.services-head { text-align: center; max-width: 640px; margin: 0 auto 4rem; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+.service { background: var(--blanc); padding: 2.4rem 1.8rem; border: 1px solid var(--ligne); position: relative; overflow: hidden; transition: all 0.4s; }
+.service:hover { border-color: var(--or); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(14,39,70,0.07); }
+.service::before { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 2px; background: var(--or); transition: width 0.4s; }
+.service:hover::before { width: 100%; }
+.service-num { font-family: var(--serif); font-style: italic; font-size: 1.7rem; color: var(--or); margin-bottom: 1.2rem; }
+.service h3 { font-family: var(--serif); font-weight: 500; font-size: 1.2rem; color: var(--encre); margin-bottom: 0.7rem; }
+.service p { font-size: 0.98rem; line-height: 1.7; color: var(--gris); }
+
+.champ-intro { max-width: 620px; margin: 0 auto 3.5rem; text-align: center; }
+.champ-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 960px; margin: 0 auto; }
+.champ-item { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); padding: 1.8rem 1.3rem; transition: all 0.35s; }
+.champ-item:hover { background: rgba(201,160,71,0.14); border-color: var(--or); transform: translateY(-4px); }
+.champ-item h4 { font-family: var(--serif); font-size: 1.08rem; font-weight: 500; margin-bottom: 0.4rem; color: var(--blanc); }
+.champ-item p { font-size: 0.86rem; line-height: 1.5; color: rgba(255,255,255,0.74); font-weight: 300; }
+
+.events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+.event { text-align: center; padding: 2.2rem 1.5rem; border: 1px solid var(--ligne); background: var(--blanc); transition: all 0.4s; }
+.event:hover { border-color: var(--or); transform: translateY(-4px); }
+.event-icon { width: 44px; height: 44px; margin: 0 auto 1.2rem; color: var(--ciel-fonce); }
+.event h3 { font-family: var(--serif); font-weight: 500; font-size: 1.12rem; color: var(--encre); margin-bottom: 0.5rem; }
+.event p { font-size: 0.95rem; color: var(--gris); line-height: 1.65; }
+
+.contact-section { background: var(--creme); text-align: center; }
+.contact-head { max-width: 620px; margin: 0 auto 3rem; }
+.contact-email {
+  font-family: var(--serif); font-size: clamp(1.3rem, 2.8vw, 1.85rem);
+  color: var(--ciel-fonce); position: relative; display: inline-block;
+  padding-bottom: 4px; transition: color 0.3s;
+}
+.contact-email::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 1.5px; background: var(--or);
+  transform: scaleX(0.3); transition: transform 0.3s; transform-origin: left;
+}
+.contact-email:hover::after { transform: scaleX(1); }
+.team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; max-width: 800px; margin: 3rem auto 0; }
+.team-card { background: var(--blanc); padding: 1.6rem 1.4rem; text-align: left; border: 1px solid var(--ligne); transition: all 0.35s; border-left: 3px solid transparent; }
+.team-card:hover { border-left-color: var(--or); box-shadow: 0 6px 20px rgba(14,39,70,0.06); transform: translateY(-2px); }
+.team-name { font-family: var(--serif); font-weight: 500; font-size: 1.1rem; color: var(--encre); margin-bottom: 0.25rem; }
+.team-role { font-size: 0.82rem; color: var(--ciel-fonce); letter-spacing: 0.04em; margin-bottom: 0.9rem; font-weight: 500; }
+.team-phone { font-size: 0.92rem; color: var(--gris); font-weight: 400; display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
+.team-phone:hover { color: var(--encre); }
+.contact-meta { margin-top: 3rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+.contact-meta-item .label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--or); margin-bottom: 0.25rem; }
+.contact-meta-item .value { font-size: 0.98rem; color: var(--encre-clair); }
+
+footer.site-footer { background: var(--encre); color: rgba(255,255,255,0.6); padding: 1.6rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.72rem; letter-spacing: 0.06em; }
+
+/* ENTREPRISE */
+.pro-nav {
+  background: var(--encre); color: var(--blanc);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.95rem 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.pro-nav .nav-brand { color: var(--blanc); }
+.pro-nav .nav-brand img { filter: brightness(0) invert(1); opacity: 0.95; }
+.pro-badge {
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--or-clair); padding: 0.32rem 0.65rem;
+  border: 1px solid var(--or); margin-left: 0.6rem;
+}
+.cart-toggle {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  padding: 0.6rem 1.1rem; background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  transition: all 0.3s;
+}
+.cart-toggle:hover { background: var(--or); border-color: var(--or); color: var(--blanc); }
+.cart-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 22px; height: 22px; background: var(--or); color: var(--blanc);
+  font-size: 0.72rem; font-weight: 700; border-radius: 50%; padding: 0 6px;
+}
+.cart-count.empty { background: rgba(255,255,255,0.18); }
+
+.pro-hero {
+  background: linear-gradient(135deg, var(--encre) 0%, var(--ciel-profond) 100%);
+  color: var(--blanc); padding: 9rem 2rem 5rem;
+  position: relative; overflow: hidden;
+}
+.pro-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(52,178,229,0.22) 0%, transparent 50%),
+    radial-gradient(circle at 20% 100%, rgba(201,160,71,0.14) 0%, transparent 45%);
+}
+.pro-hero-inner { position: relative; z-index: 2; max-width: var(--max-w); margin: 0 auto; }
+.pro-hero h1 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.2rem, 4.6vw, 3.3rem);
+  line-height: 1.15; margin-bottom: 1.2rem; max-width: 720px;
+}
+.pro-hero h1 em { font-style: italic; color: var(--or-clair); }
+.pro-hero-lead { font-size: 1.05rem; color: rgba(255,255,255,0.82); max-width: 640px; line-height: 1.8; }
+
+.pro-conditions {
+  background: var(--or-pale);
+  border-top: 1px solid var(--or); border-bottom: 1px solid var(--or);
+  padding: 1.2rem 2rem; text-align: center;
+}
+.pro-conditions-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  gap: 1.2rem; flex-wrap: wrap;
+}
+.pro-conditions strong { color: var(--encre); font-weight: 600; font-size: 0.92rem; letter-spacing: 0.03em; }
+.pro-conditions span { font-size: 0.88rem; color: var(--encre-clair); font-weight: 400; }
+.pro-conditions svg { color: var(--or); flex-shrink: 0; }
+
+.catalog-wrap {
+  display: grid; grid-template-columns: 1fr 360px; gap: 2.5rem;
+  max-width: var(--max-w); margin: 0 auto; padding: 4rem 2rem;
+}
+.catalog-main { min-width: 0; }
+.catalog-aside { position: relative; }
+
+.catalog-head { margin-bottom: 2.5rem; }
+.catalog-head h2 { font-family: var(--serif); font-weight: 400; font-size: 2rem; color: var(--encre); margin-bottom: 0.5rem; }
+.catalog-head p { color: var(--gris); font-size: 0.98rem; }
+
+.cat-group { border: 1px solid var(--ligne); margin-bottom: 0.6rem; background: var(--blanc); transition: border-color 0.3s; }
+.cat-group.open { border-color: var(--ciel-fonce); }
+.cat-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.3rem 1.5rem; cursor: pointer; user-select: none;
+  width: 100%; text-align: left; background: var(--blanc); transition: background 0.3s;
+}
+.cat-header:hover { background: var(--creme); }
+.cat-group.open .cat-header { background: var(--encre); color: var(--blanc); }
+.cat-header-left { display: flex; align-items: center; gap: 1rem; }
+.cat-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: var(--ciel-fonce); transition: color 0.3s; }
+.cat-group.open .cat-icon { color: var(--or-clair); }
+.cat-title { font-family: var(--serif); font-weight: 500; font-size: 1.18rem; }
+.cat-count { font-size: 0.78rem; color: var(--gris); letter-spacing: 0.04em; margin-left: 0.6rem; }
+.cat-group.open .cat-count { color: rgba(255,255,255,0.7); }
+.cat-chevron { transition: transform 0.4s; color: inherit; }
+.cat-group.open .cat-chevron { transform: rotate(180deg); }
+
+.cat-body { max-height: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1); }
+.cat-group.open .cat-body { max-height: 4500px; }
+.cat-body-inner { padding: 1.8rem 1.5rem; border-top: 1px solid var(--ligne); background: var(--creme); }
+.cat-description { font-size: 0.94rem; color: var(--gris); margin-bottom: 1.6rem; font-style: italic; max-width: 580px; line-height: 1.7; }
+
+.bottle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+.bottle-card { background: var(--blanc); border: 1px solid var(--ligne); padding: 1.4rem 1.1rem 1.1rem; display: flex; flex-direction: column; transition: all 0.35s; position: relative; }
+.bottle-card:hover { border-color: var(--ciel); box-shadow: 0 8px 24px rgba(14,39,70,0.07); transform: translateY(-2px); }
+.bottle-brand { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--or); margin-bottom: 0.4rem; }
+.bottle-img-wrap { height: 220px; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 1rem; padding: 0.5rem; position: relative; }
+.bottle-img-wrap img { max-height: 100%; max-width: 100%; object-fit: contain; }
+.bottle-img-wrap .placeholder-note { position: absolute; bottom: 4px; right: 4px; font-size: 0.55rem; color: var(--gris-clair); letter-spacing: 0.05em; opacity: 0.7; }
+.bottle-name { font-family: var(--serif); font-weight: 500; font-size: 1.02rem; color: var(--encre); line-height: 1.3; margin-bottom: 0.3rem; min-height: 2.6em; }
+.bottle-cuvee { font-size: 0.76rem; color: var(--gris); letter-spacing: 0.04em; margin-bottom: 0.8rem; }
+.bottle-price { font-family: var(--serif); font-size: 1.32rem; font-weight: 500; color: var(--encre); line-height: 1.1; margin-bottom: 0.15rem; display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+.bottle-price .strike { font-family: var(--sans); font-size: 0.88rem; font-weight: 400; color: var(--gris-clair); text-decoration: line-through; }
+.bottle-price-unit { font-size: 0.66rem; color: var(--gris); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.8rem; }
+.bottle-discount { position: absolute; top: 0.7rem; right: 0.7rem; background: var(--or); color: var(--blanc); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.28rem 0.5rem; }
+
+.add-pack-btn { margin-top: auto; background: var(--blanc); color: var(--encre); border: 1.5px solid var(--encre); padding: 0.78rem 0.8rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; transition: all 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
+.add-pack-btn:hover { background: var(--encre); color: var(--blanc); }
+.add-pack-btn:active { background: var(--or); border-color: var(--or); color: var(--blanc); transform: scale(0.98); }
+.pack-pulse { animation: pulse 0.45s ease; }
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); background: var(--or); border-color: var(--or); color: var(--blanc); }
+  100% { transform: scale(1); }
+}
+
+/* CART */
+.cart-panel { position: sticky; top: 90px; background: var(--blanc); border: 1px solid var(--ligne); max-height: calc(100vh - 110px); display: flex; flex-direction: column; }
+.cart-head { padding: 1.3rem 1.4rem 1rem; border-bottom: 1px solid var(--ligne); background: var(--encre); color: var(--blanc); }
+.cart-head h3 { font-family: var(--serif); font-weight: 500; font-size: 1.18rem; margin-bottom: 0.15rem; }
+.cart-head p { font-size: 0.78rem; color: rgba(255,255,255,0.7); letter-spacing: 0.04em; }
+.cart-progress { margin-top: 0.9rem; height: 5px; background: rgba(255,255,255,0.15); border-radius: 100px; overflow: hidden; }
+.cart-progress-bar { height: 100%; background: var(--or); width: 0%; transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+.cart-progress.met .cart-progress-bar { background: #57C26A; }
+
+.cart-body { flex: 1; overflow-y: auto; padding: 1rem 1.4rem; }
+.cart-empty { text-align: center; padding: 2.5rem 0.5rem; color: var(--gris); }
+.cart-empty svg { color: var(--gris-clair); margin: 0 auto 1rem; }
+.cart-empty h4 { font-family: var(--serif); font-weight: 500; font-size: 1.05rem; color: var(--encre); margin-bottom: 0.4rem; }
+.cart-empty p { font-size: 0.88rem; line-height: 1.6; }
+
+.cart-line { display: flex; gap: 0.85rem; padding: 0.85rem 0; border-bottom: 1px solid var(--ligne); }
+.cart-line:last-child { border-bottom: none; }
+.cart-thumb { width: 44px; height: 60px; display: flex; align-items: flex-end; justify-content: center; flex-shrink: 0; }
+.cart-thumb img { max-height: 100%; max-width: 100%; object-fit: contain; }
+.cart-line-info { flex: 1; min-width: 0; }
+.cart-line-brand { font-size: 0.58rem; color: var(--or); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.1rem; }
+.cart-line-name { font-family: var(--serif); font-weight: 500; font-size: 0.92rem; color: var(--encre); line-height: 1.25; margin-bottom: 0.3rem; }
+.cart-pack-controls { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--gris); }
+.qty-btn { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--ligne); background: var(--blanc); color: var(--encre); transition: all 0.2s; }
+.qty-btn:hover { border-color: var(--encre); background: var(--encre); color: var(--blanc); }
+.qty-val { font-weight: 600; color: var(--encre); min-width: 14px; text-align: center; }
+.cart-line-meta { font-size: 0.72rem; color: var(--gris); margin-top: 0.2rem; }
+.cart-line-price { font-family: var(--serif); font-weight: 500; font-size: 0.95rem; color: var(--encre); text-align: right; white-space: nowrap; }
+.cart-line-remove { display: block; margin-top: 0.3rem; font-size: 0.66rem; color: var(--gris-clair); letter-spacing: 0.1em; text-transform: uppercase; text-align: right; transition: color 0.2s; }
+.cart-line-remove:hover { color: #C95C5C; }
+
+.cart-foot { padding: 1.2rem 1.4rem; border-top: 1px solid var(--ligne); background: var(--creme); }
+.cart-totals { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
+.cart-totals .label { font-size: 0.72rem; color: var(--gris); letter-spacing: 0.12em; text-transform: uppercase; }
+.cart-totals .value { font-family: var(--serif); font-weight: 500; font-size: 1.05rem; color: var(--encre); }
+.cart-totals.grand .value { font-size: 1.4rem; }
+.cart-min-warn { font-size: 0.78rem; color: #C95C5C; background: #FFEFEF; padding: 0.6rem 0.75rem; margin: 0.7rem 0; border-left: 3px solid #C95C5C; }
+.cart-min-met { font-size: 0.78rem; color: #2E7D3A; background: #EFF8E4; padding: 0.6rem 0.75rem; margin: 0.7rem 0; border-left: 3px solid #57C26A; }
+.cart-min-met svg, .cart-min-warn svg { vertical-align: middle; margin-right: 0.35rem; }
+
+.cart-validate { margin-top: 0.6rem; width: 100%; padding: 1rem; background: var(--encre); color: var(--blanc); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; transition: all 0.3s; }
+.cart-validate:not(:disabled):hover { background: var(--or); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(201,160,71,0.3); }
+.cart-validate:disabled { background: var(--ligne); color: var(--gris-clair); cursor: not-allowed; }
+
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; z-index: 9000; background: rgba(14,39,70,0.65); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 2rem 1rem; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--blanc); max-width: 640px; width: 100%; max-height: 90vh; overflow-y: auto; border-radius: 4px; position: relative; }
+.modal-head { padding: 1.8rem 2rem 1.2rem; border-bottom: 1px solid var(--ligne); }
+.modal-close { position: absolute; top: 1.2rem; right: 1.2rem; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--gris); transition: all 0.2s; }
+.modal-close:hover { color: var(--encre); transform: rotate(90deg); }
+.modal-head .eyebrow { color: var(--or); margin-bottom: 0.5rem; }
+.modal-head h2 { font-family: var(--serif); font-weight: 500; font-size: 1.55rem; color: var(--encre); line-height: 1.2; }
+.modal-head p { font-size: 0.93rem; color: var(--gris); margin-top: 0.6rem; line-height: 1.6; }
+
+.modal-body { padding: 1.5rem 2rem 2rem; }
+.modal-summary { background: var(--creme); padding: 1rem 1.2rem; margin-bottom: 1.5rem; font-size: 0.88rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.modal-summary .total { font-family: var(--serif); font-weight: 500; font-size: 1.15rem; color: var(--encre); }
+
+.form-row { margin-bottom: 1.2rem; }
+.form-row label { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--encre); margin-bottom: 0.5rem; }
+.form-row label .req { color: #C95C5C; margin-left: 2px; }
+.form-row .hint { display: block; font-size: 0.78rem; color: var(--gris); font-weight: 400; letter-spacing: normal; text-transform: none; margin-top: 0.4rem; line-height: 1.5; }
+.form-row input[type="text"], .form-row input[type="email"], .form-row input[type="tel"], .form-row textarea {
+  width: 100%; background: var(--blanc); border: 1px solid var(--ligne);
+  padding: 0.85rem 0.95rem; font-size: 0.95rem; color: var(--encre); border-radius: 2px; transition: border-color 0.3s;
+}
+.form-row input:focus, .form-row textarea:focus { outline: none; border-color: var(--ciel); box-shadow: 0 0 0 3px rgba(52,178,229,0.12); }
+.form-row input.invalid { border-color: #C95C5C; }
+.form-row textarea { resize: vertical; min-height: 80px; }
+
+.form-file { border: 1.5px dashed var(--ligne); background: var(--creme); padding: 1.4rem; text-align: center; cursor: pointer; transition: all 0.3s; display: block; }
+.form-file:hover, .form-file.dragover { border-color: var(--ciel); background: rgba(52,178,229,0.05); }
+.form-file input[type="file"] { display: none; }
+.form-file .icon { color: var(--ciel-fonce); margin-bottom: 0.6rem; }
+.form-file .text { font-size: 0.92rem; color: var(--encre); font-weight: 500; text-transform: none; letter-spacing: 0; }
+.form-file .sub { font-size: 0.78rem; color: var(--gris); margin-top: 0.3rem; letter-spacing: 0; text-transform: none; font-weight: 400; }
+.form-file.has-file { border-color: #57C26A; background: #EFF8E4; }
+.form-file.has-file .icon { color: #2E7D3A; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.modal-actions { display: flex; gap: 0.8rem; margin-top: 1.4rem; flex-wrap: wrap; }
+.modal-actions button { flex: 1; min-width: 180px; }
+
+.form-error { background: #FFEFEF; color: #C95C5C; padding: 0.8rem 1rem; border-left: 3px solid #C95C5C; font-size: 0.88rem; margin-bottom: 1rem; display: none; }
+.form-error.show { display: block; }
+.form-success { background: #EFF8E4; color: #2E7D3A; padding: 1.2rem 1.2rem; border-left: 3px solid #57C26A; font-size: 0.92rem; display: none; margin-bottom: 1rem; }
+.form-success.show { display: block; }
+.form-success strong { font-family: var(--serif); font-weight: 500; font-size: 1.05rem; display: block; margin-bottom: 0.4rem; color: var(--encre); }
+
+/* MOBILE */
+@media (max-width: 920px) {
+  .site-nav { padding: 0.9rem 1.5rem; }
+  .pro-nav { padding: 0.8rem 1.3rem; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--blanc); border-bottom: 1px solid var(--ligne); padding: 1.5rem; gap: 1.2rem; }
+  .nav-brand span { display: none; }
+  section.s { padding: 4.5rem 1.5rem; }
+  .maison-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .services-grid, .events-grid { grid-template-columns: 1fr; }
+  .champ-grid { grid-template-columns: 1fr 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .contact-meta { flex-direction: column; gap: 1.4rem; }
+  .pro-hero { padding: 7rem 1.5rem 3.5rem; }
+  .pro-conditions { padding: 1rem 1.5rem; }
+  .catalog-wrap { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+  .cart-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 380px; transform: translateX(105%); transition: transform 0.4s; z-index: 200; max-height: 100vh; }
+  .cart-panel.open { transform: translateX(0); }
+  .cart-backdrop { position: fixed; inset: 0; background: rgba(14,39,70,0.5); z-index: 199; display: none; }
+  .cart-backdrop.open { display: block; }
+  .bottle-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .bottle-img-wrap { height: 180px; }
+  .choice-cards { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .splash-legal { white-space: normal; line-height: 1.5; }
+  footer.site-footer { flex-direction: column; text-align: center; padding: 1.4rem; }
+}
+@media (max-width: 480px) {
+  .bottle-grid { grid-template-columns: 1fr; }
+  .bottle-img-wrap { height: 240px; }
+}
+</style>
+</head>
+<body class="lock-scroll">
+
+<!-- SPLASH 1 — AGE -->
+<div id="splash-age" class="splash">
+  <div class="splash-bubbles" id="splashBubbles1"></div>
+  <div class="splash-inner">
+    <div class="splash-mark">
+      <svg width="34" height="34" viewBox="0 0 68 68" fill="none">
+        <ellipse cx="34" cy="8" rx="8" ry="2.5" stroke="#E5C77E" stroke-width="1.2" fill="none"/>
+        <path d="M26 8 C26 8 25 28 31 34 L32 36 L32 50" stroke="#E5C77E" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M42 8 C42 8 43 28 37 34 L36 36 L36 50" stroke="#E5C77E" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="34" cy="52" rx="9" ry="2.5" stroke="#E5C77E" stroke-width="1.2" fill="rgba(229,199,126,0.08)"/>
+        <circle cx="32" cy="22" r="1" fill="rgba(255,255,255,0.6)"/>
+        <circle cx="35" cy="17" r="0.8" fill="rgba(255,255,255,0.5)"/>
+        <circle cx="33" cy="12" r="0.6" fill="rgba(255,255,255,0.4)"/>
+      </svg>
+    </div>
+    <h1 class="splash-logo">Les Belles <em>Bulles</em></h1>
+    <p class="splash-tag">Champagnes d'exception</p>
+    <div class="splash-prompt" id="agePrompt">
+      <p class="splash-question">Avez-vous l'âge légal pour consommer de l'alcool ?</p>
+      <div class="splash-actions">
+        <button class="splash-btn primary" id="btnAgeOui">Oui</button>
+        <button class="splash-btn" id="btnAgeNon">Non</button>
+      </div>
+    </div>
+    <div class="splash-rejected" id="ageRejected" style="display:none;">
+      Vous devez avoir l'âge légal pour accéder à ce site.
+    </div>
+  </div>
+  <p class="splash-legal">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
+</div>
+
+<!-- SPLASH 2 — CHOICE -->
+<div id="splash-choice" class="splash splash-choice hide">
+  <div class="splash-bubbles" id="splashBubbles2"></div>
+  <div class="splash-inner">
+    <h1 class="splash-logo">Bienvenue</h1>
+    <p class="splash-tag">Avant de commencer</p>
+    <p class="splash-question" style="opacity:0;animation:splashIn 0.9s 0.4s forwards ease;">Vous nous rejoignez en tant que…</p>
+    <div class="choice-cards">
+      <button class="choice-card" data-target="particulier">
+        <div class="choice-icon">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/>
+          </svg>
+        </div>
+        <h3>Particulier</h3>
+        <p>Découvrez nos cuvées, conseils personnalisés, événements et dégustations à domicile.</p>
+        <div class="choice-arrow">Explorer
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </div>
+      </button>
+      <button class="choice-card" data-target="entreprise">
+        <div class="choice-icon">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="7" width="18" height="14" rx="0.5"/>
+            <path d="M8 21V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v16"/>
+            <line x1="3" y1="13" x2="21" y2="13"/>
+          </svg>
+        </div>
+        <h3>Entreprise</h3>
+        <p>Catalogue professionnel — tarifs HT, commande minimale 24 bouteilles, validation par K-bis.</p>
+        <div class="choice-arrow">Accéder au catalogue
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </div>
+      </button>
+    </div>
+  </div>
+  <p class="splash-legal">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
+</div>
+
+<!-- SITE PARTICULIER -->
+<div id="site-particulier" class="site">
+
+  <nav class="site-nav" id="navP">
+    <a href="#" class="nav-brand" onclick="scrollTo({top:0,behavior:'smooth'});return false;">
+      <img src="logo-summer.jpg" alt="Les Belles Bulles">
+      <span>Les Belles Bulles</span>
+    </a>
+    <ul class="nav-links" id="navLinksP">
+      <li><a href="#maison">Notre Maison</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#champagnes">Champagnes</a></li>
+      <li><a href="#evenements">Événements</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" id="backToChoice" class="nav-back">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Retour
+      </a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamP" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-banner"><img src="banner-summer.jpg" alt="Les Belles Bulles"></div>
+    <div class="hero-content">
+      <div class="hero-bubbles" id="heroBubbles"></div>
+      <div class="hero-content-inner">
+        <h1>L'art du champagne, <em>en toute confiance</em></h1>
+        <p class="hero-sub">Agent commercial spécialisé, nous négocions en direct avec les Maisons pour vous proposer une sélection d'exception à des conditions privilégiées.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary" style="background:var(--blanc);color:var(--encre);">Nous contacter</a>
+          <a href="#champagnes" class="btn btn-ghost-light">Nos cuvées</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="s" id="maison">
+    <div class="container">
+      <div class="maison-grid">
+        <div>
+          <p class="eyebrow reveal">Notre Maison</p>
+          <h2 class="section-h reveal d1">Le champagne, <em>autrement</em></h2>
+          <div class="divider-line reveal d2"></div>
+          <div class="maison-text reveal d3">
+            <p>Les Belles Bulles est née d'une conviction : le grand champagne ne doit pas être un luxe inaccessible. En tant qu'agent commercial, nous travaillons en direct avec les meilleures Maisons et négocions des conditions privilégiées pour nos clients.</p>
+            <p>Notre approche est simple — connaître chaque cuvée, écouter chaque besoin, et faire rencontrer les deux avec justesse.</p>
+          </div>
+          <div class="values-list reveal d4">
+            <div class="value-item">
+              <div class="value-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+              <div class="value-text"><h4>Conditions privilégiées</h4><p>Tarifs négociés en direct auprès des Maisons partenaires.</p></div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="value-text"><h4>Conseil sur-mesure</h4><p>Un accompagnement personnalisé selon votre occasion, votre budget, vos goûts.</p></div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="14" height="13"/><polygon points="22 7 16 11 16 4 22 7"/></svg></div>
+              <div class="value-text"><h4>Livraison soignée</h4><p>Chaque commande expédiée dans les meilleures conditions, partout en France.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal d2">
+          <div class="promise-block">
+            <div class="quote-mark">"</div>
+            <h3>Pourquoi choisir<br>Les Belles Bulles ?</h3>
+            <p>Nous sélectionnons chaque cuvée avec exigence pour vous offrir des champagnes qui font la différence — pour une grande occasion, un cadeau d'entreprise, ou simplement le plaisir d'un beau moment.</p>
+            <p style="margin-top:1.2rem;">Notre promesse : <span class="gold">des bulles d'exception, accessibles à tous.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s bg-cream" id="services">
+    <div class="container">
+      <div class="services-head">
+        <p class="eyebrow reveal">Nos Services</p>
+        <h2 class="section-h reveal d1">À votre <em>service</em></h2>
+        <div class="divider-line center reveal d2"></div>
+        <p class="lead reveal d3">Que vous soyez particulier ou professionnel, nous vous accompagnons de la sélection à la dégustation.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service reveal d1"><div class="service-num">01</div><h3>Commandes sur-mesure</h3><p>Composez votre sélection ou laissez-vous guider. Commandes à l'unité pour les particuliers, en volume pour les professionnels.</p></div>
+        <div class="service reveal d2"><div class="service-num">02</div><h3>Conseil &amp; accompagnement</h3><p>Un accord mets-champagne, un cadeau, une commande groupée — nous sommes à votre écoute pour vous orienter avec justesse.</p></div>
+        <div class="service reveal d3"><div class="service-num">03</div><h3>Cadeaux &amp; entreprises</h3><p>Coffrets personnalisés, cadeaux d'affaires, dotations événementielles — nous créons des expériences mémorables.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s bg-ciel" id="champagnes">
+    <div class="container">
+      <div class="champ-intro reveal">
+        <p class="eyebrow">Nos Champagnes</p>
+        <h2 class="section-h">Une sélection <em>d'exception</em></h2>
+        <div class="divider-line center" style="background:var(--or-clair);"></div>
+        <p class="lead">Brut, rosé, millésimé, prestige — chaque bouteille est choisie pour son caractère, sa qualité et son rapport qualité-prix.</p>
+      </div>
+      <div class="champ-grid">
+        <div class="champ-item reveal d1"><h4>Brut Classique</h4><p>L'élégance au quotidien, fraîche et équilibrée.</p></div>
+        <div class="champ-item reveal d2"><h4>Rosé</h4><p>Finesse et caractère, idéal pour les beaux jours.</p></div>
+        <div class="champ-item reveal d3"><h4>Millésimé</h4><p>Les grandes années, des cuvées de garde et de prestige.</p></div>
+        <div class="champ-item reveal d4"><h4>Cuvée Prestige</h4><p>Le sommet de l'art champenois, pour les grands moments.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" id="evenements">
+    <div class="container">
+      <div class="services-head">
+        <p class="eyebrow reveal">Événements</p>
+        <h2 class="section-h reveal d1">Des moments <em>sur-mesure</em></h2>
+        <div class="divider-line center reveal d2"></div>
+        <p class="lead reveal d3">Nous organisons des événements autour du champagne pour vos réceptions privées, séminaires d'entreprise ou dégustations confidentielles.</p>
+      </div>
+      <div class="events-grid">
+        <div class="event reveal d1">
+          <div class="event-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Réceptions privées</h3>
+          <p>Anniversaires, mariages, fêtes — nous choisissons les cuvées et organisons la dégustation.</p>
+        </div>
+        <div class="event reveal d2">
+          <div class="event-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <h3>Séminaires d'entreprise</h3>
+          <p>Team building, soirée clients, lancement produit — une expérience champagne clé en main.</p>
+        </div>
+        <div class="event reveal d3">
+          <div class="event-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <h3>Dégustations privées</h3>
+          <p>Découvrez nos cuvées lors d'une dégustation commentée chez vous ou dans le lieu de votre choix.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s contact-section" id="contact">
+    <div class="container">
+      <div class="contact-head">
+        <p class="eyebrow reveal">Contact</p>
+        <h2 class="section-h reveal d1">Envie de <em>bulles</em> ?</h2>
+        <div class="divider-line center reveal d2"></div>
+        <p class="lead reveal d3">Commande, conseils, événement ou simple question — nous vous répondrons dans les plus brefs délais.</p>
+      </div>
+      <a href="mailto:contact@lesbellesbulles.com" class="contact-email reveal">contact@lesbellesbulles.com</a>
+
+      <div style="margin-top:3.5rem;">
+        <p class="eyebrow reveal" style="text-align:center;">Notre équipe</p>
+        <div class="team-grid">
+          <div class="team-card reveal d1">
+            <div class="team-name">Léonard Brault</div>
+            <div class="team-role">Président Directeur Général</div>
+            <a href="tel:+33652558257" class="team-phone">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +33 6 52 55 82 57
+            </a>
+          </div>
+          <div class="team-card reveal d2">
+            <div class="team-name">Virgile Grandchamp des Raux</div>
+            <div class="team-role">Responsable Développement Commercial</div>
+            <a href="tel:+33620110422" class="team-phone">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +33 6 20 11 04 22
+            </a>
+          </div>
+          <div class="team-card reveal d3">
+            <div class="team-name">Jacques Lagrange-Mauduit</div>
+            <div class="team-role">Responsable Financier et Stratégie</div>
+            <a href="tel:+16194050027" class="team-phone">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              (+1) 619-405-0027
+            </a>
+          </div>
+          <div class="team-card reveal d4">
+            <div class="team-name">Pierre Macquart de Terline</div>
+            <div class="team-role">Responsable Communication et Promotion</div>
+            <a href="tel:+33611541794" class="team-phone">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +33 6 11 54 17 94
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-meta">
+        <div class="contact-meta-item"><div class="label">Basés à</div><div class="value">Paris, France</div></div>
+        <div class="contact-meta-item"><div class="label">Web</div><div class="value">lesbellesbulles.com</div></div>
+        <div class="contact-meta-item"><div class="label">Statut</div><div class="value">Agent commercial — SAS</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Les Belles Bulles — SAS — Tous droits réservés</p>
+    <p>Agent commercial · Particuliers &amp; Professionnels</p>
+  </footer>
+
+</div><!-- /site-particulier -->
+
+
+<!-- SITE ENTREPRISE -->
+<div id="site-entreprise" class="site" style="display:none;">
+
+  <nav class="pro-nav">
+    <a href="#" class="nav-brand" onclick="scrollTo({top:0,behavior:'smooth'});return false;">
+      <img src="logo-summer.jpg" alt="Les Belles Bulles">
+      <span>Les Belles Bulles<span class="pro-badge">Pro</span></span>
+    </a>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <a href="#" id="backToChoiceE" class="nav-back" style="color:rgba(255,255,255,0.7);">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Particulier
+      </a>
+      <button class="cart-toggle" id="cartToggle">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span>Panier</span>
+        <span class="cart-count empty" id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <header class="pro-hero">
+    <div class="pro-hero-inner">
+      <p class="eyebrow" style="color:var(--or-clair);">Catalogue Professionnel</p>
+      <h1>Le catalogue Lanson International Distribution, <em>aux meilleures conditions</em></h1>
+      <p class="pro-hero-lead">5 Maisons, 25+ cuvées sélectionnées — Lanson, Massé, Tsarine, Chanoine Frères, Heidsieck &amp; Co Monopole. Tarifs HT en direct, dispositif promotionnel en vigueur, livraison franco sur les commandes éligibles.</p>
+    </div>
+  </header>
+
+  <div class="pro-conditions">
+    <div class="pro-conditions-inner">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h0"/></svg>
+      <strong>Commande minimale&nbsp;: 24 bouteilles</strong>
+      <span>— soit 4 packs de 6 bouteilles. Une cuvée par pack. Livraison franco de port au-delà de ce seuil.</span>
+    </div>
+  </div>
+
+  <main class="catalog-wrap">
+    <div class="catalog-main">
+      <div class="catalog-head">
+        <h2>Catalogue par type</h2>
+        <p>Cliquez sur une catégorie pour afficher les cuvées disponibles.</p>
+      </div>
+      <div id="catalogue"></div>
+    </div>
+
+    <aside class="catalog-aside">
+      <div class="cart-backdrop" id="cartBackdrop"></div>
+      <div class="cart-panel" id="cartPanel">
+        <div class="cart-head">
+          <h3>Votre panier</h3>
+          <p id="cartHeadInfo">Aucune cuvée sélectionnée</p>
+          <div class="cart-progress" id="cartProgress"><div class="cart-progress-bar" id="cartProgressBar"></div></div>
+        </div>
+        <div class="cart-body" id="cartBody"></div>
+        <div class="cart-foot">
+          <div class="cart-totals"><div class="label">Bouteilles</div><div class="value" id="cartBottles">0</div></div>
+          <div class="cart-totals"><div class="label">Packs (×6)</div><div class="value" id="cartPacks">0</div></div>
+          <div id="cartStatus"></div>
+          <div class="cart-totals grand" style="margin-top:0.8rem;">
+            <div class="label">Total HT</div>
+            <div class="value" id="cartTotal">0,00 €</div>
+          </div>
+          <button class="cart-validate" id="cartValidate" disabled>Valider la commande</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Les Belles Bulles — SAS — Tous droits réservés</p>
+    <p>Agent commercial · Catalogue Lanson International Distribution</p>
+  </footer>
+
+</div><!-- /site-entreprise -->
+
+
+<!-- MODAL -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Fermer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-head">
+      <p class="eyebrow">Validation de commande</p>
+      <h2>Informations entreprise</h2>
+      <p>Pour transmettre votre commande au service de vente, nous avons besoin des informations légales de votre société. Champs marqués d'un astérisque obligatoires.</p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-summary">
+        <div>
+          <strong id="modalSummaryBottles">0 bouteilles</strong>
+          <span style="color:var(--gris);"> · <span id="modalSummaryPacks">0 packs</span></span>
+        </div>
+        <div class="total" id="modalSummaryTotal">0,00 € HT</div>
+      </div>
+
+      <div class="form-error" id="formError"></div>
+      <div class="form-success" id="formSuccess"></div>
+
+      <form id="orderForm" autocomplete="on">
+        <div class="form-row">
+          <label>Raison sociale <span class="req">*</span></label>
+          <input type="text" name="raison_sociale" required placeholder="Ex. : ACME Distribution SAS">
+        </div>
+
+        <div class="form-grid">
+          <div class="form-row">
+            <label>SIREN <span class="req">*</span></label>
+            <input type="text" name="siren" required inputmode="numeric" maxlength="11" placeholder="9 chiffres">
+            <span class="hint">9 chiffres, sans espaces.</span>
+          </div>
+          <div class="form-row">
+            <label>SIRET <span class="req">*</span></label>
+            <input type="text" name="siret" required inputmode="numeric" maxlength="17" placeholder="14 chiffres">
+            <span class="hint">14 chiffres, sans espaces.</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Extrait K-bis <span class="req">*</span></label>
+          <label class="form-file" id="fileDrop">
+            <input type="file" name="kbis" id="kbisInput" accept=".pdf,.jpg,.jpeg,.png" required>
+            <div class="icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <div class="text" id="fileLabel">Glissez votre K-bis ici ou cliquez pour parcourir</div>
+            <div class="sub">PDF ou image · 10 MB max · Daté de moins de 3 mois.</div>
+          </label>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-row">
+            <label>Nom &amp; prénom du contact <span class="req">*</span></label>
+            <input type="text" name="contact_name" required placeholder="Ex. : Jean Dupont">
+          </div>
+          <div class="form-row">
+            <label>Fonction</label>
+            <input type="text" name="contact_role" placeholder="Ex. : Directeur des achats">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-row">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" name="email" required placeholder="contact@entreprise.com">
+          </div>
+          <div class="form-row">
+            <label>Téléphone <span class="req">*</span></label>
+            <input type="tel" name="phone" required placeholder="+33 ...">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Adresse de livraison <span class="req">*</span></label>
+          <textarea name="address" required placeholder="Numéro, rue, code postal, ville, pays"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label>Commentaire (optionnel)</label>
+          <textarea name="comment" placeholder="Date souhaitée de livraison, occasion, contraintes particulières…"></textarea>
+        </div>
+
+        <input type="hidden" name="cart_summary" id="cartSummaryHidden">
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="btnCancelOrder">Retour au panier</button>
+          <button type="submit" class="btn btn-primary" id="btnSubmitOrder">Envoyer la commande</button>
+        </div>
+        <p style="font-size:0.78rem;color:var(--gris);margin-top:1rem;line-height:1.6;">
+          En validant, votre commande sera transmise à <strong>contact@lesbellesbulles.com</strong> qui la relaiera au service de vente de Lanson International Distribution. Vous recevrez une confirmation par email sous 24 à 48&nbsp;h ouvrées.
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════
+// CONFIGURATION
+// ════════════════════════════════════════════════════════════
+// 📧 Pour activer l'envoi automatique avec K-bis en pièce jointe :
+//    1. Créez un compte gratuit sur https://formspree.io (50 envois/mois gratuits)
+//    2. Créez un formulaire avec destination contact@lesbellesbulles.com
+//    3. Remplacez la valeur ci-dessous par votre endpoint (ex: https://formspree.io/f/xyzabcde)
+//    4. Si laissé vide, le formulaire utilise le fallback mailto: (sans pièce jointe)
+const FORMSPREE_ENDPOINT = ""; // ← À renseigner
+
+const MIN_BOTTLES = 24;
+const BOTTLES_PER_PACK = 6;
+
+// ════════════════════════════════════════════════════════════
+// CATALOGUE — Tarifs Lanson International Distribution 2026
+// Prix HT (Hors Taxes, Hors Droits)
+// ════════════════════════════════════════════════════════════
+const CATALOGUE = [
+  {
+    id: "brut",
+    label: "Brut",
+    icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 2v3M15 2v3M12 5v3M8 8h8l-.5 4c-.3 2.4-1.8 4-3.5 4s-3.2-1.6-3.5-4L8 8z"/><path d="M12 16v4M9 22h6"/></svg>',
+    description: "Le style des Maisons — fraîcheur, équilibre et accessibilité. Le cœur de gamme à privilégier pour le service au verre, l'apéritif, ou les volumes.",
+    bottles: [
+      { id: "lanson-black", brand: "Lanson", name: "Le Black Création", image: "bottles/lanson-black-creation.png", priceHT: 27.80 },
+      { id: "masse-brut", brand: "Massé", name: "Massé Brut", image: "bottles/masse-brut.png", priceHT: 20.00 },
+      { id: "tsarine-brut", brand: "Tsarine", name: "Tsarine Brut", image: "bottles/tsarine-brut.png", priceHT: 22.50 },
+      { id: "chanoine-brut", brand: "Chanoine Frères", name: "Chanoine Brut", image: "bottles/chanoine-brut.png", priceHT: 17.50 },
+      { id: "heidsieck-blue", brand: "Heidsieck & Co Monopole", name: "Blue Top", image: "bottles/heidsieck-blue-top.svg", priceHT: 17.09, priceHT_general: 25.90, discount: "CHR" },
+      { id: "heidsieck-white", brand: "Heidsieck & Co Monopole", name: "White Top — 1er Cru", image: "bottles/heidsieck-white-top.svg", priceHT: 18.80, priceHT_general: 28.50, discount: "CHR" },
+      { id: "heidsieck-silver", brand: "Heidsieck & Co Monopole", name: "Silver Top", image: "bottles/heidsieck-silver-top.svg", priceHT: 17.95, priceHT_general: 27.20, discount: "CHR" }
+    ]
+  },
+  {
+    id: "extra-brut",
+    label: "Extra Brut",
+    icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>',
+    description: "Dosage minimal — la sélection des Maisons pour les amateurs de pureté et de vivacité, sans sucre ajouté ou presque.",
+    bottles: [
+      { id: "lanson-reserve-eb", brand: "Lanson", name: "Le Réserve Extra Brut", image: "bottles/lanson-reserve-extra-brut.png", priceHT: 31.00 },
+      { id: "tsarine-eb", brand: "Tsarine", name: "Tsarine Extra Brut", image: "bottles/tsarine-extra-brut.png", priceHT: 25.00, exclusive: "Gamme Singulière — exclusivité CHR & Cavistes" },
+      { id: "chanoine-1er-cru-eb", brand: "Chanoine Frères", name: "Premier Cru Extra Brut", image: "bottles/chanoine-premier-cru-extra-brut.png", priceHT: 19.50 }
+    ]
+  },
+  {
+    id: "sec",
+    label: "Sec & Demi-Sec",
+    icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 12s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="12" cy="12" r="3"/></svg>',
+    description: "Plus de rondeur, plus de sucre — l'accompagnement idéal des desserts, du foie gras, ou des moments de gourmandise.",
+    bottles: [
+      { id: "lanson-white-sec", brand: "Lanson", name: "Le White Label Sec", image: "bottles/lanson-white-label-sec.png", priceHT: 29.00 },
+      { id: "tsarine-ds", brand: "Tsarine", name: "Tsarine Demi-Sec", image: "bottles/tsarine-demi-sec.png", priceHT: 22.50 },
+      { id: "chanoine-ds", brand: "Chanoine Frères", name: "Chanoine Demi-Sec", image: "bottles/chanoine-demi-sec.png", priceHT: 17.50 }
+    ]
+  },
+  {
+    id: "rose",
+    label: "Rosé",
+    icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2C9 6 6 9 6 13a6 6 0 0 0 12 0c0-4-3-7-6-11z"/></svg>',
+    description: "Finesse et caractère — apéritif d'été, accompagnement de plats relevés ou simple plaisir d'une couleur élégante dans le verre.",
+    bottles: [
+      { id: "lanson-rose", brand: "Lanson", name: "Le Rosé Création", image: "bottles/lanson-rose-creation.png", priceHT: 36.00 },
+      { id: "tsarine-rose", brand: "Tsarine", name: "Tsarine Rosé", image: "bottles/tsarine-rose.png", priceHT: 30.00 },
+      { id: "chanoine-rose", brand: "Chanoine Frères", name: "Chanoine Rosé", image: "bottles/chanoine-rose.png", priceHT: 19.50 },
+      { id: "heidsieck-rose", brand: "Heidsieck & Co Monopole", name: "Rose Top", image: "bottles/heidsieck-rose-top.svg", priceHT: 20.51, priceHT_general: 31.10, discount: "CHR" }
+    ]
+  },
+  {
+    id: "blanc",
+    label: "Blanc de Blancs & Blanc de Noirs",
+    icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>',
+    description: "Cuvées mono-cépage : Chardonnay (Blanc de Blancs) ou Pinot Noir/Meunier (Blanc de Noirs). L'expression la plus pure du terroir.",
+    bottles: [
+      { id: "lanson-bdb", brand: "Lanson", name: "Le Blanc de Blancs", image: "bottles/lanson-blanc-de-blancs.png", priceHT: 40.50 },
+      { id: "tsarine-bdb-2018", brand: "Tsarine", name: "Blanc de Blancs 2018 — Grand Cru", image: "bottles/tsarine-blanc-de-blancs-2018.png", priceHT: 38.00, exclusive: "Gamme Singulière — exclusivité CHR & Cavistes" },
+      { id: "chanoine-bdn", brand: "Chanoine Frères", name: "Blanc de Noirs", image: "bottles/chanoine-blanc-de-noirs.png", priceHT: 20.50 }
+    ]
+  },
+  {
+    id: "millesime",
+    label: "Millésimés",
+    icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="18"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+    description: "Une seule année, une seule récolte. Les millésimes signent les grandes occasions et se gardent en cave avec patience.",
+    bottles: [
+      { id: "lanson-vintage-2014", brand: "Lanson", name: "Le Vintage 2014", image: "bottles/lanson-vintage-2014.png", priceHT: 42.00 },
+      { id: "tsarine-vintage-2019", brand: "Tsarine", name: "Vintage 2019 — 1er Cru", image: "bottles/tsarine-vintage-2019.png", priceHT: 34.00, exclusive: "Gamme Singulière — exclusivité CHR & Cavistes" },
+      { id: "heidsieck-gold", brand: "Heidsieck & Co Monopole", name: "Gold Top Millésimé", image: "bottles/heidsieck-gold-top.svg", priceHT: 22.22, priceHT_general: 33.70, discount: "CHR" }
+    ]
+  },
+  {
+    id: "bio",
+    label: "Bio & Engagés",
+    icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 22s-7-4-7-12V4l7 2 7-2v6c0 8-7 12-7 12z"/><path d="M9 12l2 2 4-4"/></svg>',
+    description: "Cuvées certifiées biologiques, viticulture durable — l'engagement environnemental des Maisons.",
+    bottles: [
+      { id: "lanson-green", brand: "Lanson", name: "Le Green Bio-Organic", image: "bottles/lanson-green-bio-organic.png", priceHT: 34.50 },
+      { id: "chanoine-organic", brand: "Chanoine Frères", name: "Organic Extra Brut", image: "bottles/chanoine-organic-extra-brut.png", priceHT: 22.50 }
+    ]
+  },
+  {
+    id: "prestige",
+    label: "Cuvées Prestige",
+    icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+    description: "Le sommet des Maisons — cuvées de garde, coffrets, séries limitées. Les moments d'exception.",
+    bottles: [
+      { id: "lanson-noble-brut", brand: "Lanson", name: "Noble Champagne — Brut Millésimé", image: "bottles/lanson-noble-brut.svg", priceHT: 85.00 },
+      { id: "lanson-noble-brut-coffret", brand: "Lanson", name: "Noble Champagne — Brut Millésimé (coffret)", image: "bottles/lanson-noble-brut-coffret.svg", priceHT: 100.00 },
+      { id: "lanson-noble-bdb", brand: "Lanson", name: "Noble Champagne — Blanc de Blancs", image: "bottles/lanson-noble-bdb.svg", priceHT: 105.00 },
+      { id: "lanson-noble-bdb-coffret", brand: "Lanson", name: "Noble Champagne — Blanc de Blancs (coffret)", image: "bottles/lanson-noble-bdb-coffret.svg", priceHT: 120.00 },
+      { id: "tsarine-gold", brand: "Tsarine", name: "Tsarine Gold", image: "bottles/tsarine-gold.png", priceHT: 45.00, exclusive: "Gamme Singulière — exclusivité CHR & Cavistes" },
+      { id: "tsarine-precision-n15", brand: "Tsarine", name: "Précision N°15 — coffret", image: "bottles/tsarine-precision-n15.svg", priceHT: 85.00, exclusive: "Collection Prestige — exclusivité CHR & Cavistes" }
+    ]
+  }
+];
+
+// ════════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════════
+const cart = new Map();
+
+function findBottle(id) {
+  for (const cat of CATALOGUE) {
+    const b = cat.bottles.find(x => x.id === id);
+    if (b) return b;
+  }
+  return null;
+}
+function fmtEUR(n) {
+  return n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+}
+function escapeHTML(str) {
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ════════════════════════════════════════════════════════════
+// SPLASH FLOW
+// ════════════════════════════════════════════════════════════
+const splashAge = document.getElementById('splash-age');
+const splashChoice = document.getElementById('splash-choice');
+const sitePart = document.getElementById('site-particulier');
+const siteEnt = document.getElementById('site-entreprise');
+
+function showSplash(el) { el.classList.remove('hide'); document.body.classList.add('lock-scroll'); }
+function hideSplash(el) { el.classList.add('hide'); }
+
+document.getElementById('btnAgeOui').addEventListener('click', () => {
+  try { playChampagneSound(); } catch(e) {}
+  setTimeout(() => {
+    hideSplash(splashAge);
+    setTimeout(() => showSplash(splashChoice), 300);
+  }, 200);
+});
+document.getElementById('btnAgeNon').addEventListener('click', () => {
+  document.getElementById('agePrompt').style.display = 'none';
+  document.getElementById('ageRejected').style.display = 'block';
+});
+
+document.querySelectorAll('.choice-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const target = card.dataset.target;
+    hideSplash(splashChoice);
+    document.body.classList.remove('lock-scroll');
+    if (target === 'particulier') {
+      sitePart.style.display = '';
+      siteEnt.style.display = 'none';
+      requestAnimationFrame(() => sitePart.classList.add('visible'));
+    } else {
+      sitePart.style.display = 'none';
+      siteEnt.style.display = '';
+      requestAnimationFrame(() => siteEnt.classList.add('visible'));
+      renderCatalogue();
+      openFirstCategory();
+      updateCartUI();
+    }
+    window.scrollTo({ top: 0 });
+    runRevealObserver();
+  });
+});
+
+function goBackToChoice() {
+  sitePart.classList.remove('visible');
+  siteEnt.classList.remove('visible');
+  setTimeout(() => {
+    sitePart.style.display = 'none';
+    siteEnt.style.display = 'none';
+    showSplash(splashChoice);
+    window.scrollTo({ top: 0 });
+  }, 400);
+}
+document.getElementById('backToChoice').addEventListener('click', (e) => { e.preventDefault(); goBackToChoice(); });
+document.getElementById('backToChoiceE').addEventListener('click', (e) => { e.preventDefault(); goBackToChoice(); });
+
+// Hamburger menu particulier
+const hamP = document.getElementById('hamP');
+const navLinksP = document.getElementById('navLinksP');
+hamP.addEventListener('click', () => navLinksP.classList.toggle('open'));
+navLinksP.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinksP.classList.remove('open')));
+
+// ════════════════════════════════════════════════════════════
+// BUBBLES
+// ════════════════════════════════════════════════════════════
+function spawnBubble(container) {
+  const b = document.createElement('div');
+  b.className = 's-bubble';
+  const size = 4 + Math.random() * 22;
+  const isGold = Math.random() > 0.55;
+  const op = 0.07 + Math.random() * 0.13;
+  const dur = 12 + Math.random() * 10;
+  const color = isGold ? `rgba(229,199,126,${op})` : `rgba(255,255,255,${op})`;
+  const border = isGold ? `1px solid rgba(229,199,126,${op+0.05})` : `1px solid rgba(255,255,255,${op+0.07})`;
+  b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:-${size}px;background:${color};border:${border};--op:${op};animation-duration:${dur}s;animation-delay:${Math.random()*3}s;`;
+  container.appendChild(b);
+  setTimeout(() => b.remove(), (dur + 4) * 1000);
+}
+function startSplashBubbles(id) {
+  const c = document.getElementById(id);
+  if (!c) return;
+  for (let i = 0; i < 8; i++) setTimeout(() => spawnBubble(c), i * 250);
+  return setInterval(() => spawnBubble(c), 850);
+}
+startSplashBubbles('splashBubbles1');
+startSplashBubbles('splashBubbles2');
+
+const heroBubblesEl = document.getElementById('heroBubbles');
+function spawnHeroBubble() {
+  if (!sitePart.classList.contains('visible')) return;
+  const b = document.createElement('div');
+  b.className = 'bubble';
+  const size = 6 + Math.random() * 28;
+  const isGold = Math.random() > 0.5;
+  const op = 0.12 + Math.random() * 0.14;
+  const dur = 14 + Math.random() * 12;
+  const bg = isGold
+    ? `radial-gradient(circle at 35% 35%, rgba(229,199,126,${op+0.15}), rgba(201,160,71,${op}))`
+    : `radial-gradient(circle at 35% 35%, rgba(255,255,255,${op+0.18}), rgba(255,255,255,${op}))`;
+  const border = isGold ? `1px solid rgba(201,160,71,${op+0.1})` : `1px solid rgba(255,255,255,${op+0.15})`;
+  b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${bg};border:${border};--op:${op};animation-duration:${dur}s;animation-delay:${Math.random()*3}s;`;
+  b.innerHTML = '<div class="bubble-inner"></div>';
+  heroBubblesEl.appendChild(b);
+  setTimeout(() => b.remove(), (dur + 4) * 1000);
+}
+setInterval(spawnHeroBubble, 850);
+
+// ════════════════════════════════════════════════════════════
+// CHAMPAGNE POP SOUND
+// ════════════════════════════════════════════════════════════
+function playChampagneSound() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const now = ctx.currentTime;
+
+  const popOsc = ctx.createOscillator();
+  const popGain = ctx.createGain();
+  const popFilter = ctx.createBiquadFilter();
+  popOsc.type = 'sine';
+  popOsc.frequency.setValueAtTime(400, now);
+  popOsc.frequency.exponentialRampToValueAtTime(80, now + 0.12);
+  popGain.gain.setValueAtTime(0.5, now);
+  popGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+  popFilter.type = 'lowpass'; popFilter.frequency.value = 2000;
+  popOsc.connect(popFilter).connect(popGain).connect(ctx.destination);
+  popOsc.start(now); popOsc.stop(now + 0.2);
+
+  const noiseLen = ctx.sampleRate * 0.08;
+  const noiseBuf = ctx.createBuffer(1, noiseLen, ctx.sampleRate);
+  const nd = noiseBuf.getChannelData(0);
+  for (let i = 0; i < noiseLen; i++) nd[i] = (Math.random() * 2 - 1) * 0.8;
+  const noiseSrc = ctx.createBufferSource();
+  const noiseGain = ctx.createGain();
+  const noiseFilt = ctx.createBiquadFilter();
+  noiseSrc.buffer = noiseBuf;
+  noiseFilt.type = 'bandpass'; noiseFilt.frequency.value = 3000; noiseFilt.Q.value = 0.8;
+  noiseGain.gain.setValueAtTime(0.42, now);
+  noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+  noiseSrc.connect(noiseFilt).connect(noiseGain).connect(ctx.destination);
+  noiseSrc.start(now);
+
+  function fizzBubble(t, freq, dur, vol) {
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    const f = ctx.createBiquadFilter();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(freq, t);
+    o.frequency.exponentialRampToValueAtTime(freq * 0.7, t + dur);
+    f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = 2;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o.connect(f).connect(g).connect(ctx.destination);
+    o.start(t); o.stop(t + dur + 0.05);
+  }
+  const fizzStart = now + 0.12;
+  for (let i = 0; i < 50; i++) {
+    fizzBubble(
+      fizzStart + Math.random() * 2.2,
+      2000 + Math.random() * 5500,
+      0.03 + Math.random() * 0.08,
+      0.008 + Math.random() * 0.035
+    );
+  }
+
+  const fLen = ctx.sampleRate * 2.6;
+  const fBuf = ctx.createBuffer(1, fLen, ctx.sampleRate);
+  const fd = fBuf.getChannelData(0);
+  for (let i = 0; i < fLen; i++) fd[i] = Math.random() * 2 - 1;
+  const fSrc = ctx.createBufferSource();
+  const fGain = ctx.createGain();
+  const fFilt = ctx.createBiquadFilter();
+  fSrc.buffer = fBuf;
+  fFilt.type = 'highpass'; fFilt.frequency.value = 4000;
+  fGain.gain.setValueAtTime(0, fizzStart);
+  fGain.gain.linearRampToValueAtTime(0.05, fizzStart + 0.3);
+  fGain.gain.setValueAtTime(0.05, fizzStart + 0.9);
+  fGain.gain.exponentialRampToValueAtTime(0.001, fizzStart + 2.5);
+  fSrc.connect(fFilt).connect(fGain).connect(ctx.destination);
+  fSrc.start(fizzStart);
+  fSrc.stop(fizzStart + 2.7);
+}
+
+// ════════════════════════════════════════════════════════════
+// REVEAL OBSERVER
+// ════════════════════════════════════════════════════════════
+let revealObserver;
+function runRevealObserver() {
+  if (revealObserver) revealObserver.disconnect();
+  revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.classList.remove('visible');
+    revealObserver.observe(el);
+  });
+}
+runRevealObserver();
+
+// ════════════════════════════════════════════════════════════
+// CATALOGUE — Render accordion
+// ════════════════════════════════════════════════════════════
+function renderCatalogue() {
+  const wrap = document.getElementById('catalogue');
+  wrap.innerHTML = CATALOGUE.map((cat, idx) => `
+    <div class="cat-group" data-cat-id="${cat.id}">
+      <button class="cat-header" type="button" onclick="toggleCat('${cat.id}')">
+        <div class="cat-header-left">
+          <div class="cat-icon">${cat.icon}</div>
+          <div>
+            <span class="cat-title">${escapeHTML(cat.label)}</span>
+            <span class="cat-count">${cat.bottles.length} cuvée${cat.bottles.length > 1 ? 's' : ''}</span>
+          </div>
+        </div>
+        <svg class="cat-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="cat-body">
+        <div class="cat-body-inner">
+          <p class="cat-description">${escapeHTML(cat.description)}</p>
+          <div class="bottle-grid">
+            ${cat.bottles.map(b => renderBottleCard(b)).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderBottleCard(b) {
+  const isPlaceholder = b.image.endsWith('.svg');
+  const hasDiscount = b.priceHT_general && b.priceHT_general > b.priceHT;
+  const exclusiveTag = b.exclusive ? `<div class="bottle-cuvee" style="color:var(--ciel-fonce);font-style:italic;">${escapeHTML(b.exclusive)}</div>` : '';
+  return `
+    <div class="bottle-card" data-bottle-id="${b.id}">
+      ${hasDiscount ? `<div class="bottle-discount">Tarif ${escapeHTML(b.discount || '')}</div>` : ''}
+      <div class="bottle-brand">${escapeHTML(b.brand)}</div>
+      <div class="bottle-img-wrap">
+        <img src="${b.image}" alt="${escapeHTML(b.name)}" loading="lazy">
+        ${isPlaceholder ? '<span class="placeholder-note">illustration</span>' : ''}
+      </div>
+      <div class="bottle-name">${escapeHTML(b.name)}</div>
+      ${exclusiveTag}
+      <div class="bottle-price">
+        ${fmtEUR(b.priceHT)}
+        ${hasDiscount ? `<span class="strike">${fmtEUR(b.priceHT_general)}</span>` : ''}
+      </div>
+      <div class="bottle-price-unit">HT / bouteille 75 cl</div>
+      <button class="add-pack-btn" type="button" onclick="addPack('${b.id}', this)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Ajouter 1 pack (×6)
+      </button>
+    </div>
+  `;
+}
+
+function toggleCat(catId) {
+  document.querySelectorAll('.cat-group').forEach(g => {
+    if (g.dataset.catId === catId) g.classList.toggle('open');
+  });
+}
+
+// Open first category by default (called from renderCatalogue)
+function openFirstCategory() {
+  const first = document.querySelector('.cat-group');
+  if (first) first.classList.add('open');
+}
+
+// ════════════════════════════════════════════════════════════
+// CART
+// ════════════════════════════════════════════════════════════
+function addPack(bottleId, btn) {
+  const current = cart.get(bottleId) || { packs: 0 };
+  cart.set(bottleId, { packs: current.packs + 1 });
+  if (btn) {
+    btn.classList.remove('pack-pulse');
+    void btn.offsetWidth;
+    btn.classList.add('pack-pulse');
+  }
+  updateCartUI();
+}
+
+function changePacks(bottleId, delta) {
+  const current = cart.get(bottleId);
+  if (!current) return;
+  const newQty = current.packs + delta;
+  if (newQty <= 0) cart.delete(bottleId);
+  else cart.set(bottleId, { packs: newQty });
+  updateCartUI();
+}
+
+function removeBottle(bottleId) {
+  cart.delete(bottleId);
+  updateCartUI();
+}
+
+function getCartStats() {
+  let totalBottles = 0, totalPacks = 0, totalHT = 0;
+  for (const [id, line] of cart) {
+    const b = findBottle(id);
+    if (!b) continue;
+    totalPacks += line.packs;
+    totalBottles += line.packs * BOTTLES_PER_PACK;
+    totalHT += line.packs * BOTTLES_PER_PACK * b.priceHT;
+  }
+  return { totalBottles, totalPacks, totalHT };
+}
+
+function updateCartUI() {
+  const { totalBottles, totalPacks, totalHT } = getCartStats();
+
+  // Count badge
+  const countEl = document.getElementById('cartCount');
+  countEl.textContent = totalBottles;
+  countEl.classList.toggle('empty', totalBottles === 0);
+
+  // Head info
+  document.getElementById('cartHeadInfo').textContent =
+    totalBottles === 0
+      ? 'Aucune cuvée sélectionnée'
+      : `${totalBottles} bouteille${totalBottles > 1 ? 's' : ''} · ${totalPacks} pack${totalPacks > 1 ? 's' : ''}`;
+
+  // Progress bar
+  const pct = Math.min(100, (totalBottles / MIN_BOTTLES) * 100);
+  const progressBar = document.getElementById('cartProgressBar');
+  const progressWrap = document.getElementById('cartProgress');
+  progressBar.style.width = pct + '%';
+  progressWrap.classList.toggle('met', totalBottles >= MIN_BOTTLES);
+
+  // Body
+  const body = document.getElementById('cartBody');
+  if (cart.size === 0) {
+    body.innerHTML = `
+      <div class="cart-empty">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <h4>Panier vide</h4>
+        <p>Sélectionnez vos cuvées dans le catalogue pour commencer.</p>
+      </div>`;
+  } else {
+    body.innerHTML = Array.from(cart).map(([id, line]) => {
+      const b = findBottle(id);
+      if (!b) return '';
+      const lineTotal = line.packs * BOTTLES_PER_PACK * b.priceHT;
+      return `
+        <div class="cart-line">
+          <div class="cart-thumb"><img src="${b.image}" alt=""></div>
+          <div class="cart-line-info">
+            <div class="cart-line-brand">${escapeHTML(b.brand)}</div>
+            <div class="cart-line-name">${escapeHTML(b.name)}</div>
+            <div class="cart-pack-controls">
+              <button class="qty-btn" onclick="changePacks('${id}', -1)" aria-label="Retirer un pack">−</button>
+              <span class="qty-val">${line.packs}</span>
+              <button class="qty-btn" onclick="changePacks('${id}', 1)" aria-label="Ajouter un pack">+</button>
+              <span style="margin-left:0.4rem;">pack${line.packs > 1 ? 's' : ''}</span>
+            </div>
+            <div class="cart-line-meta">${line.packs * BOTTLES_PER_PACK} btl × ${fmtEUR(b.priceHT)} HT</div>
+          </div>
+          <div>
+            <div class="cart-line-price">${fmtEUR(lineTotal)}</div>
+            <a class="cart-line-remove" href="#" onclick="event.preventDefault();removeBottle('${id}')">Retirer</a>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  // Totals
+  document.getElementById('cartBottles').textContent = totalBottles;
+  document.getElementById('cartPacks').textContent = totalPacks;
+  document.getElementById('cartTotal').textContent = fmtEUR(totalHT);
+
+  // Status & validate button
+  const status = document.getElementById('cartStatus');
+  const validateBtn = document.getElementById('cartValidate');
+  if (totalBottles === 0) {
+    status.innerHTML = '';
+    validateBtn.disabled = true;
+  } else if (totalBottles < MIN_BOTTLES) {
+    const missing = MIN_BOTTLES - totalBottles;
+    status.innerHTML = `<div class="cart-min-warn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Encore ${missing} bouteille${missing > 1 ? 's' : ''} pour atteindre le minimum de commande.
+    </div>`;
+    validateBtn.disabled = true;
+  } else {
+    status.innerHTML = `<div class="cart-min-met">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Minimum atteint — livraison franco de port.
+    </div>`;
+    validateBtn.disabled = false;
+  }
+}
+
+// Cart toggle (mobile)
+const cartPanel = document.getElementById('cartPanel');
+const cartBackdrop = document.getElementById('cartBackdrop');
+document.getElementById('cartToggle').addEventListener('click', () => {
+  cartPanel.classList.add('open');
+  cartBackdrop.classList.add('open');
+});
+cartBackdrop.addEventListener('click', () => {
+  cartPanel.classList.remove('open');
+  cartBackdrop.classList.remove('open');
+});
+
+// ════════════════════════════════════════════════════════════
+// ORDER MODAL & FORM SUBMISSION
+// ════════════════════════════════════════════════════════════
+const modal = document.getElementById('orderModal');
+const modalClose = document.getElementById('modalClose');
+const btnCancelOrder = document.getElementById('btnCancelOrder');
+const btnSubmitOrder = document.getElementById('btnSubmitOrder');
+const orderForm = document.getElementById('orderForm');
+const formError = document.getElementById('formError');
+const formSuccess = document.getElementById('formSuccess');
+const kbisInput = document.getElementById('kbisInput');
+const fileDrop = document.getElementById('fileDrop');
+const fileLabel = document.getElementById('fileLabel');
+
+function openOrderModal() {
+  const { totalBottles, totalPacks, totalHT } = getCartStats();
+  document.getElementById('modalSummaryBottles').textContent = `${totalBottles} bouteilles`;
+  document.getElementById('modalSummaryPacks').textContent = `${totalPacks} packs`;
+  document.getElementById('modalSummaryTotal').textContent = fmtEUR(totalHT) + ' HT';
+  document.getElementById('cartSummaryHidden').value = buildCartSummary();
+  modal.classList.add('open');
+  document.body.classList.add('lock-scroll');
+}
+function closeOrderModal() {
+  modal.classList.remove('open');
+  document.body.classList.remove('lock-scroll');
+}
+
+document.getElementById('cartValidate').addEventListener('click', openOrderModal);
+modalClose.addEventListener('click', closeOrderModal);
+btnCancelOrder.addEventListener('click', closeOrderModal);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeOrderModal(); });
+
+// File upload UX
+kbisInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    if (file.size > 10 * 1024 * 1024) {
+      alert("Fichier trop volumineux (maximum 10 MB).");
+      kbisInput.value = '';
+      return;
+    }
+    fileLabel.textContent = file.name;
+    fileDrop.classList.add('has-file');
+  } else {
+    fileLabel.textContent = 'Glissez votre K-bis ici ou cliquez pour parcourir';
+    fileDrop.classList.remove('has-file');
+  }
+});
+['dragenter', 'dragover'].forEach(evt => fileDrop.addEventListener(evt, (e) => {
+  e.preventDefault(); fileDrop.classList.add('dragover');
+}));
+['dragleave', 'drop'].forEach(evt => fileDrop.addEventListener(evt, (e) => {
+  e.preventDefault(); fileDrop.classList.remove('dragover');
+}));
+fileDrop.addEventListener('drop', (e) => {
+  const dt = e.dataTransfer;
+  if (dt && dt.files && dt.files.length > 0) {
+    kbisInput.files = dt.files;
+    kbisInput.dispatchEvent(new Event('change'));
+  }
+});
+
+function buildCartSummary() {
+  const lines = [];
+  const { totalBottles, totalPacks, totalHT } = getCartStats();
+  lines.push('=== DÉTAIL DE LA COMMANDE ===');
+  lines.push('');
+  for (const [id, line] of cart) {
+    const b = findBottle(id);
+    if (!b) continue;
+    const btls = line.packs * BOTTLES_PER_PACK;
+    const lineTotal = btls * b.priceHT;
+    lines.push(`${b.brand} — ${b.name}`);
+    lines.push(`  ${line.packs} pack(s) × 6 = ${btls} bouteilles × ${fmtEUR(b.priceHT)} HT = ${fmtEUR(lineTotal)}`);
+    lines.push('');
+  }
+  lines.push('───────────────────────────');
+  lines.push(`Total : ${totalBottles} bouteilles (${totalPacks} packs)`);
+  lines.push(`Total HT : ${fmtEUR(totalHT)}`);
+  return lines.join('\n');
+}
+
+function validateSiren(s) { return /^\d{9}$/.test(s.replace(/\s/g, '')); }
+function validateSiret(s) { return /^\d{14}$/.test(s.replace(/\s/g, '')); }
+
+orderForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  formError.classList.remove('show');
+  formError.textContent = '';
+
+  const fd = new FormData(orderForm);
+  const siren = (fd.get('siren') || '').replace(/\s/g, '');
+  const siret = (fd.get('siret') || '').replace(/\s/g, '');
+
+  // Validation
+  if (!validateSiren(siren)) {
+    return showFormError("Le SIREN doit comporter exactement 9 chiffres.");
+  }
+  if (!validateSiret(siret)) {
+    return showFormError("Le SIRET doit comporter exactement 14 chiffres.");
+  }
+  if (!siret.startsWith(siren)) {
+    return showFormError("Le SIRET doit commencer par les 9 chiffres du SIREN.");
+  }
+  if (!kbisInput.files || kbisInput.files.length === 0) {
+    return showFormError("L'extrait K-bis est obligatoire.");
+  }
+
+  // Build email subject
+  const subject = `Nouvelle commande pro · ${fd.get('raison_sociale')} · ${getCartStats().totalBottles} btl`;
+
+  // Submission path
+  btnSubmitOrder.disabled = true;
+  btnSubmitOrder.textContent = "Envoi en cours…";
+
+  if (FORMSPREE_ENDPOINT) {
+    // Use Formspree (file attachment supported)
+    try {
+      fd.set('_subject', subject);
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: fd,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        showSuccess(fd.get('contact_name'));
+      } else {
+        throw new Error('Envoi échoué');
+      }
+    } catch (err) {
+      showFormError("L'envoi a échoué. Merci de réessayer ou de nous contacter directement à contact@lesbellesbulles.com.");
+      btnSubmitOrder.disabled = false;
+      btnSubmitOrder.textContent = "Envoyer la commande";
+    }
+  } else {
+    // Fallback: mailto (no file attachment possible)
+    const body = [
+      `INFORMATIONS ENTREPRISE`,
+      `Raison sociale : ${fd.get('raison_sociale')}`,
+      `SIREN : ${siren}`,
+      `SIRET : ${siret}`,
+      ``,
+      `CONTACT`,
+      `Nom : ${fd.get('contact_name')}`,
+      `Fonction : ${fd.get('contact_role') || '—'}`,
+      `Email : ${fd.get('email')}`,
+      `Téléphone : ${fd.get('phone')}`,
+      ``,
+      `LIVRAISON`,
+      `${fd.get('address')}`,
+      ``,
+      `COMMENTAIRE`,
+      `${fd.get('comment') || '—'}`,
+      ``,
+      buildCartSummary(),
+      ``,
+      `⚠️ Pensez à joindre l'extrait K-bis (${kbisInput.files[0].name}) à cet email avant de l'envoyer.`
+    ].join('\n');
+
+    const mailto = `mailto:contact@lesbellesbulles.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+    showSuccess(fd.get('contact_name'), true);
+  }
+});
+
+function showFormError(msg) {
+  formError.textContent = msg;
+  formError.classList.add('show');
+  btnSubmitOrder.disabled = false;
+  btnSubmitOrder.textContent = "Envoyer la commande";
+  formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function showSuccess(name, mailtoMode = false) {
+  orderForm.style.display = 'none';
+  formError.classList.remove('show');
+  formSuccess.innerHTML = mailtoMode
+    ? `<strong>Email préparé ${name ? `pour ${escapeHTML(name)}` : ''}.</strong>
+       Votre client mail vient de s'ouvrir avec les détails de la commande. <br><br>
+       <strong style="display:inline;font-family:var(--sans);font-size:0.92rem;">📎 N'oubliez pas de joindre votre extrait K-bis</strong> avant d'envoyer l'email.<br><br>
+       Si rien ne s'est ouvert, contactez-nous directement à <a href="mailto:contact@lesbellesbulles.com" style="color:var(--ciel-fonce);">contact@lesbellesbulles.com</a>.`
+    : `<strong>Commande envoyée${name ? `, ${escapeHTML(name)}` : ''} !</strong>
+       Nous avons bien reçu votre demande avec les pièces justificatives. Vous recevrez une confirmation par email sous 24 à 48&nbsp;h ouvrées.`;
+  formSuccess.classList.add('show');
+  // Clear cart after successful submission
+  setTimeout(() => {
+    if (!mailtoMode) {
+      cart.clear();
+      updateCartUI();
+    }
+  }, 1000);
+}
+
+// ════════════════════════════════════════════════════════════
+// SIREN/SIRET input sanitation
+// ════════════════════════════════════════════════════════════
+document.querySelectorAll('input[name="siren"], input[name="siret"]').forEach(input => {
+  input.addEventListener('input', (e) => {
+    let v = e.target.value.replace(/\D/g, '');
+    const isSiret = e.target.name === 'siret';
+    const max = isSiret ? 14 : 9;
+    v = v.slice(0, max);
+    // Add space every 3 digits for readability
+    e.target.value = v.replace(/(\d{3})(?=\d)/g, '$1 ').trim();
+  });
+});
+</script>
+</body>
+</html>
