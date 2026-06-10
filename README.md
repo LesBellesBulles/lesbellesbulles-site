@@ -1,147 +1,67 @@
-# Les Belles Bulles — Site web
+# Les Belles Bulles — Site v5
 
-Site web statique pour SAS Les Belles Bulles, prêt à déployer sur GitHub Pages.
+Refonte complète du site, orienté "vitrine" : présentation des Maisons et des cuvées, sans système de panier ni prix affichés. Le but est de pousser les visiteurs à prendre contact pour commander.
 
-## Structure des fichiers
+## Ce qui change par rapport à la v4
+
+### Structure
+- **Splash d'âge conservé** (avec son champagne pop)
+- **Splash Particulier/Entreprise supprimé** — site unifié pour tous les publics
+- **Système de panier et de commande retiré** — plus de prix affichés, plus de validation K-bis sur le site
+- **Aucune mention de Lanson International Distribution** — la sélection est présentée comme la nôtre propre
+
+### Nouvelles sections
+- **Notre Maison** — refondue avec lettrine, signature italique gold, et values block "Pourquoi nous choisir" (4 piliers)
+- **Nos Maisons** — 5 cartes (Lanson, Chanoine, Heidsieck, Tsarine, Massé), avec modale détaillée pour chaque (histoire, style, particularité, signature stripe Cépage/Style/Particularité)
+- **Nos Cuvées** — 9 cartes pédagogiques par type (Brut, Extra Brut, Sec & Demi-Sec, Rosé, Blanc de Blancs, Blanc de Noirs, Millésimés, Bio, Cuvées Prestige). Chaque carte contient un dosage/sous-titre, une description, et un encadré "À table" (accords mets).
+- **La Sélection** — galerie filtrable par Maison (Toutes / Lanson / Chanoine / Heidsieck / Tsarine / Massé), 30 cuvées affichées avec image et type, sans prix
+- **Conditions de commande** — bande beige avec 3 chiffres clés (6 bouteilles par pack, 4 packs minimum, 0€ de livraison franco)
+- **Services** — étoffée à 8 cartes : Conseil personnalisé, Disponibilité, Organisation d'événements, Réceptions privées, Dégustations commentées, Cadeaux d'entreprise, Accompagnement professionnel, Livraison soignée
+
+### Direction artistique
+- **Palette refondue** : blanc, crème, beige champagne, encre (navy), or — fini le sky blue dominant
+- **Hero typographique sur fond encre** — pas de banner-summer.jpg (qui jurerait avec le nouveau palette). Si tu veux conserver la bannière, je peux l'utiliser ailleurs comme bande de transition.
+- **"Champagne everyday" présent à 5 endroits** : splash, tagline sous logo dans nav, eyebrow du hero, section contact, signature footer
+- **Typographie nette** : Playfair Display + Lato, hiérarchie clarifiée avec eyebrows accompagnés de tirets or
+- **Animations** : reveal au scroll, bulles subtiles sur splash et hero, hover sur cartes (élévation + bordure or), transitions de filtre sur galerie
+
+## Fichiers
 
 ```
 .
-├── index.html              # Le site complet (un seul fichier)
-├── bottles/                # 31 photos/illustrations de bouteilles
-│   ├── lanson-*.png        # Lanson — photos réelles
-│   ├── lanson-noble-*.svg  # Noble Champagne — illustrations (à remplacer)
-│   ├── masse-brut.png      # Massé — photo réelle
-│   ├── tsarine-*.png       # Tsarine — photos réelles
-│   ├── tsarine-precision-n15.svg  # Précision N°15 — illustration (à remplacer)
-│   ├── chanoine-*.png      # Chanoine Frères — photos réelles
-│   └── heidsieck-*.svg     # Heidsieck & Co Monopole — illustrations (à remplacer)
-├── logo-summer.jpg         # Le logo (à conserver tel que dans votre repo actuel)
-└── banner-summer.jpg       # La bannière (à conserver tel que dans votre repo actuel)
+├── index.html              # Le site complet (un seul fichier ~1900 lignes)
+├── bottles/                # 31 visuels de bouteilles (réutilisés depuis la v4)
+└── logo-summer.jpg         # Le logo (à conserver depuis votre repo actuel)
 ```
 
-> ⚠️ **`logo-summer.jpg` et `banner-summer.jpg`** sont des placeholders dans le ZIP livré. Conservez vos fichiers actuels du dépôt GitHub — ne pas écraser.
-
-## Ce qui a été refondu
-
-### Direction artistique
-- Couleurs identiques (#34B2E5 + or)
-- Typographie identique (Playfair Display + Lato)
-- Rubriques identiques (Maison, Services, Champagnes, Événements, Contact)
-- **Moins de bulles** : retirées de toutes les sections, conservées sur splash + hero uniquement
-- **Coins moins arrondis** : 2-4px au lieu de 12-16px, finition plus pro
-- **L'or utilisé avec parcimonie** : devient un vrai accent au lieu d'être omniprésent
-- **Hiérarchie typographique nette** : eyebrows, titres serif, dividers or de 48px
-- **Sections enchaînées en bandeaux** : crème → blanc → ciel → blanc → crème
-
-### Nouvelles fonctionnalités
-
-#### 1. Double splash screen
-- **Splash 1** : vérification d'âge (avec son champagne pop)
-- **Splash 2** : choix Particulier / Entreprise
-
-#### 2. Site Particulier
-Refonte propre du site existant : maison + valeurs + 3 services + 4 types de champagnes + 3 types d'événements + contact avec équipe complète.
-
-#### 3. Site Entreprise (nouveau)
-- Catalogue par type en accordéon (8 catégories : Brut, Extra Brut, Sec & Demi-Sec, Rosé, Blanc de Blancs & Blanc de Noirs, Millésimés, Bio, Cuvées Prestige)
-- 31 cuvées des 5 maisons LID avec prix HT
-- Heidsieck affiche le **tarif CHR/Cavistes BtoB** (avec remise 34%) avec le prix général barré
-- Cuvées exclusives "Singulière" Tsarine signalées
-- Panier sticky avec gestion des packs de 6 (1 marque par pack)
-- Barre de progression vers le minimum 24 bouteilles
-- Bouton "Valider" qui n'est actif qu'au-delà de 24 bouteilles
-- Modal de validation avec : raison sociale, SIREN (9 chiffres), SIRET (14 chiffres, validation cohérence avec SIREN), upload K-bis (PDF/image, 10MB max, drag&drop), contact, adresse, commentaire
-- Récapitulatif de commande inclus automatiquement dans l'email
-
-## Configuration de l'envoi d'email
-
-Le formulaire de commande peut fonctionner en deux modes :
-
-### Mode A — Recommandé : Formspree (envoi automatique avec K-bis joint)
-
-1. Créez un compte gratuit sur **https://formspree.io** (50 envois/mois gratuits, suffit largement pour démarrer)
-2. Créez un nouveau formulaire avec `contact@lesbellesbulles.com` comme destination
-3. Copiez votre endpoint Formspree (format : `https://formspree.io/f/xyzabcde`)
-4. Dans `index.html`, repérez la ligne :
-   ```js
-   const FORMSPREE_ENDPOINT = "";
-   ```
-5. Remplacez par :
-   ```js
-   const FORMSPREE_ENDPOINT = "https://formspree.io/f/xyzabcde";
-   ```
-6. Commitez et pushez
-
-Avec cette configuration, le K-bis est joint automatiquement et l'email arrive immédiatement à `contact@lesbellesbulles.com`. C'est la configuration de production attendue.
-
-### Mode B — Fallback : `mailto:` (par défaut, sans configuration)
-
-Si `FORMSPREE_ENDPOINT` est vide (état initial), le bouton "Envoyer la commande" ouvre le client mail du client avec un email pré-rempli contenant toutes les informations de commande. **Le client doit joindre son K-bis manuellement** avant d'envoyer — un message d'instruction le lui rappelle.
-
-Mode utile pour démarrer rapidement, mais Mode A est fortement recommandé pour la production.
-
-## Photos manquantes à remplacer
-
-10 illustrations SVG ont été créées en placeholders pour les bouteilles dont aucune photo n'était disponible dans les PDF tarifs LID. À remplacer dès que vous obtenez les vraies photos auprès de Lanson International Distribution :
-
-**Heidsieck & Co Monopole** (5)
-- `bottles/heidsieck-blue-top.svg`
-- `bottles/heidsieck-white-top.svg`
-- `bottles/heidsieck-rose-top.svg`
-- `bottles/heidsieck-gold-top.svg`
-- `bottles/heidsieck-silver-top.svg`
-
-**Lanson Noble Champagne** (4)
-- `bottles/lanson-noble-brut.svg`
-- `bottles/lanson-noble-brut-coffret.svg`
-- `bottles/lanson-noble-bdb.svg`
-- `bottles/lanson-noble-bdb-coffret.svg`
-
-**Tsarine Prestige** (1)
-- `bottles/tsarine-precision-n15.svg`
-
-**Pour les remplacer :**
-1. Préparez des PNG transparents (hauteur ≈ 480px, format portrait)
-2. Sauvegardez-les avec le même nom mais en `.png` (ex. `heidsieck-blue-top.png`)
-3. Dans `index.html`, repérez chaque référence à `.svg` dans le catalogue (`const CATALOGUE`) et remplacez par `.png`
-4. Supprimez les `.svg` du dossier `bottles/`
-
-Les illustrations actuelles s'affichent avec une petite mention "illustration" pour indiquer qu'il ne s'agit pas de la photo officielle.
-
-## Mise à jour des prix
-
-Tous les prix sont dans la constante `CATALOGUE` (script en bas du fichier). Champs disponibles par bouteille :
-
-```js
-{
-  id: "lanson-black",
-  brand: "Lanson",
-  name: "Le Black Création",
-  image: "bottles/lanson-black-creation.png",
-  priceHT: 27.80,
-  priceHT_general: 25.90,   // optionnel : prix général barré (pour Heidsieck)
-  discount: "CHR",           // optionnel : badge de remise
-  exclusive: "Gamme Singulière — exclusivité CHR & Cavistes"  // optionnel : mention exclusivité
-}
-```
+Pas besoin de `banner-summer.jpg` ni `divider-summer.jpg` — le hero est typographique pur. Tu peux les laisser dans le repo, ils ne sont juste plus référencés.
 
 ## Déploiement
 
-Le site est 100% statique. Pour le déployer :
+Comme pour la v4 :
 
-1. Remplacez le `index.html` existant dans votre dépôt GitHub par celui-ci
-2. Créez le dossier `bottles/` et copiez les 31 fichiers dedans
-3. Conservez les `logo-summer.jpg` et `banner-summer.jpg` existants
-4. Commit + push → GitHub Pages déploie automatiquement
+1. **Backup la v4 actuelle** : sur GitHub, renomme `index.html` en `index-v4.html` avant d'uploader.
+2. **Upload le nouveau `index.html`** (depuis ce ZIP).
+3. **Le dossier `bottles/` est déjà en place** dans ton repo depuis la v4. Tu n'as rien à changer dessus.
+4. Pousse → GitHub Pages déploie en ~1 min.
 
-## Test local
+## Photos manquantes (à remplacer dès que LID t'envoie les vraies)
 
-Pour tester avant de pousser :
-```bash
-cd dossier-site/
-python3 -m http.server 8000
-# puis ouvrez http://localhost:8000
-```
+10 illustrations SVG restent en placeholders, identiques à la v4 :
+- Heidsieck : Blue Top, White Top, Silver Top, Rose Top, Gold Top
+- Lanson Noble Champagne : Brut, Brut Coffret, BdB, BdB Coffret
+- Tsarine Précision N°15
+
+Pour remplacer une illustration par une photo PNG :
+1. Renomme ta photo `heidsieck-blue-top.png` (par exemple)
+2. Place-la dans `bottles/`
+3. Dans `index.html`, recherche `bottles/heidsieck-blue-top.svg` et remplace `.svg` par `.png`
+
+## Contenu modifiable
+
+Toutes les présentations des Maisons sont dans la constante `MAISONS_DETAIL` au début du `<script>` en bas du fichier. Les paragraphes, la signature stripe et la mention "Notre sélection" sont éditables directement dans le code.
+
+La galerie est dans la constante `BOTTLES` — facile d'ajouter, retirer ou réordonner une bouteille.
 
 ---
 
