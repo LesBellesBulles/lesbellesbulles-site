@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les Belles Bulles — Champagne everyday</title>
+<meta name="description" content="Les Belles Bulles — Agent commercial indépendant. Une sélection de 5 Maisons de Champagne pour les particuliers et les professionnels. Conseil, événements, livraison.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lato:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* Palette refondue : blanc, encre, beige, or */
+  --blanc: #FFFFFF;
+  --creme: #FAF6EE;
+  --beige: #EDE3CE;
+  --beige-fonce: #D9C8A4;
+  --encre: #0E2746;
+  --encre-clair: #1F3A5C;
+  --encre-pale: rgba(14,39,70,0.05);
+  --or: #C9A047;
+  --or-clair: #E5C77E;
+  --or-pale: #F4E4B8;
+  --gris: #6B7588;
+  --gris-clair: #A89F8D;
+  --ligne: #E5DDD0;
+  --ligne-pale: #F0E9DA;
+
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+  --max-w: 1240px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--blanc);
+  color: var(--encre);
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  line-height: 1.65;
+}
+body.lock-scroll { overflow: hidden; }
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ════════════════════════════════════════
+   SPLASH — Age verification
+   ════════════════════════════════════════ */
+.splash {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--encre); overflow: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+.splash.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+.splash::before {
+  content: ''; position: absolute; inset: -10%;
+  background:
+    radial-gradient(circle at 25% 70%, rgba(201,160,71,0.22) 0%, transparent 50%),
+    radial-gradient(circle at 75% 30%, rgba(229,199,126,0.12) 0%, transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(14,39,70,0.6) 0%, transparent 55%);
+  animation: splashBg 16s ease-in-out infinite alternate;
+}
+@keyframes splashBg {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(-4%,2%) scale(1.08); }
+}
+.splash-bubbles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.s-bubble { position: absolute; border-radius: 50%; animation: sBubbleRise linear infinite; }
+@keyframes sBubbleRise {
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  12%  { opacity: var(--op); }
+  88%  { opacity: var(--op); }
+  100% { transform: translateY(-105vh) scale(0.6); opacity: 0; }
+}
+.splash-inner { position: relative; z-index: 2; text-align: center; padding: 2rem; max-width: 640px; }
+.splash-mark {
+  width: 68px; height: 68px; margin: 0 auto 2rem;
+  border: 1.5px solid rgba(229,199,126,0.45);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(10px);
+  animation: splashIn 0.9s 0.1s forwards ease;
+}
+.splash-logo {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.5rem, 6.5vw, 4rem);
+  color: var(--blanc); letter-spacing: 0.01em; line-height: 1.1; margin-bottom: 0.5rem;
+  opacity: 0; transform: translateY(15px); animation: splashIn 0.9s 0.25s forwards ease;
+}
+.splash-logo em { font-style: italic; color: var(--or-clair); }
+.splash-tag {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1rem; color: var(--or-clair);
+  margin-bottom: 3.5rem; letter-spacing: 0.02em;
+  opacity: 0; transform: translateY(15px); animation: splashIn 0.9s 0.45s forwards ease;
+}
+.splash-prompt { opacity: 0; transform: translateY(15px); animation: splashIn 0.9s 0.7s forwards ease; }
+.splash-question {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  color: var(--blanc); margin-bottom: 1.8rem;
+}
+.splash-actions { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
+.splash-btn {
+  font-family: var(--sans);
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--blanc); background: transparent;
+  border: 1.5px solid rgba(229,199,126,0.5);
+  padding: 1rem 2.6rem; border-radius: 2px;
+  transition: all 0.35s ease;
+}
+.splash-btn:hover { border-color: var(--or); background: rgba(201,160,71,0.16); transform: translateY(-2px); }
+.splash-btn.primary { background: var(--or); color: var(--encre); border-color: var(--or); }
+.splash-btn.primary:hover { background: var(--or-clair); border-color: var(--or-clair); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,160,71,0.3); }
+.splash-rejected {
+  font-family: var(--serif); color: rgba(255,255,255,0.85);
+  font-size: 1.1rem; margin-top: 1rem;
+  opacity: 0; animation: splashIn 0.6s forwards;
+}
+.splash-legal {
+  position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%);
+  font-size: 0.65rem; color: rgba(229,199,126,0.55);
+  letter-spacing: 0.06em; text-align: center; z-index: 2; width: 100%; padding: 0 1.5rem;
+}
+@keyframes splashIn { to { opacity: 1; transform: translateY(0); } }
+
+/* ════════════════════════════════════════
+   SITE WRAPPER
+   ════════════════════════════════════════ */
+.site { opacity: 0; transition: opacity 0.8s 0.3s ease; }
+.site.visible { opacity: 1; }
+.site:not(.visible) { pointer-events: none; }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
+
+/* ════════════════════════════════════════
+   NAVIGATION
+   ════════════════════════════════════════ */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 2.5rem;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--ligne);
+  transition: all 0.4s ease;
+}
+.site-nav.scrolled {
+  padding: 0.85rem 2.5rem;
+  box-shadow: 0 1px 12px rgba(14,39,70,0.04);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 0.8rem;
+  color: var(--encre);
+}
+.nav-brand img { height: 40px; width: auto; transition: height 0.4s; }
+.site-nav.scrolled .nav-brand img { height: 34px; }
+.nav-brand-text {
+  display: flex; flex-direction: column; line-height: 1;
+}
+.nav-brand-name {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 1.12rem; letter-spacing: 0.02em;
+}
+.nav-brand-tag {
+  font-family: var(--serif); font-style: italic;
+  font-size: 0.68rem; color: var(--or);
+  letter-spacing: 0.06em;
+  margin-top: 3px;
+}
+.nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
+.nav-links a {
+  font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--encre); position: relative;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 1.5px; background: var(--or);
+  transition: width 0.3s;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--or); }
+.nav-links a.nav-cta {
+  background: var(--encre); color: var(--blanc);
+  padding: 0.65rem 1.2rem;
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  transition: all 0.3s;
+}
+.nav-links a.nav-cta::after { display: none !important; }
+.nav-links a.nav-cta:hover { background: var(--or); color: var(--blanc); transform: translateY(-1px); }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; }
+.nav-hamburger span { width: 22px; height: 1.5px; background: var(--encre); transition: 0.3s; }
+
+/* ════════════════════════════════════════
+   HERO — Dark editorial, typography-driven
+   ════════════════════════════════════════ */
+.hero {
+  position: relative;
+  background: var(--encre);
+  color: var(--blanc);
+  padding: 10rem 2rem 7rem;
+  overflow: hidden;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(201,160,71,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 90%, rgba(229,199,126,0.10) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-bubbles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.h-bubble {
+  position: absolute; border-radius: 50%;
+  animation: heroBubble linear infinite;
+}
+@keyframes heroBubble {
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  10%  { opacity: var(--op); }
+  85%  { opacity: var(--op); }
+  100% { transform: translateY(-110vh) scale(0.5); opacity: 0; }
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: var(--max-w); margin: 0 auto;
+  width: 100%;
+}
+.hero-eyebrow {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.05rem; color: var(--or-clair);
+  letter-spacing: 0.02em;
+  margin-bottom: 1.8rem;
+  display: flex; align-items: center; gap: 1.2rem;
+  opacity: 0; transform: translateY(15px);
+  animation: heroIn 0.9s 0.2s forwards ease;
+}
+.hero-eyebrow::before {
+  content: ''; width: 40px; height: 1px; background: var(--or);
+}
+.hero h1 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.8rem, 6.5vw, 5.4rem);
+  line-height: 1.04; letter-spacing: -0.01em;
+  margin-bottom: 2rem;
+  max-width: 900px;
+  opacity: 0; transform: translateY(20px);
+  animation: heroIn 1s 0.35s forwards ease;
+}
+.hero h1 em {
+  font-style: italic; color: var(--or-clair);
+  position: relative;
+}
+.hero-lead {
+  font-size: clamp(1.05rem, 1.6vw, 1.18rem);
+  color: rgba(255,255,255,0.78); font-weight: 400;
+  max-width: 600px; line-height: 1.8;
+  margin-bottom: 3rem;
+  opacity: 0; transform: translateY(20px);
+  animation: heroIn 1s 0.55s forwards ease;
+}
+.hero-ctas {
+  display: flex; gap: 0.8rem; flex-wrap: wrap;
+  opacity: 0; transform: translateY(20px);
+  animation: heroIn 1s 0.75s forwards ease;
+}
+.hero-scroll {
+  position: absolute; bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
+  color: rgba(229,199,126,0.7);
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  opacity: 0;
+  animation: heroIn 1s 1s forwards ease, scrollPulse 2s 2s infinite;
+}
+.hero-scroll::after {
+  content: ''; width: 1px; height: 38px;
+  background: linear-gradient(to bottom, var(--or-clair), transparent);
+}
+@keyframes scrollPulse {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+@keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
+
+/* ════════════════════════════════════════
+   BUTTONS & UTILITIES
+   ════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+  font-family: var(--sans);
+  font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 1.05rem 2.1rem;
+  border-radius: 2px;
+  transition: all 0.35s ease;
+  white-space: nowrap;
+}
+.btn-or { background: var(--or); color: var(--encre); }
+.btn-or:hover { background: var(--or-clair); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,160,71,0.32); }
+.btn-encre { background: var(--encre); color: var(--blanc); }
+.btn-encre:hover { background: var(--or); transform: translateY(-2px); }
+.btn-light-ghost {
+  background: transparent; color: var(--blanc);
+  border: 1.5px solid rgba(255,255,255,0.4);
+}
+.btn-light-ghost:hover { border-color: var(--or); background: rgba(201,160,71,0.12); transform: translateY(-2px); }
+.btn-dark-ghost {
+  background: transparent; color: var(--encre);
+  border: 1.5px solid var(--encre);
+}
+.btn-dark-ghost:hover { background: var(--encre); color: var(--blanc); transform: translateY(-2px); }
+.btn-arrow svg { transition: transform 0.3s; }
+.btn-arrow:hover svg { transform: translateX(4px); }
+
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.36em; text-transform: uppercase;
+  color: var(--or); margin-bottom: 1rem;
+  display: inline-flex; align-items: center; gap: 0.8rem;
+}
+.eyebrow::before {
+  content: ''; width: 30px; height: 1px; background: var(--or);
+}
+.eyebrow.no-line::before { display: none; }
+.eyebrow.center { display: flex; justify-content: center; }
+.eyebrow.center::before { display: none; }
+
+h2.section-h {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.1rem, 4vw, 3.1rem);
+  color: var(--encre); line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.2rem;
+}
+h2.section-h em { font-style: italic; color: var(--or); }
+
+.lead {
+  font-size: 1.06rem; color: var(--gris);
+  line-height: 1.85; font-weight: 400;
+  max-width: 640px;
+}
+.lead.center { margin-left: auto; margin-right: auto; text-align: center; }
+
+.divider-mark {
+  display: flex; align-items: center; gap: 0.8rem;
+  margin: 1.6rem 0 2rem;
+}
+.divider-mark::before, .divider-mark::after {
+  content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--or);
+}
+.divider-mark svg { color: var(--or); }
+.divider-mark.left::before { display: none; }
+.divider-mark.left { justify-content: flex-start; }
+.divider-mark.left::after { max-width: 60px; }
+
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.9s ease, transform 0.9s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.22s; }
+.reveal.d3 { transition-delay: 0.34s; }
+.reveal.d4 { transition-delay: 0.46s; }
+.reveal.d5 { transition-delay: 0.58s; }
+
+/* ════════════════════════════════════════
+   SECTIONS — Base
+   ════════════════════════════════════════ */
+section.s { padding: 7rem 2rem; position: relative; }
+section.s.bg-white { background: var(--blanc); }
+section.s.bg-creme { background: var(--creme); }
+section.s.bg-beige { background: var(--beige); }
+section.s.bg-encre { background: var(--encre); color: var(--blanc); }
+section.s.bg-encre .eyebrow { color: var(--or-clair); }
+section.s.bg-encre h2.section-h { color: var(--blanc); }
+section.s.bg-encre h2.section-h em { color: var(--or-clair); }
+section.s.bg-encre .lead { color: rgba(255,255,255,0.78); }
+
+.section-head { max-width: 720px; margin: 0 auto 4rem; text-align: center; }
+.section-head.left { margin-left: 0; text-align: left; }
+
+/* ════════════════════════════════════════
+   NOTRE MAISON
+   ════════════════════════════════════════ */
+.maison-grid {
+  display: grid; grid-template-columns: 1.1fr 1fr;
+  gap: 5rem; align-items: center;
+}
+.maison-text-block p {
+  font-size: 1.05rem; line-height: 1.9;
+  color: var(--encre-clair); margin-bottom: 1.4rem;
+  font-weight: 400;
+}
+.maison-text-block p:first-of-type::first-letter {
+  font-family: var(--serif);
+  font-size: 3.6rem; line-height: 0.9;
+  color: var(--or); font-weight: 500;
+  float: left; padding-right: 0.6rem; padding-top: 0.4rem;
+}
+.maison-text-block .signature {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.4rem; color: var(--or);
+  margin-top: 1.8rem; line-height: 1.4;
+}
+.maison-text-block .signature::before {
+  content: '"'; font-size: 2.2rem; color: var(--or);
+  margin-right: 0.3rem; line-height: 0;
+  vertical-align: -0.4em;
+}
+
+.values-block {
+  background: var(--creme);
+  padding: 3rem 2.5rem;
+  border-left: 3px solid var(--or);
+  position: relative;
+}
+.values-block::before {
+  content: ''; position: absolute;
+  top: 0; right: 0; width: 60px; height: 60px;
+  background:
+    linear-gradient(135deg, transparent 50%, var(--or-pale) 50%);
+  opacity: 0.5;
+}
+.values-block h3 {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 1.35rem; color: var(--encre);
+  margin-bottom: 1.5rem;
+}
+.values-list { display: flex; flex-direction: column; gap: 1.4rem; }
+.value-row { display: flex; gap: 1.1rem; align-items: flex-start; }
+.value-num {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.5rem; color: var(--or);
+  line-height: 1; min-width: 36px;
+  padding-top: 2px;
+}
+.value-row h4 {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 1.05rem; color: var(--encre);
+  margin-bottom: 0.25rem;
+}
+.value-row p {
+  font-size: 0.95rem; color: var(--gris);
+  line-height: 1.6;
+}
+
+/* ════════════════════════════════════════
+   NOS MAISONS — Card grid with expandable detail
+   ════════════════════════════════════════ */
+.maisons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 1240px; margin: 0 auto;
+}
+.maison-card {
+  background: var(--blanc);
+  border: 1px solid var(--ligne);
+  padding: 2.2rem 1.6rem 2rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.maison-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 3px; background: var(--or);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s ease;
+}
+.maison-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(14,39,70,0.08);
+  border-color: var(--or);
+}
+.maison-card:hover::before { transform: scaleX(1); }
+.maison-card.featured { background: var(--encre); color: var(--blanc); border-color: var(--encre); }
+.maison-card.featured .m-card-year { color: var(--or-clair); }
+.maison-card.featured .m-card-name { color: var(--blanc); }
+.maison-card.featured .m-card-city { color: rgba(255,255,255,0.65); }
+.maison-card.featured .m-card-style { color: rgba(255,255,255,0.78); }
+.maison-card.featured .m-card-more { color: var(--or-clair); }
+
+.m-card-year {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.45rem; color: var(--or);
+  line-height: 1;
+  margin-bottom: 0.8rem;
+}
+.m-card-name {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 1.45rem; color: var(--encre);
+  line-height: 1.15;
+  margin-bottom: 0.3rem;
+}
+.m-card-city {
+  font-size: 0.7rem; color: var(--gris);
+  letter-spacing: 0.16em; text-transform: uppercase;
+  margin-bottom: 1.3rem;
+}
+.m-card-style {
+  font-size: 0.94rem; color: var(--encre-clair);
+  line-height: 1.65;
+  margin-bottom: 1.3rem;
+}
+.m-card-more {
+  font-size: 0.66rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--or);
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  transition: gap 0.3s;
+}
+.maison-card:hover .m-card-more { gap: 0.8rem; }
+
+/* Maison detail modal */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(14,39,70,0.78);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center; justify-content: center;
+  padding: 2rem 1rem;
+  opacity: 0; transition: opacity 0.4s;
+}
+.modal-overlay.open { display: flex; opacity: 1; }
+.modal {
+  background: var(--blanc);
+  max-width: 720px; width: 100%;
+  max-height: 88vh; overflow-y: auto;
+  position: relative;
+  transform: translateY(20px); transition: transform 0.4s;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-close {
+  position: absolute; top: 1.2rem; right: 1.2rem;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gris); background: var(--creme);
+  transition: all 0.3s; z-index: 2;
+}
+.modal-close:hover { color: var(--blanc); background: var(--encre); transform: rotate(90deg); }
+.modal-banner {
+  background: var(--encre); color: var(--blanc);
+  padding: 2.5rem 2.5rem 2rem; position: relative;
+}
+.modal-banner::after {
+  content: ''; position: absolute; bottom: 0; left: 2.5rem;
+  width: 60px; height: 3px; background: var(--or);
+}
+.modal-banner .year {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.3rem; color: var(--or-clair);
+  margin-bottom: 0.4rem;
+}
+.modal-banner h2 {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 2.2rem; line-height: 1.1;
+  margin-bottom: 0.4rem;
+}
+.modal-banner .city {
+  font-size: 0.75rem; letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+}
+.modal-body { padding: 2.2rem 2.5rem 2.5rem; }
+.modal-body p {
+  font-size: 1rem; line-height: 1.85;
+  color: var(--encre-clair);
+  margin-bottom: 1.2rem;
+}
+.modal-body .signature-stripe {
+  display: flex; gap: 1.5rem; flex-wrap: wrap;
+  background: var(--creme);
+  padding: 1.2rem 1.4rem;
+  margin: 1.8rem 0;
+  border-left: 3px solid var(--or);
+}
+.modal-body .signature-item .label {
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--or); margin-bottom: 0.2rem;
+}
+.modal-body .signature-item .value {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 0.98rem; color: var(--encre);
+}
+.modal-body h3 {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 1.15rem; color: var(--encre);
+  margin: 1.6rem 0 0.8rem;
+}
+
+/* ════════════════════════════════════════
+   NOS CUVÉES — Type cards
+   ════════════════════════════════════════ */
+.cuvees-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.3rem;
+  max-width: 1180px; margin: 0 auto;
+}
+.cuvee-card {
+  background: var(--blanc);
+  padding: 2.2rem 1.8rem;
+  border: 1px solid var(--ligne);
+  transition: all 0.4s ease;
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+}
+.cuvee-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0;
+  width: 0; height: 2px; background: var(--or);
+  transition: width 0.5s ease;
+}
+.cuvee-card:hover {
+  border-color: var(--or);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(14,39,70,0.07);
+}
+.cuvee-card:hover::after { width: 100%; }
+.cuvee-icon {
+  width: 50px; height: 50px;
+  background: var(--creme);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--or);
+  margin-bottom: 1.4rem;
+  transition: all 0.4s;
+}
+.cuvee-card:hover .cuvee-icon { background: var(--or); color: var(--blanc); }
+.cuvee-card h3 {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 1.35rem; color: var(--encre);
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+}
+.cuvee-card .cuvee-sub {
+  font-family: var(--serif); font-style: italic;
+  font-size: 0.85rem; color: var(--or);
+  margin-bottom: 1rem;
+}
+.cuvee-card p {
+  font-size: 0.95rem; color: var(--gris);
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+  flex-grow: 1;
+}
+.cuvee-pairing {
+  font-size: 0.75rem; color: var(--encre-clair);
+  background: var(--creme);
+  padding: 0.7rem 0.95rem;
+  border-left: 2px solid var(--or);
+  line-height: 1.55;
+}
+.cuvee-pairing strong {
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--or);
+  display: block; margin-bottom: 0.3rem;
+}
+
+/* ════════════════════════════════════════
+   LA SÉLECTION — Bottle gallery
+   ════════════════════════════════════════ */
+.gallery-filters {
+  display: flex; gap: 0.6rem; justify-content: center;
+  margin-bottom: 3rem; flex-wrap: wrap;
+}
+.filter-btn {
+  font-family: var(--sans);
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.7rem 1.3rem;
+  background: transparent;
+  color: var(--encre);
+  border: 1px solid var(--ligne);
+  transition: all 0.3s;
+}
+.filter-btn:hover { border-color: var(--or); color: var(--or); }
+.filter-btn.active { background: var(--encre); color: var(--blanc); border-color: var(--encre); }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  max-width: 1180px; margin: 0 auto;
+}
+.bottle-tile {
+  background: var(--blanc);
+  border: 1px solid var(--ligne);
+  padding: 1.4rem 1rem 1.2rem;
+  text-align: center;
+  transition: all 0.4s ease;
+  cursor: default;
+  display: flex; flex-direction: column;
+}
+.bottle-tile:hover {
+  border-color: var(--or);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(14,39,70,0.08);
+}
+.bottle-tile.hidden { display: none; }
+.bottle-img {
+  height: 220px;
+  display: flex; align-items: flex-end; justify-content: center;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.bottle-img img { max-height: 100%; max-width: 100%; object-fit: contain; transition: transform 0.5s; }
+.bottle-tile:hover .bottle-img img { transform: translateY(-4px); }
+.bottle-img .placeholder-note {
+  position: absolute; bottom: 0; right: 0;
+  font-size: 0.55rem; color: var(--gris-clair);
+  letter-spacing: 0.05em;
+}
+.bottle-house {
+  font-size: 0.6rem; color: var(--or);
+  font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+.bottle-tile h4 {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 0.96rem; color: var(--encre);
+  line-height: 1.3;
+  min-height: 2.5em;
+}
+.bottle-tile .bottle-type {
+  font-size: 0.74rem; color: var(--gris);
+  font-style: italic;
+  margin-top: 0.4rem;
+}
+
+/* ════════════════════════════════════════
+   CONDITIONS DE COMMANDE — Highlighted band
+   ════════════════════════════════════════ */
+.conditions-band {
+  background: var(--beige);
+  padding: 5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.conditions-band::before, .conditions-band::after {
+  content: ''; position: absolute;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: var(--or-pale); opacity: 0.4;
+  pointer-events: none;
+}
+.conditions-band::before { top: -100px; right: -50px; }
+.conditions-band::after { bottom: -100px; left: -50px; }
+.conditions-inner {
+  position: relative; z-index: 2;
+  max-width: 1100px; margin: 0 auto;
+}
+.conditions-head { text-align: center; margin-bottom: 3.5rem; }
+.conditions-head h2 { color: var(--encre); }
+.conditions-head .lead { color: var(--encre-clair); }
+.conditions-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.3rem;
+}
+.condition-card {
+  background: var(--blanc);
+  padding: 2rem 1.6rem;
+  text-align: center;
+  border: 1px solid rgba(201,160,71,0.3);
+  transition: all 0.4s;
+}
+.condition-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--or);
+  box-shadow: 0 12px 28px rgba(14,39,70,0.06);
+}
+.condition-num {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 3rem; color: var(--or);
+  line-height: 1; margin-bottom: 0.5rem;
+}
+.condition-card h4 {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 1.15rem; color: var(--encre);
+  margin-bottom: 0.6rem;
+}
+.condition-card p {
+  font-size: 0.93rem; color: var(--gris);
+  line-height: 1.65;
+}
+
+/* ════════════════════════════════════════
+   SERVICES — Expanded
+   ════════════════════════════════════════ */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.3rem;
+}
+.service-card {
+  background: var(--blanc);
+  padding: 2.4rem 1.9rem;
+  border: 1px solid var(--ligne);
+  position: relative; overflow: hidden;
+  transition: all 0.4s;
+}
+.service-card:hover {
+  border-color: var(--or);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(14,39,70,0.08);
+}
+.service-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 0; height: 2px; background: var(--or);
+  transition: width 0.5s;
+}
+.service-card:hover::before { width: 100%; }
+.service-card .num {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.85rem; color: var(--or);
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+.service-card h3 {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 1.25rem; color: var(--encre);
+  margin-bottom: 0.7rem;
+  line-height: 1.25;
+}
+.service-card p {
+  font-size: 0.97rem; color: var(--gris);
+  line-height: 1.75;
+}
+
+/* ════════════════════════════════════════
+   CONTACT
+   ════════════════════════════════════════ */
+.contact-cta {
+  background: var(--encre); color: var(--blanc);
+  padding: 5rem 3rem;
+  text-align: center;
+  margin: 0 auto 4rem;
+  max-width: 920px;
+  position: relative;
+  overflow: hidden;
+}
+.contact-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 75% 30%, rgba(201,160,71,0.18) 0%, transparent 55%);
+  pointer-events: none;
+}
+.contact-cta-inner { position: relative; z-index: 2; }
+.contact-cta .eyebrow { color: var(--or-clair); }
+.contact-cta .eyebrow.center::before { display: none; }
+.contact-cta h2 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+  color: var(--blanc); line-height: 1.2;
+  margin-bottom: 1.3rem;
+  letter-spacing: -0.01em;
+}
+.contact-cta h2 em { color: var(--or-clair); font-style: italic; }
+.contact-cta p {
+  font-size: 1.04rem; color: rgba(255,255,255,0.78);
+  max-width: 540px; margin: 0 auto 2.4rem;
+  line-height: 1.75;
+}
+.contact-email-large {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+  color: var(--or-clair); display: inline-block;
+  padding-bottom: 4px; position: relative;
+  margin-bottom: 2rem;
+}
+.contact-email-large::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 1px;
+  background: var(--or-clair);
+  transform: scaleX(0.4); transform-origin: left;
+  transition: transform 0.4s;
+}
+.contact-email-large:hover::after { transform: scaleX(1); }
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  max-width: 1000px; margin: 0 auto;
+}
+.team-card {
+  background: var(--blanc);
+  padding: 1.7rem 1.5rem;
+  border: 1px solid var(--ligne);
+  border-left: 3px solid transparent;
+  transition: all 0.4s;
+}
+.team-card:hover {
+  border-left-color: var(--or);
+  box-shadow: 0 8px 20px rgba(14,39,70,0.06);
+  transform: translateY(-3px);
+}
+.team-name {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 1.1rem; color: var(--encre);
+  margin-bottom: 0.25rem;
+}
+.team-role {
+  font-size: 0.78rem; color: var(--or);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.9rem;
+  font-weight: 600;
+}
+.team-phone {
+  font-size: 0.92rem; color: var(--gris); font-weight: 400;
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  transition: color 0.3s;
+}
+.team-phone:hover { color: var(--encre); }
+
+footer.site-footer {
+  background: var(--encre); color: rgba(255,255,255,0.6);
+  padding: 2rem 2rem 1.5rem;
+}
+.footer-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; flex-wrap: wrap;
+}
+.footer-brand {
+  display: flex; flex-direction: column; line-height: 1.2;
+}
+.footer-brand strong {
+  font-family: var(--serif); font-weight: 500;
+  color: var(--blanc); font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+.footer-brand em {
+  font-family: var(--serif); font-style: italic;
+  color: var(--or-clair); font-size: 0.78rem;
+}
+.footer-meta {
+  text-align: right;
+  font-size: 0.72rem; letter-spacing: 0.06em;
+  line-height: 1.7;
+}
+.footer-legal {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 1.2rem; margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.66rem; color: rgba(255,255,255,0.4);
+  letter-spacing: 0.05em;
+}
+
+/* ════════════════════════════════════════
+   MOBILE
+   ════════════════════════════════════════ */
+@media (max-width: 980px) {
+  .site-nav { padding: 0.9rem 1.4rem; }
+  .nav-links {
+    display: none;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--blanc);
+    flex-direction: column;
+    padding: 1.5rem 2rem;
+    gap: 1.2rem;
+    border-bottom: 1px solid var(--ligne);
+    box-shadow: 0 6px 20px rgba(14,39,70,0.08);
+  }
+  .nav-links.open { display: flex; }
+  .nav-hamburger { display: flex; }
+  .nav-brand-text { display: none; }
+  .nav-brand img { height: 36px !important; }
+
+  .hero { padding: 7rem 1.5rem 5rem; min-height: 70vh; }
+  .hero-scroll { display: none; }
+
+  section.s { padding: 4.5rem 1.5rem; }
+  .section-head { margin-bottom: 3rem; }
+
+  .maison-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .values-block { padding: 2rem 1.6rem; }
+
+  .maisons-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+  .conditions-band { padding: 3.5rem 1.5rem; }
+  .conditions-cards { grid-template-columns: 1fr; }
+
+  .contact-cta { padding: 3.5rem 1.8rem; }
+
+  .modal-banner { padding: 2rem 1.8rem 1.6rem; }
+  .modal-body { padding: 1.8rem 1.8rem 2rem; }
+  .modal-banner h2 { font-size: 1.7rem; }
+
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-meta { text-align: center; }
+}
+@media (max-width: 580px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  .bottle-img { height: 160px; }
+  .bottle-tile h4 { font-size: 0.86rem; }
+  .gallery-filters { gap: 0.4rem; }
+  .filter-btn { padding: 0.55rem 0.9rem; font-size: 0.62rem; letter-spacing: 0.14em; }
+}
+</style>
+</head>
+<body class="lock-scroll">
+
+<!-- ═══ SPLASH (Age) ═══ -->
+<div id="splash-age" class="splash">
+  <div class="splash-bubbles" id="splashBubbles"></div>
+  <div class="splash-inner">
+    <div class="splash-mark">
+      <svg width="36" height="36" viewBox="0 0 68 68" fill="none">
+        <ellipse cx="34" cy="8" rx="8" ry="2.5" stroke="#E5C77E" stroke-width="1.2" fill="none"/>
+        <path d="M26 8 C26 8 25 28 31 34 L32 36 L32 50" stroke="#E5C77E" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M42 8 C42 8 43 28 37 34 L36 36 L36 50" stroke="#E5C77E" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="34" cy="52" rx="9" ry="2.5" stroke="#E5C77E" stroke-width="1.2" fill="rgba(229,199,126,0.1)"/>
+        <circle cx="32" cy="22" r="1" fill="rgba(255,255,255,0.6)"/>
+        <circle cx="35" cy="17" r="0.8" fill="rgba(255,255,255,0.5)"/>
+        <circle cx="33" cy="12" r="0.6" fill="rgba(255,255,255,0.4)"/>
+      </svg>
+    </div>
+    <h1 class="splash-logo">Les Belles <em>Bulles</em></h1>
+    <p class="splash-tag">Champagne everyday</p>
+    <div class="splash-prompt" id="agePrompt">
+      <p class="splash-question">Avez-vous l'âge légal pour consommer de l'alcool ?</p>
+      <div class="splash-actions">
+        <button class="splash-btn primary" id="btnAgeOui">Oui, j'entre</button>
+        <button class="splash-btn" id="btnAgeNon">Non</button>
+      </div>
+    </div>
+    <div class="splash-rejected" id="ageRejected" style="display:none;">
+      Vous devez avoir l'âge légal pour accéder à ce site.
+    </div>
+  </div>
+  <p class="splash-legal">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
+</div>
+
+
+<!-- ═══ SITE ═══ -->
+<div id="site" class="site">
+
+<!-- ═══ NAV ═══ -->
+<nav class="site-nav" id="siteNav">
+  <a href="#" class="nav-brand" onclick="scrollTo({top:0,behavior:'smooth'});return false;">
+    <img src="logo-summer.jpg" alt="Les Belles Bulles">
+    <div class="nav-brand-text">
+      <span class="nav-brand-name">Les Belles Bulles</span>
+      <span class="nav-brand-tag">Champagne everyday</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#maison">La Maison</a></li>
+    <li><a href="#maisons">Nos Maisons</a></li>
+    <li><a href="#cuvees">Nos Cuvées</a></li>
+    <li><a href="#selection">La Sélection</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="hero-bubbles" id="heroBubbles"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Champagne everyday — depuis Paris</p>
+    <h1>L'art du champagne,<br><em>en toute simplicité</em></h1>
+    <p class="hero-lead">Agent commercial indépendant, nous sélectionnons pour vous cinq Maisons d'exception et négocions des conditions privilégiées — pour les particuliers comme pour les professionnels.</p>
+    <div class="hero-ctas">
+      <a href="#maisons" class="btn btn-or btn-arrow">
+        Découvrir nos Maisons
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#contact" class="btn btn-light-ghost">Prendre contact</a>
+    </div>
+  </div>
+  <a href="#maison" class="hero-scroll">Découvrir</a>
+</header>
+
+<!-- ═══ NOTRE MAISON ═══ -->
+<section class="s bg-white" id="maison">
+  <div class="container">
+    <div class="maison-grid">
+      <div>
+        <p class="eyebrow reveal">Notre Maison</p>
+        <h2 class="section-h reveal d1">Le champagne, <em>autrement</em></h2>
+        <div class="maison-text-block reveal d2">
+          <p>Les Belles Bulles est née d'une conviction&nbsp;: le grand champagne ne doit pas être un luxe inaccessible. En tant qu'agent commercial indépendant, nous travaillons en direct avec les Maisons que nous avons choisies et négocions des conditions privilégiées pour nos clients — particuliers comme professionnels.</p>
+          <p>Notre approche tient en trois gestes&nbsp;: connaître chaque cuvée à fond, écouter chaque besoin avec attention, et faire rencontrer les deux avec justesse. Pas de catalogue impersonnel — un conseil sur-mesure, une relation, et le plaisir de partager.</p>
+          <p class="signature">Le champagne au quotidien, parce que les beaux moments ne devraient pas attendre.</p>
+        </div>
+      </div>
+      <div class="reveal d3">
+        <div class="values-block">
+          <h3>Pourquoi nous choisir</h3>
+          <div class="values-list">
+            <div class="value-row">
+              <div class="value-num">01</div>
+              <div>
+                <h4>Conditions négociées</h4>
+                <p>Tarifs en direct des Maisons, sans intermédiaire, pour faire profiter nos clients des meilleures conditions.</p>
+              </div>
+            </div>
+            <div class="value-row">
+              <div class="value-num">02</div>
+              <div>
+                <h4>Conseil sur-mesure</h4>
+                <p>Une équipe joignable, à votre écoute, qui connaît chaque cuvée et chaque accord. Aucune commande sans conversation.</p>
+              </div>
+            </div>
+            <div class="value-row">
+              <div class="value-num">03</div>
+              <div>
+                <h4>Sélection exigeante</h4>
+                <p>Cinq Maisons, chacune pour son caractère et son histoire. Pas de catalogue interminable — l'essentiel, bien choisi.</p>
+              </div>
+            </div>
+            <div class="value-row">
+              <div class="value-num">04</div>
+              <div>
+                <h4>Livraison soignée</h4>
+                <p>Chaque commande expédiée dans les meilleures conditions, partout en France. Franco de port au-delà de 24 bouteilles.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NOS MAISONS PARTENAIRES ═══ -->
+<section class="s bg-creme" id="maisons">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow center">Nos Maisons</p>
+      <h2 class="section-h">Cinq Maisons, <em>cinq signatures</em></h2>
+      <p class="lead center">Une sélection resserrée et complémentaire. De la doyenne fondée sous Louis&nbsp;XV à la cuvée inspirée de la Russie impériale, chaque Maison apporte un style, une histoire, une promesse.</p>
+    </div>
+    <div class="maisons-grid">
+
+      <button class="maison-card featured reveal d1" data-maison="lanson">
+        <div class="m-card-year">1760</div>
+        <div class="m-card-name">Lanson</div>
+        <div class="m-card-city">Reims</div>
+        <p class="m-card-style">L'une des plus anciennes Maisons de Champagne. Style fraîcheur et vivacité, sans fermentation malolactique. Fournisseur officiel de la Couronne britannique depuis 1900.</p>
+        <div class="m-card-more">Découvrir la Maison
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </div>
+      </button>
+
+      <button class="maison-card reveal d1" data-maison="chanoine">
+        <div class="m-card-year">1730</div>
+        <div class="m-card-name">Chanoine Frères</div>
+        <div class="m-card-city">Épernay · Reims</div>
+        <p class="m-card-style">Deuxième plus ancienne Maison de Champagne, fondée un an après Ruinart. Trois siècles de savoir-faire, Pinot Noir dominant, structure et caractère.</p>
+        <div class="m-card-more">Découvrir la Maison
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </div>
+      </button>
+
+      <button class="maison-card reveal d2" data-maison="heidsieck">
+        <div class="m-card-year">1785</div>
+        <div class="m-card-name">Heidsieck &amp; Co Monopole</div>
+        <div class="m-card-city">Reims</div>
+        <p class="m-card-style">Quatrième plus ancienne Maison de Champagne. Fournisseur breveté de Prusse, du Tsar Nicolas II, de la Cour britannique et de Suède. Style classique et structuré.</p>
+        <div class="m-card-more">Découvrir la Maison
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </div>
+      </button>
+
+      <button class="maison-card reveal d2" data-maison="tsarine">
+        <div class="m-card-year">1996</div>
+        <div class="m-card-name">Tsarine</div>
+        <div class="m-card-city">Reims</div>
+        <p class="m-card-style">Créée par Chanoine Frères en hommage à la noblesse russe, principal marché du Champagne au XIXe siècle. Bouteille emblématique en spirale, équilibre des trois cépages.</p>
+        <div class="m-card-more">Découvrir la Maison
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </div>
+      </button>
+
+      <button class="maison-card reveal d3" data-maison="masse">
+        <div class="m-card-year">XIXᵉ</div>
+        <div class="m-card-name">Massé</div>
+        <div class="m-card-city">Champagne</div>
+        <p class="m-card-style">Maison historique au positionnement épuré. Une cuvée brut bien construite, généreuse et accessible — l'évidence pour l'apéritif et les moments du quotidien.</p>
+        <div class="m-card-more">Découvrir la Maison
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </div>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NOS CUVÉES ═══ -->
+<section class="s bg-white" id="cuvees">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow center">Nos Cuvées</p>
+      <h2 class="section-h">Comprendre les <em>styles</em></h2>
+      <p class="lead center">Brut, rosé, blanc de blancs, millésimé&hellip; Chaque type de champagne a sa personnalité, ses accords, ses moments. Un petit guide pour choisir avec justesse.</p>
+    </div>
+    <div class="cuvees-grid">
+
+      <div class="cuvee-card reveal d1">
+        <div class="cuvee-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 2v3M15 2v3M12 5v3M8 8h8l-.5 4c-.3 2.4-1.8 4-3.5 4s-3.2-1.6-3.5-4L8 8z"/><path d="M12 16v4M9 22h6"/></svg>
+        </div>
+        <h3>Brut</h3>
+        <p class="cuvee-sub">Dosage 0–12 g/L · le standard</p>
+        <p>Le cœur de gamme des Maisons. Équilibre entre fraîcheur, fruit et structure. Le compagnon polyvalent — de l'apéritif au repas, des fêtes aux moments simples.</p>
+        <div class="cuvee-pairing">
+          <strong>À table</strong>
+          Apéritif, fruits de mer, poissons grillés, volaille rôtie.
+        </div>
+      </div>
+
+      <div class="cuvee-card reveal d1">
+        <div class="cuvee-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+        </div>
+        <h3>Extra Brut</h3>
+        <p class="cuvee-sub">Dosage 0–6 g/L · la pureté</p>
+        <p>Dosage minimal, presque pas de sucre ajouté. Vivacité tranchante, expression la plus pure du vin. Pour les amateurs qui veulent l'essence du terroir, sans voile.</p>
+        <div class="cuvee-pairing">
+          <strong>À table</strong>
+          Huîtres, sushis, poissons crus, ceviches, fromages frais.
+        </div>
+      </div>
+
+      <div class="cuvee-card reveal d2">
+        <div class="cuvee-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 12s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>Sec &amp; Demi-Sec</h3>
+        <p class="cuvee-sub">Dosage 17–50 g/L · la rondeur</p>
+        <p>Plus de sucre, plus de gourmandise. Une rondeur en bouche qui appelle les desserts, les fromages affinés et les accords sucré-salé.</p>
+        <div class="cuvee-pairing">
+          <strong>À table</strong>
+          Foie gras, fromages à pâte persillée, desserts aux fruits, viennoiseries.
+        </div>
+      </div>
+
+      <div class="cuvee-card reveal d2">
+        <div class="cuvee-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2C9 6 6 9 6 13a6 6 0 0 0 12 0c0-4-3-7-6-11z"/></svg>
+        </div>
+        <h3>Rosé</h3>
+        <p class="cuvee-sub">Assemblage ou saignée</p>
+        <p>Obtenu par ajout de vin rouge de Champagne (assemblage) ou par macération courte (saignée). Robe délicate, notes de petits fruits rouges, élégance fruitée.</p>
+        <div class="cuvee-pairing">
+          <strong>À table</strong>
+          Tartare de saumon, magret de canard, fraises, desserts aux fruits rouges.
+        </div>
+      </div>
+
+      <div class="cuvee-card reveal d3">
+        <div class="cuvee-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>Blanc de Blancs</h3>
+        <p class="cuvee-sub">100% Chardonnay · la finesse</p>
+        <p>Mono-cépage Chardonnay. Pureté, minéralité, ciselure. La quintessence de la Côte des Blancs, des bulles fines, une longueur qui s'étire.</p>
+        <div class="cuvee-pairing">
+          <strong>À table</strong>
+          Poissons fins, sushis, coquillages, toasts d'œufs de poisson, fromages frais.
+        </div>
+      </div>
+
+      <div class="cuvee-card reveal d3">
+        <div class="cuvee-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+        </div>
+        <h3>Blanc de Noirs</h3>
+        <p class="cuvee-sub">100% Pinots · la vinosité</p>
+        <p>Issu uniquement de Pinot Noir et&#x2F;ou Meunier — des raisins noirs vinifiés en blanc. Plus de structure, plus de corps, de la profondeur et du caractère.</p>
+        <div class="cuvee-pairing">
+          <strong>À table</strong>
+          Poissons relevés, volailles, viandes blanches, plats en sauce légers.
+        </div>
+      </div>
+
+      <div class="cuvee-card reveal d4">
+        <div class="cuvee-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="18"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Millésimés</h3>
+        <p class="cuvee-sub">Une seule année · la garde</p>
+        <p>Issus exclusivement d'une année exceptionnelle. Vieillissement long sur lies — minimum 3 ans imposés, souvent davantage. Signent les grandes occasions et se conservent en cave.</p>
+        <div class="cuvee-pairing">
+          <strong>À table</strong>
+          Grandes tables, plats raffinés, occasions rares. À déguster pour lui-même.
+        </div>
+      </div>
+
+      <div class="cuvee-card reveal d4">
+        <div class="cuvee-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 22s-7-4-7-12V4l7 2 7-2v6c0 8-7 12-7 12z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3>Bio &amp; Engagés</h3>
+        <p class="cuvee-sub">Viticulture durable</p>
+        <p>Cuvées certifiées biologiques, viticulture raisonnée. L'engagement environnemental des Maisons — respect du sol, de la plante et des saisons.</p>
+        <div class="cuvee-pairing">
+          <strong>À table</strong>
+          Cuisine de marché, produits locaux, plats végétariens, repas du quotidien.
+        </div>
+      </div>
+
+      <div class="cuvee-card reveal d5">
+        <div class="cuvee-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>Cuvées Prestige</h3>
+        <p class="cuvee-sub">Le sommet · l'exception</p>
+        <p>Les flacons d'exception&nbsp;: assemblages rares, coffrets, séries limitées. Le savoir-faire d'une Maison à son sommet. Pour offrir, pour marquer, pour célébrer en grand.</p>
+        <div class="cuvee-pairing">
+          <strong>À table</strong>
+          Grandes occasions, cadeaux, dégustation à part entière. Les bouteilles qui font la fête.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LA SÉLECTION (Gallery) ═══ -->
+<section class="s bg-creme" id="selection">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow center">La Sélection</p>
+      <h2 class="section-h">Nos <em>cuvées</em></h2>
+      <p class="lead center">Un aperçu de notre catalogue — chaque cuvée disponible à la commande, sur conseil. Pour les tarifs, conditions et accompagnement, prenez contact avec nous.</p>
+    </div>
+
+    <div class="gallery-filters reveal">
+      <button class="filter-btn active" data-filter="all">Toutes</button>
+      <button class="filter-btn" data-filter="lanson">Lanson</button>
+      <button class="filter-btn" data-filter="chanoine">Chanoine</button>
+      <button class="filter-btn" data-filter="heidsieck">Heidsieck</button>
+      <button class="filter-btn" data-filter="tsarine">Tsarine</button>
+      <button class="filter-btn" data-filter="masse">Massé</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ CONDITIONS DE COMMANDE ═══ -->
+<section class="conditions-band">
+  <div class="conditions-inner">
+    <div class="conditions-head reveal">
+      <p class="eyebrow center">Conditions de commande</p>
+      <h2 class="section-h">Une commande, <em>une logique</em></h2>
+      <p class="lead center">Les Maisons fonctionnent par packs de 6 bouteilles d'une même cuvée. Pour bénéficier de nos conditions et de la livraison franco, comptez 24 bouteilles minimum — soit 4 packs.</p>
+    </div>
+    <div class="conditions-cards">
+      <div class="condition-card reveal d1">
+        <div class="condition-num">6</div>
+        <h4>Bouteilles par pack</h4>
+        <p>Chaque pack regroupe 6 bouteilles d'une seule et même cuvée. C'est l'unité de commande.</p>
+      </div>
+      <div class="condition-card reveal d2">
+        <div class="condition-num">4</div>
+        <h4>Packs minimum</h4>
+        <p>Soit 24 bouteilles au total. Vous pouvez mélanger les cuvées et les Maisons d'un pack à l'autre.</p>
+      </div>
+      <div class="condition-card reveal d3">
+        <div class="condition-num">0&nbsp;€</div>
+        <h4>Livraison franco</h4>
+        <p>Au-delà du seuil minimal, la livraison est offerte partout en France métropolitaine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NOS SERVICES ═══ -->
+<section class="s bg-white" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow center">Nos Services</p>
+      <h2 class="section-h">Au-delà de la <em>commande</em></h2>
+      <p class="lead center">Nous ne sommes pas un site marchand de plus. Nous accompagnons nos clients de la sélection à la dégustation, du conseil au service.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card reveal d1">
+        <div class="num">01</div>
+        <h3>Conseil personnalisé</h3>
+        <p>Une commande ne se passe jamais sans conversation. On comprend votre besoin — apéritif, dîner, événement, cadeau — puis on conseille la cuvée juste, dans le bon volume.</p>
+      </div>
+
+      <div class="service-card reveal d2">
+        <div class="num">02</div>
+        <h3>Disponibilité et réactivité</h3>
+        <p>Une équipe joignable par téléphone et par email, qui répond vite et bien. Pas de répondeur, pas de bot — des interlocuteurs identifiés qui suivent votre dossier.</p>
+      </div>
+
+      <div class="service-card reveal d3">
+        <div class="num">03</div>
+        <h3>Organisation d'événements</h3>
+        <p>Lancement de produit, soirée clients, anniversaire de votre Maison&nbsp;: nous concevons le volet champagne de A à Z — sélection, volumes, logistique, mise en service.</p>
+      </div>
+
+      <div class="service-card reveal d4">
+        <div class="num">04</div>
+        <h3>Réceptions privées</h3>
+        <p>Mariages, anniversaires marquants, dîners de fête. Une dégustation préalable pour choisir, des conseils d'accords mets-champagne, une livraison soignée le jour J.</p>
+      </div>
+
+      <div class="service-card reveal d1">
+        <div class="num">05</div>
+        <h3>Dégustations commentées</h3>
+        <p>Chez vous, dans votre entreprise ou dans un lieu privatisé&nbsp;: une dégustation animée et commentée pour découvrir nos Maisons et leurs styles. À partir de huit personnes.</p>
+      </div>
+
+      <div class="service-card reveal d2">
+        <div class="num">06</div>
+        <h3>Cadeaux d'entreprise</h3>
+        <p>Coffrets personnalisés, cartes accompagnatrices, livraisons groupées ou individuelles. Pour vos clients, vos collaborateurs, vos partenaires — l'attention juste, la bouteille choisie.</p>
+      </div>
+
+      <div class="service-card reveal d3">
+        <div class="num">07</div>
+        <h3>Accompagnement professionnel</h3>
+        <p>Pour les CHR, cavistes et acheteurs&nbsp;: tarifs négociés, conditions adaptées, suivi commercial, mise à jour régulière des disponibilités et des promotions des Maisons.</p>
+      </div>
+
+      <div class="service-card reveal d4">
+        <div class="num">08</div>
+        <h3>Livraison soignée</h3>
+        <p>Emballage protecteur, suivi du colis, créneau précisé. Partout en France métropolitaine, franco de port au-delà de 24 bouteilles.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ CONTACT ═══ -->
+<section class="s bg-creme" id="contact">
+  <div class="container">
+
+    <div class="contact-cta reveal">
+      <div class="contact-cta-inner">
+        <p class="eyebrow center">Champagne everyday</p>
+        <h2>Une envie, une question,<br><em>une commande&nbsp;?</em></h2>
+        <p>Écrivez-nous, appelez-nous. Nous répondons rapidement, avec attention. Le champagne est une affaire de relations — commençons la nôtre.</p>
+        <a href="mailto:contact@lesbellesbulles.com" class="contact-email-large">contact@lesbellesbulles.com</a>
+        <div style="margin-top:1.5rem;">
+          <a href="mailto:contact@lesbellesbulles.com" class="btn btn-or btn-arrow">
+            Nous écrire
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-bottom:2.5rem;">
+      <p class="eyebrow center reveal">Notre équipe</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal d1">
+        <div class="team-name">Léonard Brault</div>
+        <div class="team-role">Président Directeur Général</div>
+        <a href="tel:+33652558257" class="team-phone">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +33 6 52 55 82 57
+        </a>
+      </div>
+      <div class="team-card reveal d2">
+        <div class="team-name">Virgile Grandchamp des Raux</div>
+        <div class="team-role">Responsable Développement Commercial</div>
+        <a href="tel:+33620110422" class="team-phone">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +33 6 20 11 04 22
+        </a>
+      </div>
+      <div class="team-card reveal d3">
+        <div class="team-name">Jacques Lagrange-Mauduit</div>
+        <div class="team-role">Responsable Financier et Stratégie</div>
+        <a href="tel:+16194050027" class="team-phone">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (+1) 619-405-0027
+        </a>
+      </div>
+      <div class="team-card reveal d4">
+        <div class="team-name">Pierre Macquart de Terline</div>
+        <div class="team-role">Responsable Communication et Promotion</div>
+        <a href="tel:+33611541794" class="team-phone">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +33 6 11 54 17 94
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <strong>Les Belles Bulles</strong>
+      <em>Champagne everyday</em>
+    </div>
+    <div class="footer-meta">
+      Agent commercial indépendant · SAS<br>
+      Paris, France · lesbellesbulles.com
+    </div>
+  </div>
+  <div class="footer-legal">
+    &copy; 2026 SAS Les Belles Bulles — Tous droits réservés · L'abus d'alcool est dangereux pour la santé, à consommer avec modération
+  </div>
+</footer>
+
+</div><!-- /site -->
+
+
+<!-- ═══ MAISON DETAIL MODAL ═══ -->
+<div class="modal-overlay" id="maisonModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Fermer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-banner">
+      <div class="year" id="modalYear">—</div>
+      <h2 id="modalName">—</h2>
+      <div class="city" id="modalCity">—</div>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════
+// DATA — Maison details
+// ════════════════════════════════════════
+const MAISONS_DETAIL = {
+  lanson: {
+    year: "Fondée en 1760",
+    name: "Lanson",
+    city: "Reims · Champagne",
+    paragraphs: [
+      "Fondée en 1760 par François Delamotte, Lanson est l'une des plus anciennes Maisons de Champagne. La Croix de Malte qui orne chaque flacon date de 1798, lorsque le fils du fondateur, alors membre de l'Ordre hospitalier de Malte, en fit l'emblème de la Maison.",
+      "Le style Lanson est immédiatement reconnaissable&nbsp;: vinification sans fermentation malolactique, ce qui préserve une fraîcheur vibrante et une vivacité signature. Les vins reposent en cave bien plus longtemps que les exigences de l'appellation — trois ans pour les bruts sans année, cinq ans pour les millésimés.",
+      "Fournisseur officiel de la Couronne britannique depuis 1900, partenaire emblématique de Wimbledon depuis 1977, Lanson cultive une élégance discrète et une fidélité aux grandes maisons."
+    ],
+    signature: [
+      ["Cépage", "Pinot Noir dominant"],
+      ["Style", "Frais, vif, élégant"],
+      ["Emblème", "Croix de Malte"]
+    ],
+    extra: "Notre sélection : Le Black Création (brut signature), Le Réserve Extra Brut, Le White Label Sec, Le Rosé Création, Le Blanc de Blancs, Le Vintage 2014, Le Green Bio-Organic, Noble Champagne (cuvée de prestige)."
+  },
+  chanoine: {
+    year: "Fondée en 1730",
+    name: "Chanoine Frères",
+    city: "Épernay, puis Reims · Champagne",
+    paragraphs: [
+      "Sous le règne de Louis&nbsp;XV, les frères Jacques-Louis et Jean-Baptiste Chanoine obtiennent en 1730 l'autorisation royale de creuser leurs caves à Épernay. C'est la deuxième plus ancienne Maison de Champagne, juste après Ruinart fondée un an plus tôt.",
+      "Trois siècles plus tard, la Maison perpétue une vision de continuité&nbsp;: une dynastie marchande devenue institution. Aujourd'hui installée à Reims dans des chais modernes, Chanoine Frères travaille principalement des champagnes structurés où le Pinot Noir domine, accompagné de Meunier et de Chardonnay.",
+      "L'identité Chanoine, c'est l'authenticité du terroir respectée, sans maquillage. Des cuvées sincères, marquées par le caractère du raisin, pour ceux qui cherchent une expression franche de la Champagne."
+    ],
+    signature: [
+      ["Cépage", "Pinot Noir dominant"],
+      ["Style", "Structuré, authentique"],
+      ["Particularité", "2ᵉ plus ancienne Maison"]
+    ],
+    extra: "Notre sélection : Chanoine Brut, Demi-Sec, Rosé, Premier Cru Extra Brut, Blanc de Noirs et Organic Extra Brut (certifié biologique)."
+  },
+  heidsieck: {
+    year: "Fondée en 1785",
+    name: "Heidsieck & Co Monopole",
+    city: "Reims · Champagne",
+    paragraphs: [
+      "Fondée en 1785 par Florens-Louis Heidsieck, originaire de Westphalie, la Maison s'installe à Reims et devient rapidement une référence sur les cours royales d'Europe. Fournisseur breveté du Roi de Prusse et de l'Empereur d'Allemagne dès 1818, du Tsar Nicolas&nbsp;II en 1907, de la Cour d'Angleterre en 1911, de la Cour de Suède en 1933.",
+      "L'histoire la plus extraordinaire de la Maison est sans doute celle du Jönköping&nbsp;: en 1916, ce cargo suédois transportait des caisses de champagne Heidsieck destinées au Tsar. Torpillé en mer Baltique, il repose 82&nbsp;ans au fond de l'eau avant d'être retrouvé en 1998 — quelque 3&nbsp;000 bouteilles intactes, devenues légendaires.",
+      "Le style Heidsieck est classique, structuré, Pinot Noir dominant. Une approche traditionnelle assumée, fidèle à l'héritage des grandes tables royales."
+    ],
+    signature: [
+      ["Cépage", "Pinot Noir dominant"],
+      ["Style", "Classique, structuré"],
+      ["Particularité", "4ᵉ plus ancienne Maison"]
+    ],
+    extra: "Notre sélection : Blue Top (brut signature), White Top 1er Cru, Silver Top, Rose Top et Gold Top Millésimé."
+  },
+  tsarine: {
+    year: "Créée en 1996",
+    name: "Tsarine",
+    city: "Reims · Champagne",
+    paragraphs: [
+      "Créée en 1996 par Philippe Baijot au sein de la Maison Chanoine Frères, Tsarine rend hommage à la noblesse russe — principal marché du Champagne au XIXᵉ siècle. La cuvée Tsarine se veut un trait d'union entre la tradition champenoise française et l'âge d'or impérial russe.",
+      "Sa bouteille emblématique, aux courbes en spirale, est née en 1996 lors d'un dîner au restaurant&nbsp;«&nbsp;Le Chardonnay&nbsp;» à Reims. Sa forme évoque les dômes de la cathédrale Saint-Basile sur la Place Rouge à Moscou. Une signature visuelle immédiatement reconnaissable, devenue iconique — Tsarine est notamment la bouteille officielle des Césars.",
+      "Le style Tsarine recherche l'équilibre subtil&nbsp;: finesse, élégance et fraîcheur, par un assemblage soigneux des trois cépages champenois. Une Maison en phase avec son temps, qui parle aussi bien aux amateurs qu'aux connaisseurs."
+    ],
+    signature: [
+      ["Cépages", "Chardonnay · Pinot Noir · Meunier"],
+      ["Style", "Équilibré, élégant"],
+      ["Iconique", "Bouteille en spirale"]
+    ],
+    extra: "Notre sélection : Tsarine Brut, Demi-Sec, Rosé, Extra Brut, Blanc de Blancs 2018 Grand Cru, Vintage 2019, Tsarine Gold et la cuvée Précision N°15 (collection prestige)."
+  },
+  masse: {
+    year: "Maison historique",
+    name: "Massé",
+    city: "Champagne",
+    paragraphs: [
+      "Maison historique de Champagne, Massé incarne une approche sobre et accessible du grand vin de fête. Une cuvée Brut bien construite, généreuse et équilibrée — pensée pour les moments de partage du quotidien plutôt que pour les vitrines.",
+      "C'est précisément la promesse Massé&nbsp;: la qualité champenoise sans la solennité. Un champagne qui s'ouvre facilement, qui plaît largement, qui accompagne sans imposer.",
+      "Dans notre sélection, Massé occupe une place précieuse&nbsp;: la bouteille d'évidence pour l'apéritif, le dîner improvisé, la petite victoire à célébrer un mardi soir. La cuvée qui colle exactement à notre devise — Champagne everyday."
+    ],
+    signature: [
+      ["Style", "Accessible, équilibré"],
+      ["Usage", "Apéritif, quotidien"],
+      ["Esprit", "Champagne everyday"]
+    ],
+    extra: "Notre sélection : Massé Brut."
+  }
+};
+
+// Bottles for gallery
+const BOTTLES = [
+  // Lanson
+  { house: "lanson", houseDisplay: "Lanson", name: "Le Black Création", type: "Brut", image: "bottles/lanson-black-creation.png" },
+  { house: "lanson", houseDisplay: "Lanson", name: "Le White Label Sec", type: "Sec", image: "bottles/lanson-white-label-sec.png" },
+  { house: "lanson", houseDisplay: "Lanson", name: "Le Rosé Création", type: "Rosé", image: "bottles/lanson-rose-creation.png" },
+  { house: "lanson", houseDisplay: "Lanson", name: "Le Réserve Extra Brut", type: "Extra Brut", image: "bottles/lanson-reserve-extra-brut.png" },
+  { house: "lanson", houseDisplay: "Lanson", name: "Le Blanc de Blancs", type: "Blanc de Blancs", image: "bottles/lanson-blanc-de-blancs.png" },
+  { house: "lanson", houseDisplay: "Lanson", name: "Le Green Bio-Organic", type: "Bio", image: "bottles/lanson-green-bio-organic.png" },
+  { house: "lanson", houseDisplay: "Lanson", name: "Le Vintage 2014", type: "Millésimé", image: "bottles/lanson-vintage-2014.png" },
+  { house: "lanson", houseDisplay: "Lanson", name: "Noble Champagne — Brut", type: "Prestige", image: "bottles/lanson-noble-brut.svg" },
+  { house: "lanson", houseDisplay: "Lanson", name: "Noble Champagne — Coffret", type: "Prestige", image: "bottles/lanson-noble-brut-coffret.svg" },
+  { house: "lanson", houseDisplay: "Lanson", name: "Noble Blanc de Blancs", type: "Prestige", image: "bottles/lanson-noble-bdb.svg" },
+  // Tsarine
+  { house: "tsarine", houseDisplay: "Tsarine", name: "Brut", type: "Brut", image: "bottles/tsarine-brut.png" },
+  { house: "tsarine", houseDisplay: "Tsarine", name: "Demi-Sec", type: "Demi-Sec", image: "bottles/tsarine-demi-sec.png" },
+  { house: "tsarine", houseDisplay: "Tsarine", name: "Rosé", type: "Rosé", image: "bottles/tsarine-rose.png" },
+  { house: "tsarine", houseDisplay: "Tsarine", name: "Extra Brut", type: "Extra Brut", image: "bottles/tsarine-extra-brut.png" },
+  { house: "tsarine", houseDisplay: "Tsarine", name: "Blanc de Blancs 2018 Grand Cru", type: "Blanc de Blancs", image: "bottles/tsarine-blanc-de-blancs-2018.png" },
+  { house: "tsarine", houseDisplay: "Tsarine", name: "Vintage 2019 - 1er Cru", type: "Millésimé", image: "bottles/tsarine-vintage-2019.png" },
+  { house: "tsarine", houseDisplay: "Tsarine", name: "Gold", type: "Prestige", image: "bottles/tsarine-gold.png" },
+  { house: "tsarine", houseDisplay: "Tsarine", name: "Précision N°15", type: "Prestige", image: "bottles/tsarine-precision-n15.svg" },
+  // Chanoine
+  { house: "chanoine", houseDisplay: "Chanoine Frères", name: "Brut", type: "Brut", image: "bottles/chanoine-brut.png" },
+  { house: "chanoine", houseDisplay: "Chanoine Frères", name: "Demi-Sec", type: "Demi-Sec", image: "bottles/chanoine-demi-sec.png" },
+  { house: "chanoine", houseDisplay: "Chanoine Frères", name: "Rosé", type: "Rosé", image: "bottles/chanoine-rose.png" },
+  { house: "chanoine", houseDisplay: "Chanoine Frères", name: "Premier Cru Extra Brut", type: "Extra Brut", image: "bottles/chanoine-premier-cru-extra-brut.png" },
+  { house: "chanoine", houseDisplay: "Chanoine Frères", name: "Blanc de Noirs", type: "Blanc de Noirs", image: "bottles/chanoine-blanc-de-noirs.png" },
+  { house: "chanoine", houseDisplay: "Chanoine Frères", name: "Organic Extra Brut", type: "Bio", image: "bottles/chanoine-organic-extra-brut.png" },
+  // Heidsieck
+  { house: "heidsieck", houseDisplay: "Heidsieck & Co", name: "Blue Top", type: "Brut", image: "bottles/heidsieck-blue-top.svg" },
+  { house: "heidsieck", houseDisplay: "Heidsieck & Co", name: "White Top — 1er Cru", type: "Brut", image: "bottles/heidsieck-white-top.svg" },
+  { house: "heidsieck", houseDisplay: "Heidsieck & Co", name: "Silver Top", type: "Brut", image: "bottles/heidsieck-silver-top.svg" },
+  { house: "heidsieck", houseDisplay: "Heidsieck & Co", name: "Rose Top", type: "Rosé", image: "bottles/heidsieck-rose-top.svg" },
+  { house: "heidsieck", houseDisplay: "Heidsieck & Co", name: "Gold Top Millésimé", type: "Millésimé", image: "bottles/heidsieck-gold-top.svg" },
+  // Massé
+  { house: "masse", houseDisplay: "Massé", name: "Brut", type: "Brut", image: "bottles/masse-brut.png" }
+];
+
+function escapeHTML(str) {
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ════════════════════════════════════════
+// SPLASH FLOW
+// ════════════════════════════════════════
+const splashAge = document.getElementById('splash-age');
+const site = document.getElementById('site');
+
+document.getElementById('btnAgeOui').addEventListener('click', () => {
+  try { playChampagneSound(); } catch(e) {}
+  setTimeout(() => {
+    splashAge.classList.add('hide');
+    document.body.classList.remove('lock-scroll');
+    site.classList.add('visible');
+    renderGallery();
+    runReveal();
+  }, 250);
+});
+document.getElementById('btnAgeNon').addEventListener('click', () => {
+  document.getElementById('agePrompt').style.display = 'none';
+  document.getElementById('ageRejected').style.display = 'block';
+});
+
+// ════════════════════════════════════════
+// BUBBLES (splash + hero)
+// ════════════════════════════════════════
+function spawnSplashBubble() {
+  const c = document.getElementById('splashBubbles');
+  if (!c) return;
+  const b = document.createElement('div');
+  b.className = 's-bubble';
+  const size = 4 + Math.random() * 22;
+  const isGold = Math.random() > 0.4;
+  const op = 0.08 + Math.random() * 0.14;
+  const dur = 12 + Math.random() * 10;
+  const color = isGold ? `rgba(229,199,126,${op})` : `rgba(255,255,255,${op})`;
+  const border = isGold ? `1px solid rgba(229,199,126,${op+0.07})` : `1px solid rgba(255,255,255,${op+0.07})`;
+  b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:-${size}px;background:${color};border:${border};--op:${op};animation-duration:${dur}s;animation-delay:${Math.random()*3}s;`;
+  c.appendChild(b);
+  setTimeout(() => b.remove(), (dur + 4) * 1000);
+}
+for (let i = 0; i < 10; i++) setTimeout(spawnSplashBubble, i * 200);
+setInterval(spawnSplashBubble, 800);
+
+function spawnHeroBubble() {
+  if (!site.classList.contains('visible')) return;
+  const c = document.getElementById('heroBubbles');
+  if (!c) return;
+  const b = document.createElement('div');
+  b.className = 'h-bubble';
+  const size = 5 + Math.random() * 26;
+  const isGold = Math.random() > 0.45;
+  const op = 0.1 + Math.random() * 0.14;
+  const dur = 14 + Math.random() * 12;
+  const bg = isGold
+    ? `radial-gradient(circle at 35% 35%, rgba(229,199,126,${op+0.18}), rgba(201,160,71,${op}))`
+    : `radial-gradient(circle at 35% 35%, rgba(255,255,255,${op+0.2}), rgba(255,255,255,${op}))`;
+  const border = isGold ? `1px solid rgba(201,160,71,${op+0.15})` : `1px solid rgba(255,255,255,${op+0.18})`;
+  b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:-${size}px;background:${bg};border:${border};--op:${op};animation-duration:${dur}s;animation-delay:${Math.random()*3}s;`;
+  c.appendChild(b);
+  setTimeout(() => b.remove(), (dur + 4) * 1000);
+}
+setInterval(spawnHeroBubble, 950);
+
+// ════════════════════════════════════════
+// NAV
+// ════════════════════════════════════════
+const siteNav = document.getElementById('siteNav');
+window.addEventListener('scroll', () => {
+  siteNav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+const hamBtn = document.getElementById('hamBtn');
+const navLinks = document.getElementById('navLinks');
+hamBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+// ════════════════════════════════════════
+// REVEAL OBSERVER
+// ════════════════════════════════════════
+function runReveal() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+// ════════════════════════════════════════
+// GALLERY
+// ════════════════════════════════════════
+function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = BOTTLES.map(b => {
+    const isPlaceholder = b.image.endsWith('.svg');
+    return `
+      <div class="bottle-tile" data-house="${b.house}">
+        <div class="bottle-img">
+          <img src="${b.image}" alt="${escapeHTML(b.name)}" loading="lazy">
+          ${isPlaceholder ? '<span class="placeholder-note">illustration</span>' : ''}
+        </div>
+        <div class="bottle-house">${escapeHTML(b.houseDisplay)}</div>
+        <h4>${escapeHTML(b.name)}</h4>
+        <div class="bottle-type">${escapeHTML(b.type)}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.bottle-tile').forEach(t => {
+      t.classList.toggle('hidden', filter !== 'all' && t.dataset.house !== filter);
+    });
+  });
+});
+
+// ════════════════════════════════════════
+// MAISON MODAL
+// ════════════════════════════════════════
+const maisonModal = document.getElementById('maisonModal');
+
+function openMaisonModal(key) {
+  const m = MAISONS_DETAIL[key];
+  if (!m) return;
+  document.getElementById('modalYear').textContent = m.year;
+  document.getElementById('modalName').textContent = m.name;
+  document.getElementById('modalCity').textContent = m.city;
+  const body = document.getElementById('modalBody');
+  const sig = m.signature.map(([l, v]) => `
+    <div class="signature-item">
+      <div class="label">${escapeHTML(l)}</div>
+      <div class="value">${escapeHTML(v)}</div>
+    </div>
+  `).join('');
+  body.innerHTML = `
+    ${m.paragraphs.map(p => `<p>${p}</p>`).join('')}
+    <div class="signature-stripe">${sig}</div>
+    <h3>Notre sélection</h3>
+    <p>${m.extra}</p>
+  `;
+  maisonModal.classList.add('open');
+  document.body.classList.add('lock-scroll');
+}
+
+document.querySelectorAll('.maison-card').forEach(card => {
+  card.addEventListener('click', () => openMaisonModal(card.dataset.maison));
+});
+
+document.getElementById('modalClose').addEventListener('click', closeMaisonModal);
+maisonModal.addEventListener('click', (e) => {
+  if (e.target === maisonModal) closeMaisonModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && maisonModal.classList.contains('open')) closeMaisonModal();
+});
+function closeMaisonModal() {
+  maisonModal.classList.remove('open');
+  document.body.classList.remove('lock-scroll');
+}
+
+// ════════════════════════════════════════
+// CHAMPAGNE POP SOUND (gardé de la v4)
+// ════════════════════════════════════════
+function playChampagneSound() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const now = ctx.currentTime;
+
+  const popOsc = ctx.createOscillator();
+  const popGain = ctx.createGain();
+  const popFilter = ctx.createBiquadFilter();
+  popOsc.type = 'sine';
+  popOsc.frequency.setValueAtTime(400, now);
+  popOsc.frequency.exponentialRampToValueAtTime(80, now + 0.12);
+  popGain.gain.setValueAtTime(0.5, now);
+  popGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+  popFilter.type = 'lowpass'; popFilter.frequency.value = 2000;
+  popOsc.connect(popFilter).connect(popGain).connect(ctx.destination);
+  popOsc.start(now); popOsc.stop(now + 0.2);
+
+  const noiseLen = ctx.sampleRate * 0.08;
+  const noiseBuf = ctx.createBuffer(1, noiseLen, ctx.sampleRate);
+  const nd = noiseBuf.getChannelData(0);
+  for (let i = 0; i < noiseLen; i++) nd[i] = (Math.random() * 2 - 1) * 0.8;
+  const noiseSrc = ctx.createBufferSource();
+  const noiseGain = ctx.createGain();
+  const noiseFilt = ctx.createBiquadFilter();
+  noiseSrc.buffer = noiseBuf;
+  noiseFilt.type = 'bandpass'; noiseFilt.frequency.value = 3000; noiseFilt.Q.value = 0.8;
+  noiseGain.gain.setValueAtTime(0.42, now);
+  noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+  noiseSrc.connect(noiseFilt).connect(noiseGain).connect(ctx.destination);
+  noiseSrc.start(now);
+
+  function fizzBubble(t, freq, dur, vol) {
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    const f = ctx.createBiquadFilter();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(freq, t);
+    o.frequency.exponentialRampToValueAtTime(freq * 0.7, t + dur);
+    f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = 2;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o.connect(f).connect(g).connect(ctx.destination);
+    o.start(t); o.stop(t + dur + 0.05);
+  }
+  const fizzStart = now + 0.12;
+  for (let i = 0; i < 50; i++) {
+    fizzBubble(
+      fizzStart + Math.random() * 2.2,
+      2000 + Math.random() * 5500,
+      0.03 + Math.random() * 0.08,
+      0.008 + Math.random() * 0.035
+    );
+  }
+
+  const fLen = ctx.sampleRate * 2.6;
+  const fBuf = ctx.createBuffer(1, fLen, ctx.sampleRate);
+  const fd = fBuf.getChannelData(0);
+  for (let i = 0; i < fLen; i++) fd[i] = Math.random() * 2 - 1;
+  const fSrc = ctx.createBufferSource();
+  const fGain = ctx.createGain();
+  const fFilt = ctx.createBiquadFilter();
+  fSrc.buffer = fBuf;
+  fFilt.type = 'highpass'; fFilt.frequency.value = 4000;
+  fGain.gain.setValueAtTime(0, fizzStart);
+  fGain.gain.linearRampToValueAtTime(0.05, fizzStart + 0.3);
+  fGain.gain.setValueAtTime(0.05, fizzStart + 0.9);
+  fGain.gain.exponentialRampToValueAtTime(0.001, fizzStart + 2.5);
+  fSrc.connect(fFilt).connect(fGain).connect(ctx.destination);
+  fSrc.start(fizzStart);
+  fSrc.stop(fizzStart + 2.7);
+}
+</script>
+</body>
+</html>
