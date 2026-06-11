@@ -1089,11 +1089,13 @@ footer.site-footer {
     display: flex;
     gap: 0.8rem;
     overflow-x: auto;
+    overflow-y: hidden;        /* ← coupe explicitement la liberté verticale */
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     padding: 0 1rem 1.2rem;
     margin: 0 -1.5rem;
     scrollbar-width: thin;
+    touch-action: pan-x;  
   }
   .maison-card,
   .cuvee-card,
@@ -1101,7 +1103,6 @@ footer.site-footer {
     flex: 0 0 75%;
     scroll-snap-align: center;
   }
-  .cuvee-card { flex: 0 0 82%; }
 }
 
 </style>
