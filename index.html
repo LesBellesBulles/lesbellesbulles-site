@@ -1735,13 +1735,20 @@ function spawnSplashBubble() {
   if (!c) return;
   const b = document.createElement('div');
   b.className = 's-bubble';
-  const size = 4 + Math.random() * 22;
+  const size = 5 + Math.random() * 28;
   const isGold = Math.random() > 0.4;
-  const op = 0.08 + Math.random() * 0.14;
+  const op = 0.28 + Math.random() * 0.30;   // 0.28–0.58 au lieu de 0.08–0.22
   const dur = 12 + Math.random() * 10;
-  const color = isGold ? `rgba(229,199,126,${op})` : `rgba(255,255,255,${op})`;
-  const border = isGold ? `1px solid rgba(229,199,126,${op+0.07})` : `1px solid rgba(255,255,255,${op+0.07})`;
-  b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:-${size}px;background:${color};border:${border};--op:${op};animation-duration:${dur}s;animation-delay:${Math.random()*3}s;`;
+  const bg = isGold
+    ? `radial-gradient(circle at 35% 35%, rgba(255,235,180,${op+0.25}), rgba(229,199,126,${op}))`
+    : `radial-gradient(circle at 35% 35%, rgba(255,255,255,${op+0.3}), rgba(255,255,255,${op}))`;
+  const border = isGold
+    ? `1px solid rgba(229,199,126,${op+0.2})`
+    : `1px solid rgba(255,255,255,${op+0.25})`;
+  const shadow = isGold
+    ? `0 0 ${size*0.4}px rgba(229,199,126,${op*0.6})`
+    : `0 0 ${size*0.4}px rgba(255,255,255,${op*0.5})`;
+  b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:-${size}px;background:${bg};border:${border};box-shadow:${shadow};--op:${op};animation-duration:${dur}s;animation-delay:${Math.random()*3}s;`;
   c.appendChild(b);
   setTimeout(() => b.remove(), (dur + 4) * 1000);
 }
