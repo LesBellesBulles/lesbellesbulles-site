@@ -1572,6 +1572,13 @@ footer.site-footer {
 // ════════════════════════════════════════
 // DATA — Maison details
 // ════════════════════════════════════════
+  
+// Toujours ouvrir en haut de page
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+  
 const MAISONS_DETAIL = {
   lanson: {
     year: "Fondée en 1760",
@@ -1709,6 +1716,7 @@ document.getElementById('btnAgeOui').addEventListener('click', () => {
   setTimeout(() => {
     splashAge.classList.add('hide');
     document.body.classList.remove('lock-scroll');
+    window.scrollTo(0, 0);
     site.classList.add('visible');
     renderGallery();
     runReveal();
