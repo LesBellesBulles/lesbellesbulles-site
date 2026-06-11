@@ -96,7 +96,7 @@ img { max-width: 100%; display: block; }
 .splash-logo em { font-style: italic; color: var(--or-clair); }
 .splash-tag {
   font-family: var(--serif); font-style: italic;
-  font-size: 1rem; color: var(--or-clair);
+  font-size: 1.7rem; color: var(--or-clair);
   margin-bottom: 3.5rem; letter-spacing: 0.02em;
   opacity: 0; transform: translateY(15px); animation: splashIn 0.9s 0.45s forwards ease;
 }
@@ -862,6 +862,16 @@ section.s.bg-encre .lead { color: rgba(255,255,255,0.78); }
 /* ════════════════════════════════════════
    CONTACT
    ════════════════════════════════════════ */
+
+
+.bubble-field {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+
 .contact-cta {
   background: var(--bleu-clair); color: var(--blanc);
   padding: 5rem 3rem;
@@ -877,7 +887,9 @@ section.s.bg-encre .lead { color: rgba(255,255,255,0.78); }
     radial-gradient(circle at 75% 30%, rgba(201,160,71,0.18) 0%, transparent 55%);
   pointer-events: none;
 }
-.contact-cta-inner { position: relative; z-index: 2; }
+.contact-cta-inner { 
+  position: relative; 
+  z-index: 2; }
 .contact-cta .eyebrow { color: var(--or-clair); }
 .contact-cta .eyebrow.center::before { display: none; }
 .contact-cta h2 {
@@ -889,7 +901,7 @@ section.s.bg-encre .lead { color: rgba(255,255,255,0.78); }
 }
 .contact-cta h2 em { color: var(--or-clair); font-style: italic; }
 .contact-cta p {
-  font-size: 1.04rem; color: rgba(255,255,255,0.78);
+  font-size: 1.04rem; color: rgba(255,255,255,1);
   max-width: 540px; margin: 0 auto 2.4rem;
   line-height: 1.75;
 }
@@ -1036,7 +1048,8 @@ footer.site-footer {
 
 <!-- ═══ SPLASH (Age) ═══ -->
 <div id="splash-age" class="splash">
-  <div class="splash-bubbles" id="splashBubbles"></div>
+  <!-- <div class="splash-bubbles" id="splashBubbles"></div> -->
+  <canvas class="bubble-field" id="splashBubbleField"></canvas>
   <div class="splash-inner">
     <div class="splash-mark">
       <svg width="60" height="60" viewBox="0 -5 68 68" fill="none">
@@ -1477,6 +1490,9 @@ footer.site-footer {
   <div class="container">
 
     <div class="contact-cta reveal">
+
+      <canvas class="bubble-field" id="bubbleField"></canvas>
+
       <div class="contact-cta-inner">
         <p class="eyebrow center">Champagne everyday</p>
         <h2>Une envie, une question,<br><em>une commande&nbsp;?</em></h2>
@@ -1718,6 +1734,7 @@ document.getElementById('btnAgeOui').addEventListener('click', () => {
     document.body.classList.remove('lock-scroll');
     window.scrollTo(0, 0);
     site.classList.add('visible');
+    stopSplashField();
     renderGallery();
     runReveal();
   }, 250);
@@ -1730,7 +1747,7 @@ document.getElementById('btnAgeNon').addEventListener('click', () => {
 // ════════════════════════════════════════
 // BUBBLES (splash + hero)
 // ════════════════════════════════════════
-function spawnSplashBubble() {
+/**function spawnSplashBubble() {
   const c = document.getElementById('splashBubbles');
   if (!c) return;
   const b = document.createElement('div');
@@ -1753,7 +1770,7 @@ function spawnSplashBubble() {
   setTimeout(() => b.remove(), (dur + 4) * 1000);
 }
 for (let i = 0; i < 10; i++) setTimeout(spawnSplashBubble, i * 200);
-setInterval(spawnSplashBubble, 800);
+setInterval(spawnSplashBubble, 800);**/
 
 function spawnHeroBubble() {
   /**if (!site.classList.contains('visible')) return;
@@ -1969,6 +1986,124 @@ function playChampagneSound() {
   fSrc.start(fizzStart);
   fSrc.stop(fizzStart + 2.7);
 }
+
+// ════════════════════════════════════════
+// ANTIGRAVITY BUBBLE FIELD (Contact CTA)
+// ════════════════════════════════════════
+// ════════════════════════════════════════
+// ANTIGRAVITY BUBBLE FIELD (générique)
+// ════════════════════════════════════════
+function initBubbleField(canvasId, opts = {}) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return () => {};
+  const container = canvas.parentElement;
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+
+  const COUNT          = opts.count          ?? 50;
+  const REPEL_RADIUS   = opts.repelRadius    ?? 100;
+  const REPEL_STRENGTH = opts.repelStrength  ?? 0.8;
+  const SPRING         = opts.spring         ?? 0.012;
+  const DAMP           = opts.damp           ?? 0.88;
+  const SIZE_MIN       = opts.sizeMin        ?? 3;
+  const SIZE_MAX       = opts.sizeMax        ?? 14;
+
+  let bubbles = [];
+  let mouse = { x: -9999, y: -9999, active: false };
+  let stopped = false;
+
+  function resize() {
+    const rect = container.getBoundingClientRect();
+    canvas.width  = rect.width  * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width  = rect.width  + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    spawn(rect.width, rect.height);
+  }
+
+  function spawn(w, h) {
+    bubbles = [];
+    for (let i = 0; i < COUNT; i++) {
+      const r = SIZE_MIN + Math.random() * (SIZE_MAX - SIZE_MIN);
+      const x = Math.random() * w;
+      const y = Math.random() * h;
+      bubbles.push({
+        homeX: x, homeY: y, x, y, vx: 0, vy: 0, r,
+        gold: Math.random() > 0.4,
+        op: 0.35 + Math.random() * 0.35
+      });
+    }
+  }
+
+  function onMove(e) {
+    const rect = container.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+    mouse.active = true;
+  }
+  function onLeave() { mouse.active = false; mouse.x = -9999; mouse.y = -9999; }
+  container.addEventListener('mousemove', onMove);
+  container.addEventListener('mouseleave', onLeave);
+  window.addEventListener('resize', resize);
+
+  function tick() {
+    if (stopped) return;
+    const rect = container.getBoundingClientRect();
+    ctx.clearRect(0, 0, rect.width, rect.height);
+
+    for (const b of bubbles) {
+      if (mouse.active) {
+        const dx = b.x - mouse.x, dy = b.y - mouse.y;
+        const distSq = dx*dx + dy*dy;
+        if (distSq < REPEL_RADIUS * REPEL_RADIUS && distSq > 0.1) {
+          const dist = Math.sqrt(distSq);
+          const force = (1 - dist / REPEL_RADIUS) * REPEL_STRENGTH;
+          b.vx += (dx / dist) * force;
+          b.vy += (dy / dist) * force;
+        }
+      }
+      b.vx += (b.homeX - b.x) * SPRING;
+      b.vy += (b.homeY - b.y) * SPRING;
+      b.vx *= DAMP; b.vy *= DAMP;
+      b.x  += b.vx; b.y  += b.vy;
+
+      const grd = ctx.createRadialGradient(b.x - b.r*0.3, b.y - b.r*0.3, 0, b.x, b.y, b.r);
+      if (b.gold) {
+        grd.addColorStop(0,   `rgba(255,235,180,${b.op + 0.3})`);
+        grd.addColorStop(0.6, `rgba(229,199,126,${b.op})`);
+        grd.addColorStop(1,   `rgba(201,160,71,0)`);
+      } else {
+        grd.addColorStop(0,   `rgba(255,255,255,${b.op + 0.3})`);
+        grd.addColorStop(0.6, `rgba(255,255,255,${b.op * 0.7})`);
+        grd.addColorStop(1,   `rgba(255,255,255,0)`);
+      }
+      ctx.fillStyle = grd;
+      ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill();
+
+      ctx.fillStyle = `rgba(255,255,255,${b.op * 0.55})`;
+      ctx.beginPath();
+      ctx.arc(b.x - b.r*0.35, b.y - b.r*0.35, b.r*0.22, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+
+  resize();
+  tick();
+
+  // Stop function pour libérer les ressources
+  return () => {
+    stopped = true;
+    container.removeEventListener('mousemove', onMove);
+    container.removeEventListener('mouseleave', onLeave);
+    window.removeEventListener('resize', resize);
+  };
+}
+
+// Lancement des deux champs
+const stopSplashField  = initBubbleField('splashBubbleField', { count: 140, sizeMin: 4, sizeMax: 22 });
+const stopContactField = initBubbleField('bubbleField');
 </script>
 </body>
 </html>
