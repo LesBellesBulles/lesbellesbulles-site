@@ -1906,8 +1906,9 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     document.querySelectorAll('.bottle-tile').forEach(t => {
       t.classList.toggle('hidden', filter !== 'all' && t.dataset.house !== filter);
     });
+    document.getElementById('galleryGrid').scrollLeft = 0;
   });
-  document.getElementById('galleryGrid').scrollLeft = 0;
+  
 });
 
 // ════════════════════════════════════════
