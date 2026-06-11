@@ -1082,7 +1082,28 @@ footer.site-footer {
   .gallery-filters { gap: 0.4rem; }
   .filter-btn { padding: 0.55rem 0.9rem; font-size: 0.62rem; letter-spacing: 0.14em; }
   .divider { height: 80px; }
+
+  .maisons-grid,
+  .cuvees-grid,
+  .services-grid {
+    display: flex;
+    gap: 0.8rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 1rem 1.2rem;
+    margin: 0 -1.5rem;
+    scrollbar-width: thin;
+  }
+  .maison-card,
+  .cuvee-card,
+  .service-card {
+    flex: 0 0 75%;
+    scroll-snap-align: center;
+  }
+  .cuvee-card { flex: 0 0 82%; }
 }
+
 </style>
 </head>
 <body class="lock-scroll">
