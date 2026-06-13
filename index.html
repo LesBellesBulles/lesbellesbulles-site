@@ -207,6 +207,27 @@ img { max-width: 100%; display: block; }
 .nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; }
 .nav-hamburger span { width: 22px; height: 1.5px; background: var(--encre); transition: 0.3s; }
 
+/* Instagram — Nav */
+.nav-right {
+  display: flex; align-items: center; gap: 1rem;
+}
+.nav-instagram {
+  color: var(--bleu-fonce);
+  transition: color 0.3s;
+  display: flex; align-items: center;
+}
+.nav-instagram:hover { color: var(--or); }
+
+/* Instagram — Footer */
+.footer-instagram {
+  color: rgba(255,255,255,1);
+  display: inline-flex; align-items: center;
+  margin-right: 0.8rem; vertical-align: middle;
+  transition: color 0.3s;
+  
+}
+.footer-instagram:hover { color: var(--or-clair); }
+
 /* ════════════════════════════════════════
    HERO — Dark editorial, typography-driven
    ════════════════════════════════════════ */
@@ -982,7 +1003,7 @@ section.s.bg-encre .lead { color: rgba(255,255,255,0.78); }
 .team-phone:hover { color: var(--encre); }
 
 footer.site-footer {
-  background: var(--bleu-clair); color: rgba(255,255,255,0.6);
+  background: var(--bleu-clair); color: rgba(255,255,255,1);
   padding: 2rem 2rem 1.5rem;
 }
 .footer-inner {
@@ -1160,7 +1181,13 @@ footer.site-footer {
     <li><a href="#services">Services</a></li>
     <li><a href="#contact" class="nav-cta">Commander</a></li>
   </ul>
+  <!-- <button class="nav-hamburger" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button> -->
+  <div class="nav-right">
+  <a href="https://instagram.com/les.bellesbulles" target="_blank" rel="noopener" class="nav-instagram" aria-label="Instagram">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+  </a>
   <button class="nav-hamburger" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+</div>
 </nav>
 
 <!-- ═══ HERO ═══ -->
@@ -1615,10 +1642,17 @@ footer.site-footer {
       <strong>Les Belles Bulles</strong>
       <em>Champagne everyday</em>
     </div>
+    
     <div class="footer-meta">
-      Agent commercial indépendant · SAS<br>
-      Paris, France · lesbellesbulles.com
+      
+      <p>Suivez-nous sur Instagram !</p>
+      <a href="https://instagram.com/les.bellesbulles" target="_blank" rel="noopener" class="footer-instagram" aria-label="Instagram">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+      </a>
+  Agent commercial indépendant · SAS<br>
+  Paris, France · lesbellesbulles.com
     </div>
+
   </div>
   <div class="footer-legal">
     &copy; 2026 SAS Les Belles Bulles — Tous droits réservés · L'abus d'alcool est dangereux pour la santé, à consommer avec modération
