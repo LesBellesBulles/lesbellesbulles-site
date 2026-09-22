@@ -742,8 +742,9 @@ section.s.bg-encre .lead { color: rgba(255,255,255,0.78); }
   display: flex; align-items: flex-end; justify-content: center;
   margin-bottom: 1rem;
   position: relative;
+  overflow: hidden;
 }
-.bottle-img img { max-height: 100%; max-width: 100%; object-fit: contain; transition: transform 0.5s; }
+.bottle-img img { max-height: 100%; max-width: 100%; object-fit: contain; transition: transform 0.5s; transform-origin: bottom center; }
 .bottle-tile:hover .bottle-img img { transform: translateY(-4px); }
 .bottle-img .placeholder-note {
   position: absolute; bottom: 0; right: 0;
@@ -1800,7 +1801,7 @@ const MAISONS_DETAIL = {
 // Bottles for gallery
 const BOTTLES = [
   // Chanoine
-  { house: "chanoine", houseDisplay: "Chanoine Frères", name: "La Pierre", type: "Brut", image: "bottles/chanoine-la-pierre.png", price: "16,20 €" },
+  { house: "chanoine", houseDisplay: "Chanoine Frères", name: "La Pierre", type: "Brut", image: "bottles/chanoine-la-pierre.png", price: "16,20 €", zoom: 1.4 },
   { house: "chanoine", houseDisplay: "Chanoine Frères", name: "Brut", type: "Brut", image: "bottles/chanoine-brut.png", price: "21,09 €" },
   { house: "chanoine", houseDisplay: "Chanoine Frères", name: "Demi-Sec", type: "Demi-Sec", image: "bottles/chanoine-demi-sec.png", price: "21,09 €" },
   { house: "chanoine", houseDisplay: "Chanoine Frères", name: "Rosé", type: "Rosé", image: "bottles/chanoine-rose.png", price: "23,49 €" },
@@ -1966,10 +1967,11 @@ function renderGallery() {
     const priceHTML = b.price
       ? `<div class="bottle-price">${escapeHTML(b.price)}</div>`
       : `<div class="bottle-price pending">Sur demande</div>`;
+    const zoomStyle = b.zoom ? ` style="transform: scale(${b.zoom})"` : '';
     return `
       <div class="bottle-tile" data-house="${b.house}">
         <div class="bottle-img">
-          <img src="${b.image}" alt="${escapeHTML(b.name)}" loading="lazy">
+          <img src="${b.image}" alt="${escapeHTML(b.name)}" loading="lazy"${zoomStyle}>
           ${isPlaceholder ? '<span class="placeholder-note">illustration</span>' : ''}
         </div>
         <div class="bottle-house">${escapeHTML(b.houseDisplay)}</div>
