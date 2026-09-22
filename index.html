@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Les Belles Bulles - Un jour, une occasion, un champagne</title>
-<meta name="description" content="Les Belles Bulles : Agent commercial indépendant. Une sélection de 6 Maisons de Champagne pour les particuliers et les professionnels. Conseil, événements, livraison.">
+<meta name="description" content="Les Belles Bulles - Agent commercial indépendant. Une sélection de 6 Maisons de Champagne pour les particuliers et les professionnels. Conseil, événements, livraison.">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -214,7 +214,7 @@ img { max-width: 100%; display: block; }
   display: flex; align-items: center;
 }
 .nav-instagram:hover { color: var(--or); }
-/* Instagram : Footer */
+/* Instagram - Footer */
 .footer-instagram {
   color: rgba(255,255,255,1);
   display: inline-flex; align-items: center;
@@ -934,7 +934,7 @@ section.s.bg-encre .lead { color: rgba(255,255,255,0.78); }
   margin-right: calc(50% - 50vw);
   margin-bottom: 4rem;
   margin-left: calc(50% - 50vw);
-  border-radius: 0;        
+  border-radius: 0;          /* plus de radius : la bande va bord à bord */
 }
 .contact-cta::before {
   content: ''; position: absolute; inset: 0;
@@ -948,7 +948,7 @@ section.s.bg-encre .lead { color: rgba(255,255,255,0.78); }
    background: rgba(3, 112, 129, 0.60);
    border-radius: 8px;
 
-   max-width: 820px;          
+   max-width: 820px;          /* le bloc sombre reste centré et contenu */
    margin: 0 auto;
 }
 .contact-cta .eyebrow { color: var(--or-clair); }
@@ -1088,28 +1088,28 @@ footer.site-footer {
 }
 @media (max-width: 580px) {
   .gallery-grid {
-    display: flex;                         
+    display: flex;                          /* annule la grille */
     gap: 0.8rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     padding: 0 1rem 1.2rem;
-    margin: 0 -1.5rem;                     
+    margin: 0 -1.5rem;                      /* déborde jusqu'aux bords */
     scrollbar-width: thin;
   }
   .bottle-tile {
-    flex: 0 0 65%;                          
+    flex: 0 0 65%;                          /* chaque tuile = 65% de largeur */
     scroll-snap-align: center;
   }
-  .bottle-img { height: 220px; }        
+  .bottle-img { height: 220px; }            /* image plus grande, mise en valeur */
   .bottle-tile h4 { font-size: 0.92rem; }
 
-  
+  /* Les autres règles que tu avais déjà : */
   .gallery-filters { gap: 0.4rem; }
   .filter-btn { padding: 0.55rem 0.9rem; font-size: 0.62rem; letter-spacing: 0.14em; }
   .divider { height: 80px; }
  @media (max-width: 580px) {
-
+  /* ... tes règles gallery-grid inchangées ... */
   .maisons-grid,
   .cuvees-grid,
   .services-grid {
@@ -1210,9 +1210,9 @@ footer.site-footer {
 <header class="hero">
   <div class="hero-bubbles" id="heroBubbles"></div>
   <div class="hero-inner">
-    <p class="hero-eyebrow">Un jour, une occasion, un champagne - depuis Paris</p>
+    <p class="hero-eyebrow">Un jour, une occasion, un champagne — depuis Paris</p>
     <h1>L'art du champagne,<br><em>en toute simplicité</em></h1>
-    <p class="hero-lead">Agent commercial indépendant, nous sélectionnons pour vous six Maisons d'exception et négocions des conditions privilégiées. Pour les entreprises : événements, inaugurations, soirées ; comme pour les particuliers : à l'occasion d'un mariage, d'un anniversaire ou simplement d'une grande envie.</p>
+    <p class="hero-lead">Agent commercial indépendant, nous sélectionnons pour vous six Maisons d'exception et négocions des conditions privilégiées. Pour les entreprises - événements, inaugurations, soirées - comme pour les particuliers, à l'occasion d'un mariage, d'un anniversaire ou d'une grande envie.</p>
     <div class="hero-ctas">
       <a href="#maisons" class="btn btn-or btn-arrow">
         Découvrir nos Maisons
@@ -1232,10 +1232,10 @@ footer.site-footer {
         <p class="eyebrow reveal">Notre Maison</p>
         <h2 class="section-h reveal d1">Le champagne, <em>autrement</em></h2>
         <div class="maison-text-block reveal d2">
-          <p>Les Belles Bulles est née d'une conviction&nbsp;: chaque occasion mérite son champagne, choisi avec exigence plutôt que laissé au hasard d'un rayon. En tant qu'agent commercial indépendant, nous travaillons en direct avec les Maisons que nous avons choisies et négocions des conditions privilégiées pour nos clients, particuliers comme professionnels.</p>
-          <p>Notre approche tient en trois gestes&nbsp;: connaître chaque cuvée à fond, écouter chaque besoin avec attention, et faire rencontrer les deux avec justesse. Pas de catalogue impersonnel, un conseil sur-mesure, une relation, et le plaisir de partager.</p>
-          <p>Nous accompagnons les entreprises pour leurs événements : lancements, inaugurations, soirées ; ainsi que les particuliers pour leurs grandes occasions : mariages, anniversaires, ou simplement une envie qui mérite d'être célébrée.</p>
-          <p class="signature">Un jour, une occasion, un champagne&nbsp;: à chaque moment qui compte, la bulle juste.</p>
+          <p>Les Belles Bulles est née d'une conviction&nbsp;: les grandes occasions méritent un grand champagne, choisi avec exigence plutôt que subi au hasard d'un rayon. En tant qu'agent commercial indépendant, nous travaillons en direct avec les Maisons que nous avons choisies et négocions des conditions privilégiées pour nos clients - particuliers comme professionnels.</p>
+          <p>Notre approche tient en trois gestes&nbsp;: connaître chaque cuvée à fond, écouter chaque besoin avec attention, et faire rencontrer les deux avec justesse. Pas de catalogue impersonnel - un conseil sur-mesure, une relation, et le plaisir de partager.</p>
+          <p>Nous accompagnons les entreprises pour leurs événements - lancements, inaugurations, soirées - et les particuliers pour leurs grandes occasions - mariages, anniversaires, ou simplement une envie qui mérite d'être célébrée.</p>
+          <p class="signature">Un jour, une occasion, un champagne&nbsp;: à chaque moment qui compte, la bouteille juste.</p>
         </div>
       </div>
       <div class="reveal d3">
@@ -1253,7 +1253,7 @@ footer.site-footer {
               <div class="value-num">02</div>
               <div>
                 <h4>Conseil sur-mesure</h4>
-                <p>Une équipe joignable, à votre écoute, qui connaît chaque cuvée et chaque accord.</p>
+                <p>Une équipe joignable, à votre écoute, qui connaît chaque cuvée et chaque accord. Aucune commande sans conversation.</p>
               </div>
             </div>
             <div class="value-row">
@@ -1357,7 +1357,7 @@ footer.site-footer {
         </div>
         <h3>Brut</h3>
         <p class="cuvee-sub">Dosage 0–12 g/L · le standard</p>
-        <p>Le cœur de gamme des Maisons. Équilibre entre fraîcheur, fruit et structure. Le compagnon polyvalent : de l'apéritif au repas, des fêtes aux moments simples.</p>
+        <p>Le cœur de gamme des Maisons. Équilibre entre fraîcheur, fruit et structure. Le compagnon polyvalent - de l'apéritif au repas, des fêtes aux moments simples.</p>
         <div class="cuvee-pairing">
           <strong>À table</strong>
           Apéritif, fruits de mer, poissons grillés, volaille rôtie.
@@ -1417,7 +1417,7 @@ footer.site-footer {
         </div>
         <h3>Blanc de Noirs</h3>
         <p class="cuvee-sub">100% Pinots · la vinosité</p>
-        <p>Issu uniquement de Pinot Noir et&#x2F;ou Meunier : des raisins noirs vinifiés en blanc. Plus de structure, plus de corps, de la profondeur et du caractère.</p>
+        <p>Issu uniquement de Pinot Noir et&#x2F;ou Meunier - des raisins noirs vinifiés en blanc. Plus de structure, plus de corps, de la profondeur et du caractère.</p>
         <div class="cuvee-pairing">
           <strong>À table</strong>
           Poissons relevés, volailles, viandes blanches, plats en sauce légers.
@@ -1429,7 +1429,7 @@ footer.site-footer {
         </div>
         <h3>Millésimés</h3>
         <p class="cuvee-sub">Une seule année · la garde</p>
-        <p>Issus exclusivement d'une année exceptionnelle. Vieillissement long sur lies : minimum 3 ans imposés, souvent davantage. Signent les grandes occasions et se conservent en cave.</p>
+        <p>Issus exclusivement d'une année exceptionnelle. Vieillissement long sur lies - minimum 3 ans imposés, souvent davantage. Signent les grandes occasions et se conservent en cave.</p>
         <div class="cuvee-pairing">
           <strong>À table</strong>
           Grandes tables, plats raffinés, occasions rares. À déguster pour lui-même.
@@ -1441,7 +1441,7 @@ footer.site-footer {
         </div>
         <h3>Bio &amp; Engagés</h3>
         <p class="cuvee-sub">Viticulture durable</p>
-        <p>Cuvées certifiées biologiques, viticulture raisonnée. L'engagement environnemental des Maisons : respect du sol, de la plante et des saisons.</p>
+        <p>Cuvées certifiées biologiques, viticulture raisonnée. L'engagement environnemental des Maisons - respect du sol, de la plante et des saisons.</p>
         <div class="cuvee-pairing">
           <strong>À table</strong>
           Cuisine de marché, produits locaux, plats végétariens, repas du quotidien.
@@ -1468,7 +1468,7 @@ footer.site-footer {
     <div class="section-head reveal">
       <p class="eyebrow center">La Sélection</p>
       <h2 class="section-h">Nos <em>cuvées</em></h2>
-      <p class="lead center">Un aperçu de notre catalogue, avec nos tarifs de base par cuvée. Remises quantitatives, conditions professionnelles et offres du moment se discutent directement avec notre équipe.</p>
+      <p class="lead center">Un aperçu de notre catalogue, avec nos tarifs maximum par cuvée. Ce sont des plafonds : des réductions peuvent s'appliquer selon les quantités, les conditions professionnelles et les offres du moment, à discuter directement avec notre équipe.</p>
     </div>
     <div class="gallery-filters reveal">
 
@@ -1532,7 +1532,7 @@ footer.site-footer {
         <div class="condition-card">
           <div class="condition-num">2</div>
           <h4>Livraison en deux temps</h4>
-          <p>Bruno Paillard et nos autres Maisons peuvent se combiner dans une même commande, mais sont expédiés séparément, prévoyez une possible réception à deux dates différentes.</p>
+          <p>Bruno Paillard et nos autres Maisons peuvent se combiner dans une même commande, mais sont expédiés séparément - prévoyez une possible réception à deux dates différentes.</p>
         </div>
       </div>
     </div>
@@ -1550,17 +1550,17 @@ footer.site-footer {
       <div class="service-card reveal d1">
         <div class="num">01</div>
         <h3>Conseil personnalisé</h3>
-        <p>On comprend votre besoin : apéritif, dîner, événement, cadeau ; puis on conseille la cuvée juste, dans le bon volume.</p>
+        <p>Une commande ne se passe jamais sans conversation. On comprend votre besoin -  apéritif, dîner, événement, cadeau - puis on conseille la cuvée juste, dans le bon volume.</p>
       </div>
       <div class="service-card reveal d2">
         <div class="num">02</div>
         <h3>Disponibilité et réactivité</h3>
-        <p>Une équipe joignable par téléphone et par email, qui répond vite et bien. Pas de répondeur, pas de robot, des interlocuteurs identifiés qui suivent votre dossier.</p>
+        <p>Une équipe joignable par téléphone et par email, qui répond vite et bien. Pas de répondeur, pas de bot - des interlocuteurs identifiés qui suivent votre dossier.</p>
       </div>
       <div class="service-card reveal d3">
         <div class="num">03</div>
         <h3>Organisation d'événements</h3>
-        <p>Lancement de produit, soirée clients, anniversaire de votre Maison&nbsp;: nous concevons le volet champagne de A à Z : sélection, volumes, logistique, mise en service.</p>
+        <p>Lancement de produit, soirée clients, anniversaire de votre Maison&nbsp;: nous concevons le volet champagne de A à Z - sélection, volumes, logistique, mise en service.</p>
       </div>
       <div class="service-card reveal d4">
         <div class="num">04</div>
@@ -1575,7 +1575,7 @@ footer.site-footer {
       <div class="service-card reveal d2">
         <div class="num">06</div>
         <h3>Cadeaux d'entreprise</h3>
-        <p>Coffrets personnalisés, cartes accompagnatrices, livraisons groupées ou individuelles. Pour vos clients, vos collaborateurs, vos partenaires : l'attention juste, la bouteille choisie.</p>
+        <p>Coffrets personnalisés, cartes accompagnatrices, livraisons groupées ou individuelles. Pour vos clients, vos collaborateurs, vos partenaires - l'attention juste, la bouteille choisie.</p>
       </div>
       <div class="service-card reveal d3">
         <div class="num">07</div>
@@ -1598,7 +1598,7 @@ footer.site-footer {
       <div class="contact-cta-inner">
         <p class="eyebrow center">Un jour, une occasion, un champagne</p>
         <h2>Une envie, une question, <em>une commande&nbsp;?</em></h2>
-        <p>Écrivez-nous, appelez-nous. Nous répondons rapidement, avec attention. Le champagne est une affaire de relations : commençons la nôtre.</p>
+        <p>Écrivez-nous, appelez-nous. Nous répondons rapidement, avec attention. Le champagne est une affaire de relations - commençons la nôtre.</p>
         <a href="mailto:contact@lesbellesbulles.com" class="contact-email-large">contact@lesbellesbulles.com</a>
         <div style="margin-top:1.5rem;">
           <a href="mailto:contact@lesbellesbulles.com" class="btn btn-or btn-arrow">
@@ -1691,7 +1691,7 @@ footer.site-footer {
 // DATA - Maison details
 // ════════════════════════════════════════
 
-
+// Toujours ouvrir en haut de page
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
@@ -1704,7 +1704,7 @@ const MAISONS_DETAIL = {
     city: "Reims · Champagne",
     paragraphs: [
       "Fondée en 1760 par François Delamotte, Lanson est l'une des plus anciennes Maisons de Champagne. La Croix de Malte qui orne chaque flacon date de 1798, lorsque le fils du fondateur, alors membre de l'Ordre hospitalier de Malte, en fit l'emblème de la Maison.",
-      "Le style Lanson est immédiatement reconnaissable&nbsp;: vinification sans fermentation malolactique, ce qui préserve une fraîcheur vibrante et une vivacité signature. Les vins reposent en cave bien plus longtemps que les exigences de l'appellation : trois ans pour les bruts sans année, cinq ans pour les millésimés.",
+      "Le style Lanson est immédiatement reconnaissable&nbsp;: vinification sans fermentation malolactique, ce qui préserve une fraîcheur vibrante et une vivacité signature. Les vins reposent en cave bien plus longtemps que les exigences de l'appellation - trois ans pour les bruts sans année, cinq ans pour les millésimés.",
       "Fournisseur officiel de la Couronne britannique depuis 1900, partenaire emblématique de Wimbledon depuis 1977, Lanson cultive une élégance discrète et une fidélité aux grandes maisons."
     ],
     signature: [
@@ -1728,7 +1728,7 @@ const MAISONS_DETAIL = {
       ["Style", "Structuré, authentique"],
       ["Particularité", "2ᵉ plus ancienne Maison"]
     ],
-    extra: "Notre sélection : Chanoine Brut, Demi-Sec, Rosé, Premier Cru Extra Brut, Blanc de Noirs et Organic Extra Brut (certifié biologique)."
+    extra: "Notre sélection : La Pierre, Chanoine Brut, Demi-Sec, Rosé, Premier Cru Extra Brut, Blanc de Noirs et Organic Extra Brut (certifié biologique)."
   },
   heidsieck: {
     year: "Fondée en 1785",
@@ -1736,7 +1736,7 @@ const MAISONS_DETAIL = {
     city: "Reims · Champagne",
     paragraphs: [
       "Fondée en 1785 par Florens-Louis Heidsieck, originaire de Westphalie, la Maison s'installe à Reims et devient rapidement une référence sur les cours royales d'Europe. Fournisseur breveté du Roi de Prusse et de l'Empereur d'Allemagne dès 1818, du Tsar Nicolas&nbsp;II en 1907, de la Cour d'Angleterre en 1911, de la Cour de Suède en 1933.",
-      "L'histoire la plus extraordinaire de la Maison est sans doute celle du Jönköping&nbsp;: en 1916, ce cargo suédois transportait des caisses de champagne Heidsieck destinées au Tsar. Torpillé en mer Baltique, il repose 82&nbsp;ans au fond de l'eau avant d'être retrouvé en 1998 : quelque 3&nbsp;000 bouteilles intactes, devenues légendaires.",
+      "L'histoire la plus extraordinaire de la Maison est sans doute celle du Jönköping&nbsp;: en 1916, ce cargo suédois transportait des caisses de champagne Heidsieck destinées au Tsar. Torpillé en mer Baltique, il repose 82&nbsp;ans au fond de l'eau avant d'être retrouvé en 1998 - quelque 3&nbsp;000 bouteilles intactes, devenues légendaires.",
       "Le style Heidsieck est classique, structuré, Pinot Noir dominant. Une approche traditionnelle assumée, fidèle à l'héritage des grandes tables royales."
     ],
     signature: [
@@ -1751,8 +1751,8 @@ const MAISONS_DETAIL = {
     name: "Tsarine",
     city: "Reims · Champagne",
     paragraphs: [
-      "Créée en 1996 par Philippe Baijot au sein de la Maison Chanoine Frères, Tsarine rend hommage à la noblesse russe : principal marché du Champagne au XIXᵉ siècle. La cuvée Tsarine se veut un trait d'union entre la tradition champenoise française et l'âge d'or impérial russe.",
-      "Sa bouteille emblématique, aux courbes en spirale, est née en 1996 lors d'un dîner au restaurant&nbsp;«&nbsp;Le Chardonnay&nbsp;» à Reims. Sa forme évoque les dômes de la cathédrale Saint-Basile sur la Place Rouge à Moscou. Une signature visuelle immédiatement reconnaissable, devenue iconique : Tsarine est notamment la bouteille officielle des Césars.",
+      "Créée en 1996 par Philippe Baijot au sein de la Maison Chanoine Frères, Tsarine rend hommage à la noblesse russe - principal marché du Champagne au XIXᵉ siècle. La cuvée Tsarine se veut un trait d'union entre la tradition champenoise française et l'âge d'or impérial russe.",
+      "Sa bouteille emblématique, aux courbes en spirale, est née en 1996 lors d'un dîner au restaurant&nbsp;«&nbsp;Le Chardonnay&nbsp;» à Reims. Sa forme évoque les dômes de la cathédrale Saint-Basile sur la Place Rouge à Moscou. Une signature visuelle immédiatement reconnaissable, devenue iconique - Tsarine est notamment la bouteille officielle des Césars.",
       "Le style Tsarine recherche l'équilibre subtil&nbsp;: finesse, élégance et fraîcheur, par un assemblage soigneux des trois cépages champenois. Une Maison en phase avec son temps, qui parle aussi bien aux amateurs qu'aux connaisseurs."
     ],
     signature: [
@@ -1767,9 +1767,9 @@ const MAISONS_DETAIL = {
     name: "Massé",
     city: "Champagne",
     paragraphs: [
-      "Maison historique de Champagne, Massé incarne une approche sobre et accessible du grand vin de fête. Une cuvée Brut bien construite, généreuse et équilibrée, pensée pour marquer les occasions sans en imposer.",
+      "Maison historique de Champagne, Massé incarne une approche sobre et accessible du grand vin de fête. Une cuvée Brut bien construite, généreuse et équilibrée - pensée pour marquer les occasions sans en imposer.",
       "C'est précisément la promesse Massé&nbsp;: la qualité champenoise sans la solennité. Un champagne qui s'ouvre facilement, qui plaît largement, qui accompagne sans jamais dominer.",
-      "Dans notre sélection, Massé occupe une place précieuse&nbsp;: la bouteille juste pour un anniversaire entre proches, une belle nouvelle à fêter, une envie de champagne qui n'attend pas de prétexte. Elle incarne notre promesse : un jour, une occasion, un champagne."
+      "Dans notre sélection, Massé occupe une place précieuse&nbsp;: la bouteille juste pour un anniversaire entre proches, une belle nouvelle à fêter, une envie de champagne qui n'attend pas de prétexte. Elle incarne notre promesse - un jour, une occasion, un champagne."
     ],
     signature: [
       ["Style", "Accessible, équilibré"],
@@ -1800,6 +1800,7 @@ const MAISONS_DETAIL = {
 // Bottles for gallery
 const BOTTLES = [
   // Chanoine
+  { house: "chanoine", houseDisplay: "Chanoine Frères", name: "La Pierre", type: "Brut", image: "bottles/chanoine-la-pierre.png", price: "16,20 €" },
   { house: "chanoine", houseDisplay: "Chanoine Frères", name: "Brut", type: "Brut", image: "bottles/chanoine-brut.png", price: "21,09 €" },
   { house: "chanoine", houseDisplay: "Chanoine Frères", name: "Demi-Sec", type: "Demi-Sec", image: "bottles/chanoine-demi-sec.png", price: "21,09 €" },
   { house: "chanoine", houseDisplay: "Chanoine Frères", name: "Rosé", type: "Rosé", image: "bottles/chanoine-rose.png", price: "23,49 €" },
