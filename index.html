@@ -1269,19 +1269,10 @@ footer.site-footer {
   transition: color 0.3s, border-color 0.3s;
 }
 .promo-band-cta:hover { color: #E5C77E; }
-.promo-band-close {
-  flex-shrink: 0; margin-left: 0.2rem;
-  width: 30px; height: 30px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: #F4E4B8; border: 1px solid rgba(229,199,126,0.5);
-  transition: background 0.3s, color 0.3s;
-}
-.promo-band-close:hover { background: #F4E4B8; color: #8a0d19; }
 @media (max-width: 980px) {
-  .promo-band { min-height: 58px; padding: 0.55rem 3rem 0.55rem 1rem; gap: 0.7rem; flex-wrap: wrap; }
+  .promo-band { min-height: 58px; padding: 0.55rem 1rem; gap: 0.7rem; flex-wrap: wrap; }
   .promo-band-eyebrow, .promo-band-sep, .promo-band-cta { display: none; }
   .promo-band-pct { font-size: 1.45rem; }
-  .promo-band-close { position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); margin: 0; }
   .promo-band-text { font-size: 0.85rem; line-height: 1.35; }
   body.has-promo .hero { padding-top: calc(7rem + 58px); }
 }
@@ -1336,9 +1327,6 @@ footer.site-footer {
     <span class="promo-band-text">sur Bruno Paillard et Château des Sarrins, <em>jusqu'au 31&nbsp;décembre</em></span>
     <span class="promo-band-sep" aria-hidden="true"></span>
     <a href="#selection" class="promo-band-cta">Découvrir</a>
-    <button class="promo-band-close" id="promoBandClose" aria-label="Fermer l'offre">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
   </div>
   <a href="#accueil" class="nav-brand">
     <img src="logo-summer.jpg" alt="Les Belles Bulles">
@@ -1971,11 +1959,11 @@ const BOTTLES = [
   // Bruno Paillard
   { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Première Cuvée Extra-Brut", type: "Extra Brut", image: "bottles/bp-premiere-cuvee-extra-brut.png", price: "29,10 €", htNet: true },
   { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Rosé Première Cuvée", type: "Rosé", image: "bottles/bp-premiere-cuvee-rose.png", price: "42,45 €", htNet: true },
-  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Blanc de Blancs Grand Cru", type: "Blanc de Blancs", image: "bottles/bp-grand-cru-bdb.png", price: "47,85 €", htNet: true },
-  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Blanc de Noirs Grand Cru", type: "Blanc de Noirs", image: "bottles/bp-grand-cru-bdn.png", price: "45,90 €", htNet: true },
+  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Blanc de Blancs Grand Cru", type: "Blanc de Blancs", image: "bottles/bp-grand-cru-bdb.png?v=2", price: "47,85 €", htNet: true },
+  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Blanc de Noirs Grand Cru", type: "Blanc de Noirs", image: "bottles/bp-grand-cru-bdn.png?v=2", price: "45,90 €", htNet: true },
   { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Dosage Zéro", type: "Extra Brut", image: "bottles/bp-dosage-zero.png", price: "40,20 €", htNet: true },
   { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Cuvée 72", type: "Prestige", image: "bottles/bp-cuvee-72.png", price: "37,05 €", htNet: true },
-  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Blanc de Blancs 2015", type: "Millésimé", image: "bottles/bp-bdb-2015.png", price: "59,00 €", htNet: true },
+  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Blanc de Blancs 2015", type: "Millésimé", image: "bottles/bp-bdb-2015.png?v=2", price: "59,00 €", htNet: true },
   { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Assemblage 2015 « Élan »", type: "Millésimé", image: "bottles/bp-assemblage-millesime-extra-brut-elan.png", price: "49,00 €", htNet: true },
   { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "N.P.U. « Nec Plus Ultra » 2009", type: "Prestige", image: "bottles/bp-npu-2009.png", price: "159,00 €", htNet: true },
   // Tsarine
@@ -2646,24 +2634,16 @@ function currentView() {
 }
 
 // ════════════════════════════════════════
-// BANDEAU PROMO - visible sur l'accueil, fermable
+// BANDEAU PROMO - visible sur l'accueil
 // Disparaît tout seul après la date de fin.
 // ════════════════════════════════════════
 const PROMO_END = new Date('2027-01-01T00:00:00+01:00');   // fin de l'offre (31 décembre minuit)
 const promoBand = document.getElementById('promoBand');
-let promoDismissed = false;
-try { promoDismissed = sessionStorage.getItem('promoDismissed') === '1'; } catch (e) {}
 function maybePromo(view) {
-  const show = view === 'accueil' && !promoDismissed && new Date() < PROMO_END;
+  const show = view === 'accueil' && new Date() < PROMO_END;
   promoBand.classList.toggle('show', show);
   document.body.classList.toggle('has-promo', show);
 }
-document.getElementById('promoBandClose').addEventListener('click', () => {
-  promoDismissed = true;
-  try { sessionStorage.setItem('promoDismissed', '1'); } catch (e) {}
-  maybePromo(null);
-  scheduleFrostZones();
-});
 
 function showView(view, animate = true) {
   document.querySelectorAll('[data-view]').forEach(el => {
