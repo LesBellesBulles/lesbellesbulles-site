@@ -1154,6 +1154,17 @@ footer.site-footer {
           mask-image: linear-gradient(to left, #000 35%, transparent 100%), var(--zones-clair, linear-gradient(#000, #000)); }
 @media (max-width: 1024px) { .givre-bordure { display: none; } }
 /* ════════════════════════════════════════
+   DÉGUSTATIONS
+   ════════════════════════════════════════ */
+.degust-subhead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.35rem; color: var(--bleu-fonce);
+  text-align: center; margin: 3.5rem 0 1.6rem;
+}
+.degust-subhead:first-of-type { margin-top: 0; }
+.degust-audiences .num { font-size: 1.5rem; }
+.degust-cta { text-align: center; margin-top: 3.5rem; }
+/* ════════════════════════════════════════
    PAGES (une section affichée à la fois)
    ════════════════════════════════════════ */
 [data-view].view-hidden { display: none !important; }
@@ -1219,7 +1230,7 @@ footer.site-footer {
     <li><a href="#maisons">Nos Maisons</a></li>
     <li><a href="#cuvees">Nos Cuvées</a></li>
     <li><a href="#selection">La Sélection</a></li>
-    <li><a href="#services">Services</a></li>
+    <li><a href="#degustations">Dégustations</a></li>
     <li><a href="#contact" class="nav-cta">Commander</a></li>
   </ul>
   <!-- <button class="nav-hamburger" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button> -->
@@ -1535,55 +1546,53 @@ footer.site-footer {
     </div>
   </div>
 </section>
-<!-- ═══ NOS SERVICES ═══ -->
-<section class="s bg-white" id="services" data-view="services">
+<!-- ═══ DÉGUSTATIONS ═══ -->
+<section class="s bg-white" id="degustations" data-view="degustations">
   <div class="container">
     <div class="section-head reveal">
-      <p class="eyebrow center">Nos Services</p>
-      <h2 class="section-h">Au-delà de la <em>commande</em></h2>
-      <p class="lead center">Nous ne sommes pas un site marchand de plus. Nous accompagnons nos clients de la sélection à la dégustation, du conseil au service.</p>
+      <p class="eyebrow center">Dégustations</p>
+      <h2 class="section-h">Le champagne, <em>à déguster ensemble</em></h2>
+      <p class="lead center">Pour les entreprises comme pour les particuliers, nous organisons des dégustations de champagne de A à Z&nbsp;: nous les préparons, les mettons en place et les animons, pour faire découvrir nos Maisons et leurs styles.</p>
     </div>
+
+    <p class="degust-subhead reveal">Pour qui&nbsp;?</p>
+    <div class="services-grid degust-audiences">
+      <div class="service-card reveal d1">
+        <div class="num">Entreprises</div>
+        <h3>Réunir autour du champagne</h3>
+        <p>Soirée clients, séminaire, afterwork, lancement ou fin d'année&nbsp;: une animation originale et conviviale pour rassembler vos équipes, vos clients ou vos partenaires.</p>
+      </div>
+      <div class="service-card reveal d2">
+        <div class="num">Particuliers</div>
+        <h3>Partager un beau moment</h3>
+        <p>Anniversaire, dîner entre amis, fête de famille ou simple envie de découvrir&nbsp;: une dégustation chez vous ou dans le lieu de votre choix, en toute simplicité.</p>
+      </div>
+    </div>
+
+    <p class="degust-subhead reveal">Nous nous occupons de tout</p>
     <div class="services-grid">
       <div class="service-card reveal d1">
         <div class="num">01</div>
-        <h3>Conseil personnalisé</h3>
-        <p>Une commande ne se passe jamais sans conversation. On comprend votre besoin -  apéritif, dîner, événement, cadeau - puis on conseille la cuvée juste, dans le bon volume.</p>
+        <h3>Préparer</h3>
+        <p>Nous échangeons avec vous sur l'occasion, le nombre de participants et vos envies, puis nous composons la sélection de cuvées et le déroulé de la dégustation.</p>
       </div>
       <div class="service-card reveal d2">
         <div class="num">02</div>
-        <h3>Disponibilité et réactivité</h3>
-        <p>Une équipe joignable par téléphone et par email, qui répond vite et bien. Pas de répondeur, pas de bot - des interlocuteurs identifiés qui suivent votre dossier.</p>
+        <h3>Mettre en place</h3>
+        <p>Le jour J, nous installons la dégustation&nbsp;: cuvées servies à bonne température, ordre de dégustation pensé à l'avance. Vous n'avez rien à gérer.</p>
       </div>
       <div class="service-card reveal d3">
         <div class="num">03</div>
-        <h3>Organisation d'événements</h3>
-        <p>Lancement de produit, soirée clients, anniversaire de votre Maison&nbsp;: nous concevons le volet champagne de A à Z - sélection, volumes, logistique, mise en service.</p>
+        <h3>Animer</h3>
+        <p>Nous présentons chaque Maison et chaque cuvée, racontons leur histoire, guidons la dégustation et répondons à toutes les questions.</p>
       </div>
-      <div class="service-card reveal d4">
-        <div class="num">04</div>
-        <h3>Réceptions privées</h3>
-        <p>Mariages, anniversaires marquants, dîners de fête. Une dégustation préalable pour choisir, des conseils d'accords mets-champagne, une livraison soignée le jour J.</p>
-      </div>
-      <div class="service-card reveal d1">
-        <div class="num">05</div>
-        <h3>Dégustations commentées</h3>
-        <p>Chez vous, dans votre entreprise ou dans un lieu privatisé&nbsp;: une dégustation animée et commentée pour découvrir nos Maisons et leurs styles. À partir de huit personnes.</p>
-      </div>
-      <div class="service-card reveal d2">
-        <div class="num">06</div>
-        <h3>Cadeaux d'entreprise</h3>
-        <p>Coffrets personnalisés, cartes accompagnatrices, livraisons groupées ou individuelles. Pour vos clients, vos collaborateurs, vos partenaires - l'attention juste, la bouteille choisie.</p>
-      </div>
-      <div class="service-card reveal d3">
-        <div class="num">07</div>
-        <h3>Accompagnement professionnel</h3>
-        <p>Pour les CHR, cavistes et acheteurs&nbsp;: tarifs négociés, conditions adaptées, suivi commercial, mise à jour régulière des disponibilités et des promotions des Maisons.</p>
-      </div>
-      <div class="service-card reveal d4">
-        <div class="num">08</div>
-        <h3>Livraison soignée</h3>
-        <p>Emballage protecteur, suivi du colis, créneau précisé. Commande de la quantité de votre choix, franco de port au-delà de 24 bouteilles partout en France métropolitaine.</p>
-      </div>
+    </div>
+
+    <div class="degust-cta reveal">
+      <a href="#contact" class="btn btn-encre btn-arrow">
+        Organiser une dégustation
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
     </div>
   </div>
 </section>
@@ -2342,10 +2351,10 @@ updateFrostZones();
 // change l'adresse (#maisons...) et remonte en haut.
 // Le bouton retour du navigateur fonctionne.
 // ════════════════════════════════════════
-const VIEWS = ['accueil', 'maison', 'maisons', 'cuvees', 'selection', 'services', 'contact'];
+const VIEWS = ['accueil', 'maison', 'maisons', 'cuvees', 'selection', 'degustations', 'contact'];
 const VIEW_TITLES = {
   maison: 'Notre Maison', maisons: 'Nos Maisons', cuvees: 'Nos Cuvées',
-  selection: 'La Sélection', services: 'Nos Services', contact: 'Commander'
+  selection: 'La Sélection', degustations: 'Dégustations', contact: 'Commander'
 };
 const BASE_TITLE = document.title;
 
