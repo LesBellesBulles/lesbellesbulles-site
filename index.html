@@ -1176,6 +1176,118 @@ footer.site-footer {
 .nav-links a.active { color: var(--or); }
 .nav-links a.active::after { width: 100%; }
 .nav-links a.nav-cta.active { background: var(--or); color: var(--blanc); }
+/* Menu à 7 onglets : plus serré sur les écrans moyens */
+.nav-links a { white-space: nowrap; }
+@media (min-width: 981px) and (max-width: 1320px) {
+  .site-nav { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .nav-links { gap: 1.3rem; }
+  .nav-links a { font-size: 0.68rem; letter-spacing: 0.1em; }
+  .nav-links a.nav-cta { padding: 0.6rem 0.9rem; }
+}
+@media (min-width: 981px) and (max-width: 1180px) {
+  .nav-brand-text { display: none; }
+}
+/* ════════════════════════════════════════
+   NOS CHAMPAGNES / NOS VINS - cartes en offre d'hiver
+   ════════════════════════════════════════ */
+.bottle-tile.is-promo {
+  position: relative;
+  background: linear-gradient(170deg, #b3162a 0%, #9a0f1c 45%, #7d0b16 100%);
+  border-color: #C9A047;
+  box-shadow: inset 0 0 0 1px rgba(244,228,184,0.18);
+}
+.bottle-tile.is-promo:hover { border-color: #E5C77E; box-shadow: inset 0 0 0 1px rgba(244,228,184,0.3), 0 12px 28px rgba(80,0,10,0.25); }
+.bottle-tile.is-promo .bottle-img img { filter: drop-shadow(0 8px 10px rgba(40,0,6,0.45)); }
+.bottle-tile.is-promo .bottle-house { color: #E5C77E; }
+.bottle-tile.is-promo h4 { color: #FFF4DC; }
+.bottle-tile.is-promo .bottle-type { color: rgba(255,244,220,0.75); }
+.bottle-tile.is-promo .bottle-price { border-top-color: rgba(229,199,126,0.35); color: #F4E4B8; }
+.promo-badge {
+  position: absolute; top: 10px; right: 10px; z-index: 2;
+  font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 0.82rem;
+  color: #8a0d19; background: #FFF4DC;
+  border: 1px solid #C9A047; padding: 0.15rem 0.55rem; border-radius: 2px;
+  box-shadow: 0 3px 8px rgba(40,0,6,0.3);
+}
+.price-old {
+  font-family: var(--sans); font-weight: 400; font-size: 0.78rem;
+  text-decoration: line-through; color: rgba(255,244,220,0.6); margin-right: 0.4rem;
+}
+.price-new { color: #F4E4B8; }
+.promo-note {
+  display: block; margin-top: 0.35rem;
+  font-family: var(--sans); font-weight: 600; font-size: 0.56rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: #E5C77E;
+}
+.bottle-placeholder { height: 100%; width: auto; color: var(--beige-fonce); }
+.price-mag { display: block; margin-top: 0.25rem; font-family: var(--sans); font-weight: 400; font-size: 0.72rem; letter-spacing: 0.02em; opacity: 0.85; }
+.price-mag s { opacity: 0.7; }
+/* Vins : 4 sur une ligne, 2 + 2 sur écran moyen */
+#winesGrid { grid-template-columns: repeat(4, 1fr); max-width: 900px; }
+@media (min-width: 581px) and (max-width: 900px) {
+  #winesGrid { grid-template-columns: repeat(2, 1fr); max-width: 520px; }
+}
+/* ════════════════════════════════════════
+   BANDEAU PROMO - juste sous le menu (accueil)
+   ════════════════════════════════════════ */
+.promo-band {
+  position: absolute; top: 100%; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(0.8rem, 2vw, 1.6rem);
+  min-height: 72px; padding: 0.6rem 3.5rem;
+  background:
+    linear-gradient(100deg, transparent 40%, rgba(255,255,255,0.10) 50%, transparent 60%) -100% 0 / 60% 100% no-repeat,
+    linear-gradient(to bottom, #8a0d19 0%, #a8131f 45%, #b3162a 55%, #8a0d19 100%);
+  border-top: 1px solid #C9A047; border-bottom: 1px solid #C9A047;
+  box-shadow: inset 0 3px 0 -2px rgba(244,228,184,0.35), inset 0 -3px 0 -2px rgba(244,228,184,0.35), 0 8px 20px rgba(11,26,48,0.25);
+  color: #FFF4DC; text-align: center;
+  clip-path: inset(0 0 100% 0); visibility: hidden;
+  transition: clip-path 0.7s cubic-bezier(.7,0,.2,1), visibility 0s linear 0.7s;
+}
+.promo-band.show {
+  clip-path: inset(0 0 0 0); visibility: visible;
+  transition: clip-path 0.7s cubic-bezier(.7,0,.2,1) 0.4s, visibility 0s;
+  animation: bandSheen 7s ease-in-out 1.5s infinite;
+}
+@keyframes bandSheen { 0% { background-position: -100% 0, 0 0; } 45%, 100% { background-position: 220% 0, 0 0; } }
+.promo-band-eyebrow {
+  font-size: 0.64rem; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase;
+  color: #E5C77E; white-space: nowrap;
+}
+.promo-band-sep { width: 1px; height: 30px; background: linear-gradient(transparent, #C9A047, transparent); flex-shrink: 0; }
+.promo-band-pct {
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: clamp(1.6rem, 2.4vw, 2rem); line-height: 1; white-space: nowrap;
+  color: #F4E4B8;
+}
+.promo-band-text { font-family: var(--serif); font-size: clamp(0.95rem, 1.3vw, 1.1rem); letter-spacing: 0.01em; }
+.promo-band-text em { font-style: italic; color: #F4E4B8; }
+.promo-band-cta {
+  font-size: 0.64rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #FFF4DC; white-space: nowrap;
+  padding-bottom: 3px; border-bottom: 1px solid #E5C77E;
+  transition: color 0.3s, border-color 0.3s;
+}
+.promo-band-cta:hover { color: #E5C77E; }
+.promo-band-close {
+  flex-shrink: 0; margin-left: 0.2rem;
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #F4E4B8; border: 1px solid rgba(229,199,126,0.5);
+  transition: background 0.3s, color 0.3s;
+}
+.promo-band-close:hover { background: #F4E4B8; color: #8a0d19; }
+@media (max-width: 980px) {
+  .promo-band { min-height: 58px; padding: 0.55rem 3rem 0.55rem 1rem; gap: 0.7rem; flex-wrap: wrap; }
+  .promo-band-eyebrow, .promo-band-sep, .promo-band-cta { display: none; }
+  .promo-band-pct { font-size: 1.45rem; }
+  .promo-band-close { position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); margin: 0; }
+  .promo-band-text { font-size: 0.85rem; line-height: 1.35; }
+  body.has-promo .hero { padding-top: calc(7rem + 58px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .promo-band, .promo-band.show { transition: none; animation: none; }
+}
 </style>
 </head>
 <body class="lock-scroll">
@@ -1218,6 +1330,16 @@ footer.site-footer {
 <div class="givre-bordure givre-droite givre-sur-sombre" aria-hidden="true"></div>
 <!-- ═══ NAV ═══ -->
 <nav class="site-nav" id="siteNav">
+  <!-- ═══ BANDEAU PROMO (accueil) ═══ -->
+  <div class="promo-band" id="promoBand" role="region" aria-label="Offre promotionnelle">
+    <span class="promo-band-pct">Offre d'hiver</span>
+    <span class="promo-band-text">sur Bruno Paillard et Château des Sarrins, <em>jusqu'au 31&nbsp;décembre</em></span>
+    <span class="promo-band-sep" aria-hidden="true"></span>
+    <a href="#selection" class="promo-band-cta">Découvrir</a>
+    <button class="promo-band-close" id="promoBandClose" aria-label="Fermer l'offre">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
   <a href="#accueil" class="nav-brand">
     <img src="logo-summer.jpg" alt="Les Belles Bulles">
     <div class="nav-brand-text">
@@ -1226,10 +1348,11 @@ footer.site-footer {
     </div>
   </a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#maison">La Maison</a></li>
+    <li><a href="#maison">Nous</a></li>
     <li><a href="#maisons">Nos Maisons</a></li>
     <li><a href="#cuvees">Nos Cuvées</a></li>
-    <li><a href="#selection">La Sélection</a></li>
+    <li><a href="#selection">Nos Champagnes</a></li>
+    <li><a href="#vins">Nos Vins</a></li>
     <li><a href="#degustations">Dégustations</a></li>
     <li><a href="#contact" class="nav-cta">Commander</a></li>
   </ul>
@@ -1264,7 +1387,7 @@ footer.site-footer {
   <div class="container">
     <div class="maison-grid">
       <div>
-        <p class="eyebrow reveal">Notre Maison</p>
+        <p class="eyebrow reveal">Nous</p>
         <h2 class="section-h reveal d1">Le champagne, <em>autrement</em></h2>
         <div class="maison-text-block reveal d2">
           <p>Les Belles Bulles est née d'une conviction&nbsp;: les grandes occasions méritent un grand champagne, choisi avec exigence plutôt que subi au hasard d'un rayon. En tant qu'agent commercial indépendant, nous travaillons en direct avec les Maisons que nous avons choisies et négocions des conditions privilégiées pour nos clients - particuliers comme professionnels.</p>
@@ -1474,7 +1597,7 @@ footer.site-footer {
 <section class="s bg-creme" id="selection" data-view="selection">
   <div class="container">
     <div class="section-head reveal">
-      <p class="eyebrow center">La Sélection</p>
+      <p class="eyebrow center">Nos Champagnes</p>
       <h2 class="section-h">Nos <em>cuvées</em></h2>
       <p class="lead center">Un aperçu de notre catalogue, avec nos tarifs maximum par cuvée. <br>Ce sont des plafonds : notre équipe vous accompagnera toujours pour vous faire bénéficier des meilleures offres selon vos volumes, votre profil et les conditions du moment. <br> À voir directement avec notre équipe.</p>
     </div>
@@ -1543,6 +1666,19 @@ footer.site-footer {
           <p>Bruno Paillard et nos autres Maisons peuvent se combiner dans une même commande, mais sont expédiés séparément - prévoyez une possible réception à deux dates différentes.</p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+<!-- ═══ NOS VINS ═══ -->
+<section class="s bg-creme" id="vins" data-view="vins">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow center">Nos Vins</p>
+      <h2 class="section-h">Château des <em>Sarrins</em></h2>
+      <p class="lead center">Côtes de Provence. Le domaine de la famille Paillard, niché aux confins nord de l'appellation&nbsp;: une viticulture certifiée Agriculture Biologique et des vins élaborés exclusivement à partir des raisins du Domaine. Prix TTC.</p>
+    </div>
+    <div class="gallery-grid" id="winesGrid">
+      <!-- Généré par JS (tableau WINES) -->
     </div>
   </div>
 </section>
@@ -1799,7 +1935,7 @@ const MAISONS_DETAIL = {
       ["Élevage", "2 à 4 fois plus long qu'imposé"],
       ["Particularité", "100 % familial et indépendant"]
     ],
-    extra: "Notre sélection&nbsp;: Première Cuvée Extra-Brut, Rosé Première Cuvée, Blanc de Blancs Grand Cru, Blanc de Noirs Grand Cru, Dosage Zéro, Cuvée 72, Blanc de Blancs 2014 «&nbsp;Gourmand&nbsp;», Assemblage 2015 «&nbsp;Élan&nbsp;» et la cuvée de prestige N.P.U. 2009."
+    extra: "Notre sélection&nbsp;: Première Cuvée Extra-Brut, Rosé Première Cuvée, Blanc de Blancs Grand Cru, Blanc de Noirs Grand Cru, Dosage Zéro, Cuvée 72, Blanc de Blancs 2015, Assemblage 2015 «&nbsp;Élan&nbsp;» et la cuvée de prestige N.P.U. 2009."
   }
 
 };
@@ -1833,15 +1969,15 @@ const BOTTLES = [
   // Massé
   { house: "masse", houseDisplay: "Massé", name: "Brut", type: "Brut", image: "bottles/masse-brut.png", price: "24,09 €" },
   // Bruno Paillard
-  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Première Cuvée Extra-Brut", type: "Extra Brut", image: "bottles/bp-premiere-cuvee-extra-brut.png", price: "49,00 €" },
-  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Rosé Première Cuvée", type: "Rosé", image: "bottles/bp-premiere-cuvee-rose.png", price: "67,00 €" },
-  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Blanc de Blancs Grand Cru", type: "Blanc de Blancs", image: "bottles/bp-grand-cru-bdb.png", price: "82,00 €" },
-  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Blanc de Noirs Grand Cru", type: "Blanc de Noirs", image: "bottles/bp-grand-cru-bdn.png", price: "82,00 €" },
-  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Dosage Zéro", type: "Extra Brut", image: "bottles/bp-dosage-zero.png", price: "64,00 €" },
-  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Cuvée 72", type: "Prestige", image: "bottles/bp-cuvee-72.png", price: "69,00 €" },
-  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Blanc de Blancs 2014 « Gourmand »", type: "Millésimé", image: "bottles/bp-bdb-millesime-extra-brut-gourmand.png", price: "108,00 €" },
-  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Assemblage 2015 « Élan »", type: "Millésimé", image: "bottles/bp-assemblage-millesime-extra-brut-elan.png", price: "86,00 €" },
-  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "N.P.U. « Nec Plus Ultra » 2009", type: "Prestige", image: "bottles/bp-npu-2009.png", price: "278,00 €" },
+  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Première Cuvée Extra-Brut", type: "Extra Brut", image: "bottles/bp-premiere-cuvee-extra-brut.png", price: "29,10 €", htNet: true },
+  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Rosé Première Cuvée", type: "Rosé", image: "bottles/bp-premiere-cuvee-rose.png", price: "42,45 €", htNet: true },
+  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Blanc de Blancs Grand Cru", type: "Blanc de Blancs", image: "bottles/bp-grand-cru-bdb.png", price: "47,85 €", htNet: true },
+  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Blanc de Noirs Grand Cru", type: "Blanc de Noirs", image: "bottles/bp-grand-cru-bdn.png", price: "45,90 €", htNet: true },
+  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Dosage Zéro", type: "Extra Brut", image: "bottles/bp-dosage-zero.png", price: "40,20 €", htNet: true },
+  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Cuvée 72", type: "Prestige", image: "bottles/bp-cuvee-72.png", price: "37,05 €", htNet: true },
+  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Blanc de Blancs 2015", type: "Millésimé", image: "bottles/bp-bdb-2015.png", price: "59,00 €", htNet: true },
+  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "Assemblage 2015 « Élan »", type: "Millésimé", image: "bottles/bp-assemblage-millesime-extra-brut-elan.png", price: "49,00 €", htNet: true },
+  { house: "bruno-paillard", houseDisplay: "Bruno Paillard", name: "N.P.U. « Nec Plus Ultra » 2009", type: "Prestige", image: "bottles/bp-npu-2009.png", price: "159,00 €", htNet: true },
   // Tsarine
   { house: "tsarine", houseDisplay: "Tsarine", name: "Brut", type: "Brut", image: "bottles/tsarine-brut.png", price: "27,09 €" },
   { house: "tsarine", houseDisplay: "Tsarine", name: "Demi-Sec", type: "Demi-Sec", image: "bottles/tsarine-demi-sec.png", price: "27,09 €" },
@@ -1902,16 +2038,52 @@ function runReveal() {
 // ════════════════════════════════════════
 // GALLERY
 // ════════════════════════════════════════
+// Maisons en offre d'hiver (cartes rouges + badge) jusqu'à PROMO_END
+const PROMO_HOUSES = ['bruno-paillard', 'sarrins'];
+const PROMO_RATE = 0.20;
+function discounted(price) {
+  const n = parseFloat(String(price).replace(/[^\d,]/g, '').replace(',', '.'));
+  return (n * (1 - PROMO_RATE)).toFixed(2).replace('.', ',') + ' €';
+}
+// ════════════════════════════════════════
+// PRIX
+// htNet: true  → le prix saisi est le prix HT de la grille B to B (offre incluse).
+//   Prix affiché = HT × 1,2 (TVA 20 %), TTC uniquement.
+// sinon        → le prix saisi est affiché tel quel.
+// ════════════════════════════════════════
+const TVA = 0.20;
+const toCents = (price) => Math.round(parseFloat(String(price).replace(/[^\d,]/g, '').replace(',', '.')) * 100);
+const fmtCents = (c) => (c / 100).toFixed(2).replace('.', ',') + ' €';
+function prices(price, htNet) {
+  const nowC = Math.round(toCents(price) * (1 + TVA));        // TTC remisé
+  const beforeC = Math.round(nowC / (1 - PROMO_RATE));        // TTC avant remise
+  return { now: fmtCents(nowC), before: fmtCents(beforeC) };
+}
+// Bloc prix commun (champagnes + vins)
+function priceBlock(item) {
+  if (!item.price) return { promo: false, html: `<div class="bottle-price pending">Sur demande</div>` };
+  const promo = PROMO_HOUSES.includes(item.house) && new Date() < PROMO_END;
+  if (item.htNet) {
+    const p = prices(item.price), m = item.magnum ? prices(item.magnum) : null;
+    const mag = m ? `<span class="price-mag">Magnum ${m.now}</span>` : '';
+    const note = promo ? `<span class="promo-note">Jusqu'au 31 décembre</span>` : '';
+    return { promo, html: `<div class="bottle-price"><span class="price-new">${p.now}</span>${mag}${note}</div>` };
+  }
+  // Prix saisi tel quel (autres Maisons) ; remise calculée si la Maison est en promo
+  if (promo) {
+    return { promo, html: `<div class="bottle-price"><span class="price-old">${escapeHTML(item.price)}</span><span class="price-new">${discounted(item.price)}</span><span class="promo-note">Offre d'hiver · jusqu'au 31 déc.</span></div>` };
+  }
+  return { promo, html: `<div class="bottle-price">${escapeHTML(item.price)}</div>` };
+}
 function renderGallery() {
   const grid = document.getElementById('galleryGrid');
   grid.innerHTML = BOTTLES.map(b => {
     const isPlaceholder = b.image.endsWith('.svg');
-    const priceHTML = b.price
-      ? `<div class="bottle-price">${escapeHTML(b.price)}</div>`
-      : `<div class="bottle-price pending">Sur demande</div>`;
+    const { promo, html: priceHTML } = priceBlock(b);
     const zoomStyle = b.zoom ? ` style="transform: scale(${b.zoom})"` : '';
     return `
-      <div class="bottle-tile" data-house="${b.house}">
+      <div class="bottle-tile${promo ? ' is-promo' : ''}" data-house="${b.house}">
+        ${promo ? `<span class="promo-badge">Offre d'hiver</span>` : ''}
         <div class="bottle-img">
           <img src="${b.image}" alt="${escapeHTML(b.name)}" loading="lazy"${zoomStyle}>
           ${isPlaceholder ? '<span class="placeholder-note">illustration</span>' : ''}
@@ -1924,13 +2096,43 @@ function renderGallery() {
     `;
   }).join('');
 }
+// ════════════════════════════════════════
+// NOS VINS - Château des Sarrins (Côtes de Provence)
+// Prix = tarifs B to B HT déjà remisés (grille au 1er octobre 2026), affichés en TTC. Sans image, une silhouette s'affiche.
+// ════════════════════════════════════════
+const WINES = [
+  { house: "sarrins", domain: "Château des Sarrins", name: "Rosé Grande Cuvée 2025", type: "Rosé · Côtes de Provence", image: "wines/sarrins-rose-grande-cuvee-2025.png", price: "10,25 €", magnum: "25,95 €", htNet: true },
+  { house: "sarrins", domain: "Château des Sarrins", name: "Rouge Secret 2021",      type: "Rouge · Côtes de Provence", image: "wines/sarrins-rouge-secret-2021.png",      price: "14,45 €", magnum: "34,35 €", htNet: true },
+  { house: "sarrins", domain: "Château des Sarrins", name: "Blanc Secret 2022",      type: "Blanc · Côtes de Provence", image: "wines/sarrins-blanc-secret-2022.png",      price: "14,45 €", magnum: "34,35 €", htNet: true },
+  { house: "sarrins", domain: "Château des Sarrins", name: "Cuvée S 2025",           type: "Rosé · Côtes de Provence",  image: "wines/sarrins-cuvee-s-2025.png",           price: "7,90 €",  htNet: true }
+]
+const BOTTLE_PLACEHOLDER = `<svg class="bottle-placeholder" viewBox="0 0 60 220" aria-hidden="true"><path d="M24 4h12v46c0 8 14 18 14 40v120c0 4-3 6-6 6H16c-3 0-6-2-6-6V90c0-22 14-32 14-40z" fill="currentColor"/></svg>`;
+function renderWines() {
+  const grid = document.getElementById('winesGrid');
+  if (!grid) return;
+  grid.innerHTML = WINES.map(w => {
+    const { promo, html: priceHTML } = priceBlock(w);
+    return `
+      <div class="bottle-tile${promo ? ' is-promo' : ''}">
+        ${promo ? `<span class="promo-badge">Offre d'hiver</span>` : ''}
+        <div class="bottle-img">
+          ${w.image ? `<img src="${w.image}" alt="${escapeHTML(w.name)}" loading="lazy">` : BOTTLE_PLACEHOLDER}
+        </div>
+        <div class="bottle-house">${escapeHTML(w.domain)}</div>
+        <h4>${escapeHTML(w.name)}</h4>
+        <div class="bottle-type">${escapeHTML(w.type)}</div>
+        ${priceHTML}
+      </div>`;
+  }).join('');
+}
+document.addEventListener('DOMContentLoaded', renderWines);   // après le chargement complet du script (PROMO_END)
 // Filter buttons
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const filter = btn.dataset.filter;
-    document.querySelectorAll('.bottle-tile').forEach(t => {
+    document.querySelectorAll('#galleryGrid .bottle-tile').forEach(t => {   // uniquement les champagnes
       t.classList.toggle('hidden', filter !== 'all' && t.dataset.house !== filter);
     });
     document.getElementById('galleryGrid').scrollLeft = 0;
@@ -2386,7 +2588,7 @@ try {
 // --zones-sombre : opaque là où une section sombre est visible
 // --zones-clair  : l'inverse
 // ════════════════════════════════════════
-const DARK_ZONES = ['.hero', '.contact-cta', 'footer.site-footer'];
+const DARK_ZONES = ['.hero', '.contact-cta', 'footer.site-footer', '.promo-band.show'];
 const FADE = 10; // px de fondu à chaque frontière
 function updateFrostZones() {
   const vh = window.innerHeight;
@@ -2431,10 +2633,10 @@ updateFrostZones();
 // change l'adresse (#maisons...) et remonte en haut.
 // Le bouton retour du navigateur fonctionne.
 // ════════════════════════════════════════
-const VIEWS = ['accueil', 'maison', 'maisons', 'cuvees', 'selection', 'degustations', 'contact'];
+const VIEWS = ['accueil', 'maison', 'maisons', 'cuvees', 'selection', 'vins', 'degustations', 'contact'];
 const VIEW_TITLES = {
-  maison: 'Notre Maison', maisons: 'Nos Maisons', cuvees: 'Nos Cuvées',
-  selection: 'La Sélection', degustations: 'Dégustations', contact: 'Commander'
+  maison: 'Nous', maisons: 'Nos Maisons', cuvees: 'Nos Cuvées',
+  selection: 'Nos Champagnes', vins: 'Nos Vins', degustations: 'Dégustations', contact: 'Commander'
 };
 const BASE_TITLE = document.title;
 
@@ -2442,6 +2644,26 @@ function currentView() {
   const v = location.hash.replace(/^#\/?/, '');
   return VIEWS.includes(v) ? v : 'accueil';
 }
+
+// ════════════════════════════════════════
+// BANDEAU PROMO - visible sur l'accueil, fermable
+// Disparaît tout seul après la date de fin.
+// ════════════════════════════════════════
+const PROMO_END = new Date('2027-01-01T00:00:00+01:00');   // fin de l'offre (31 décembre minuit)
+const promoBand = document.getElementById('promoBand');
+let promoDismissed = false;
+try { promoDismissed = sessionStorage.getItem('promoDismissed') === '1'; } catch (e) {}
+function maybePromo(view) {
+  const show = view === 'accueil' && !promoDismissed && new Date() < PROMO_END;
+  promoBand.classList.toggle('show', show);
+  document.body.classList.toggle('has-promo', show);
+}
+document.getElementById('promoBandClose').addEventListener('click', () => {
+  promoDismissed = true;
+  try { sessionStorage.setItem('promoDismissed', '1'); } catch (e) {}
+  maybePromo(null);
+  scheduleFrostZones();
+});
 
 function showView(view, animate = true) {
   document.querySelectorAll('[data-view]').forEach(el => {
@@ -2456,6 +2678,7 @@ function showView(view, animate = true) {
   window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   window.dispatchEvent(new Event('resize'));   // recalcule la neige des sections réaffichées
   scheduleFrostZones();                        // recalcule les zones claires/sombres du givre
+  maybePromo(view);                            // pop-up promo sur l'accueil
 }
 
 document.addEventListener('click', (e) => {
