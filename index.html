@@ -637,15 +637,6 @@ section.s.bg-encre .lead { color: rgba(255,255,255,0.78); }
   box-shadow: 0 14px 32px rgba(14,39,70,0.07);
 }
 .cuvee-card:hover::after { width: 100%; }
-.cuvee-icon {
-  width: 50px; height: 50px;
-  background: var(--creme);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--or);
-  margin-bottom: 1.4rem;
-  transition: all 0.4s;
-}
-.cuvee-card:hover .cuvee-icon { background: var(--or); color: var(--blanc); }
 .cuvee-card h3 {
   font-family: var(--serif); font-weight: 500;
   font-size: 1.35rem; color: var(--bleu-fonce);
@@ -1126,6 +1117,42 @@ footer.site-footer {
   .maison-card { padding: 1.4rem 1.2rem; }
   .m-card-style { font-size: 0.85rem; line-height: 1.5; }
 }
+/* ════════════════════════════════════════
+   GIVRE - bordures latérales (hiver)
+   Deux couches superposées par côté, même dessin :
+   - .givre-sur-sombre : cristaux clairs (hero, contact, footer)
+   - .givre-sur-clair  : cristaux bleu acier, plus contrastés (sections claires)
+   Le JS calcule en continu où sont les zones sombres à l'écran
+   et masque chaque couche en conséquence.
+   ════════════════════════════════════════ */
+.givre-bordure {
+  position: fixed; top: 0; bottom: 0;
+  width: clamp(80px, calc((100vw - 1240px) / 2 + 90px), 240px);
+  pointer-events: none;
+  z-index: 150;
+  background-repeat: repeat-y;
+  background-size: 240px auto;
+  opacity: 0;
+  transition: opacity 2.5s 0.6s ease;
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
+}
+.site.visible .givre-bordure { opacity: 0.95; }
+.givre-gauche { left: 0;  background-position: left top; }
+.givre-droite { right: 0; background-position: right top; }
+.givre-gauche.givre-sur-sombre { background-image: var(--frost-left-light);
+  -webkit-mask-image: linear-gradient(to right, #000 35%, transparent 100%), var(--zones-sombre, linear-gradient(transparent, transparent));
+          mask-image: linear-gradient(to right, #000 35%, transparent 100%), var(--zones-sombre, linear-gradient(transparent, transparent)); }
+.givre-gauche.givre-sur-clair { background-image: var(--frost-left-dark);
+  -webkit-mask-image: linear-gradient(to right, #000 35%, transparent 100%), var(--zones-clair, linear-gradient(#000, #000));
+          mask-image: linear-gradient(to right, #000 35%, transparent 100%), var(--zones-clair, linear-gradient(#000, #000)); }
+.givre-droite.givre-sur-sombre { background-image: var(--frost-right-light);
+  -webkit-mask-image: linear-gradient(to left, #000 35%, transparent 100%), var(--zones-sombre, linear-gradient(transparent, transparent));
+          mask-image: linear-gradient(to left, #000 35%, transparent 100%), var(--zones-sombre, linear-gradient(transparent, transparent)); }
+.givre-droite.givre-sur-clair { background-image: var(--frost-right-dark);
+  -webkit-mask-image: linear-gradient(to left, #000 35%, transparent 100%), var(--zones-clair, linear-gradient(#000, #000));
+          mask-image: linear-gradient(to left, #000 35%, transparent 100%), var(--zones-clair, linear-gradient(#000, #000)); }
+@media (max-width: 1024px) { .givre-bordure { display: none; } }
 </style>
 </head>
 <body class="lock-scroll">
@@ -1161,6 +1188,11 @@ footer.site-footer {
 </div>
 <!-- ═══ SITE ═══ -->
 <div id="site" class="site">
+<!-- ═══ GIVRE (bordures latérales) ═══ -->
+<div class="givre-bordure givre-gauche givre-sur-clair"  aria-hidden="true"></div>
+<div class="givre-bordure givre-gauche givre-sur-sombre" aria-hidden="true"></div>
+<div class="givre-bordure givre-droite givre-sur-clair"  aria-hidden="true"></div>
+<div class="givre-bordure givre-droite givre-sur-sombre" aria-hidden="true"></div>
 <!-- ═══ NAV ═══ -->
 <nav class="site-nav" id="siteNav">
   <a href="#" class="nav-brand" onclick="scrollTo({top:0,behavior:'smooth'});return false;">
@@ -1190,7 +1222,7 @@ footer.site-footer {
 <header class="hero">
   <canvas class="snow-field" id="heroSnow"></canvas>
   <div class="hero-inner">
-    <p class="hero-eyebrow">Un jour, une occasion, un champagne — depuis Paris</p>
+    <p class="hero-eyebrow">Un jour, une occasion, un champagne : depuis Paris</p>
     <h1>L'art du champagne,<br><em>en toute simplicité</em></h1>
     <p class="hero-lead">Agent commercial indépendant, nous sélectionnons pour vous six Maisons d'exception et négocions des conditions privilégiées. Pour les entreprises - événements, inaugurations, soirées - comme pour les particuliers, à l'occasion d'un mariage, d'un anniversaire ou d'une grande envie.</p>
     <div class="hero-ctas">
@@ -1332,9 +1364,6 @@ footer.site-footer {
     </div>
     <div class="cuvees-grid">
       <div class="cuvee-card reveal d1">
-        <div class="cuvee-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 2v3M15 2v3M12 5v3M8 8h8l-.5 4c-.3 2.4-1.8 4-3.5 4s-3.2-1.6-3.5-4L8 8z"/><path d="M12 16v4M9 22h6"/></svg>
-        </div>
         <h3>Brut</h3>
         <p class="cuvee-sub">Dosage 0–12 g/L · le standard</p>
         <p>Le cœur de gamme des Maisons. Équilibre entre fraîcheur, fruit et structure. Le compagnon polyvalent - de l'apéritif au repas, des fêtes aux moments simples.</p>
@@ -1344,9 +1373,6 @@ footer.site-footer {
         </div>
       </div>
       <div class="cuvee-card reveal d1">
-        <div class="cuvee-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
-        </div>
         <h3>Extra Brut</h3>
         <p class="cuvee-sub">Dosage 0–6 g/L · la pureté</p>
         <p>Dosage minimal, presque pas de sucre ajouté. Vivacité tranchante, expression la plus pure du vin. Pour les amateurs qui veulent l'essence du terroir, sans voile.</p>
@@ -1356,9 +1382,6 @@ footer.site-footer {
         </div>
       </div>
       <div class="cuvee-card reveal d2">
-        <div class="cuvee-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 12s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="12" cy="12" r="3"/></svg>
-        </div>
         <h3>Sec &amp; Demi-Sec</h3>
         <p class="cuvee-sub">Dosage 17–50 g/L · la rondeur</p>
         <p>Plus de sucre, plus de gourmandise. Une rondeur en bouche qui appelle les desserts, les fromages affinés et les accords sucré-salé.</p>
@@ -1368,9 +1391,6 @@ footer.site-footer {
         </div>
       </div>
       <div class="cuvee-card reveal d2">
-        <div class="cuvee-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2C9 6 6 9 6 13a6 6 0 0 0 12 0c0-4-3-7-6-11z"/></svg>
-        </div>
         <h3>Rosé</h3>
         <p class="cuvee-sub">Assemblage ou saignée</p>
         <p>Obtenu par ajout de vin rouge de Champagne (assemblage) ou par macération courte (saignée). Robe délicate, notes de petits fruits rouges, élégance fruitée.</p>
@@ -1380,9 +1400,6 @@ footer.site-footer {
         </div>
       </div>
       <div class="cuvee-card reveal d3">
-        <div class="cuvee-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
-        </div>
         <h3>Blanc de Blancs</h3>
         <p class="cuvee-sub">100% Chardonnay · la finesse</p>
         <p>Mono-cépage Chardonnay. Pureté, minéralité, ciselure. La quintessence de la Côte des Blancs, des bulles fines, une longueur qui s'étire.</p>
@@ -1392,9 +1409,6 @@ footer.site-footer {
         </div>
       </div>
       <div class="cuvee-card reveal d3">
-        <div class="cuvee-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
-        </div>
         <h3>Blanc de Noirs</h3>
         <p class="cuvee-sub">100% Pinots · la vinosité</p>
         <p>Issu uniquement de Pinot Noir et&#x2F;ou Meunier - des raisins noirs vinifiés en blanc. Plus de structure, plus de corps, de la profondeur et du caractère.</p>
@@ -1404,9 +1418,6 @@ footer.site-footer {
         </div>
       </div>
       <div class="cuvee-card reveal d4">
-        <div class="cuvee-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="18"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        </div>
         <h3>Millésimés</h3>
         <p class="cuvee-sub">Une seule année · la garde</p>
         <p>Issus exclusivement d'une année exceptionnelle. Vieillissement long sur lies - minimum 3 ans imposés, souvent davantage. Signent les grandes occasions et se conservent en cave.</p>
@@ -1416,9 +1427,6 @@ footer.site-footer {
         </div>
       </div>
       <div class="cuvee-card reveal d4">
-        <div class="cuvee-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 22s-7-4-7-12V4l7 2 7-2v6c0 8-7 12-7 12z"/><path d="M9 12l2 2 4-4"/></svg>
-        </div>
         <h3>Bio &amp; Engagés</h3>
         <p class="cuvee-sub">Viticulture durable</p>
         <p>Cuvées certifiées biologiques, viticulture raisonnée. L'engagement environnemental des Maisons - respect du sol, de la plante et des saisons.</p>
@@ -1428,9 +1436,6 @@ footer.site-footer {
         </div>
       </div>
       <div class="cuvee-card reveal d5">
-        <div class="cuvee-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        </div>
         <h3>Cuvées Prestige</h3>
         <p class="cuvee-sub">Le sommet · l'exception</p>
         <p>Les flacons d'exception&nbsp;: assemblages rares, coffrets, séries limitées. Le savoir-faire d'une Maison à son sommet. Pour offrir, pour marquer, pour célébrer en grand.</p>
@@ -1844,6 +1849,7 @@ document.getElementById('btnAgeOui').addEventListener('click', () => {
     stopSplashField();
     renderGallery();
     runReveal();
+    updateFrostZones();
   }, 250);
 });
 document.getElementById('btnAgeNon').addEventListener('click', () => {
@@ -2190,6 +2196,131 @@ function initSnowfall(canvasId, opts = {}) {
 const stopSplashField  = initSnowfall('splashSnow',  { density: 0.00016, max: 220, speed: 0.2, repel: true, crystalRatio: 0.18, crystalMax: 12, goldRatio: 0.25 });
 const stopHeroSnow     = initSnowfall('heroSnow',    { density: 0.0001,  max: 130, speed: 0.2 });
 const stopContactField = initSnowfall('contactSnow', { density: 0.00014, max: 100, speed: 0.2, repel: true });
+// ════════════════════════════════════════
+// GIVRE - génération procédurale de la texture
+// Cristaux qui poussent depuis le bord, branches à 60°
+// comme le vrai givre. Raccord vertical sans couture.
+// ════════════════════════════════════════
+// Couleurs des deux variantes (même dessin, teintes différentes)
+const FROST_PALETTES = {
+  light: { edge: 'rgba(90,125,170,0.22)', core: 'rgba(225,236,248,0.50)', spark: 'rgba(235,243,252,0.9)', gold: 'rgba(229,199,126,0.7)' },
+  dark:  { edge: 'rgba(40,75,125,0.16)',  core: 'rgba(95,130,180,0.10)',  spark: 'rgba(110,145,195,0.7)', gold: 'rgba(201,160,71,0.75)' }
+};
+function makeFrostTexture(seed, side, variant = 'light') {
+  const P = FROST_PALETTES[variant];
+  const W = 240, H = 1000;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const c = document.createElement('canvas');
+  c.width = W * dpr; c.height = H * dpr;
+  const ctx = c.getContext('2d');
+  ctx.scale(dpr, dpr);
+  let st = seed;
+  const rnd = () => (st = (st * 16807) % 2147483647) / 2147483647;
+  const segs = [];
+  function branch(x, y, ang, len, depth) {
+    if (depth <= 0 || len < 3) return;
+    const x2 = x + Math.cos(ang) * len, y2 = y + Math.sin(ang) * len;
+    segs.push([x, y, x2, y2, depth]);
+    const n = 2 + Math.floor(rnd() * 3);
+    for (let i = 1; i <= n; i++) {
+      const t = i / (n + 1);
+      const px = x + (x2 - x) * t, py = y + (y2 - y) * t;
+      const sub = len * (0.28 + rnd() * 0.22) * (1 - t * 0.4);
+      branch(px, py, ang - Math.PI / 3, sub, depth - 2);
+      branch(px, py, ang + Math.PI / 3, sub, depth - 2);
+    }
+    branch(x2, y2, ang + (rnd() - 0.5) * 0.5, len * (0.62 + rnd() * 0.15), depth - 1);
+  }
+  // 1) Grandes touffes réparties régulièrement sur la hauteur (pas de trous)
+  const BIG = 30;
+  for (let i = 0; i < BIG; i++) {
+    const y = (i + 0.2 + rnd() * 0.6) * (H / BIG);
+    const len = 40 + rnd() * 40;
+    branch(rnd() * 8, y, (rnd() - 0.5) * 1.1, len, 6);
+  }
+  // 2) Couche de « rime » dense collée au bord : petites aiguilles serrées
+  const SMALL = 90;
+  for (let i = 0; i < SMALL; i++) {
+    const y = (i + rnd()) * (H / SMALL);
+    branch(0, y, (rnd() - 0.5) * 1.4, 12 + rnd() * 18, 4);
+  }
+  function stroke(color, extra) {
+    ctx.strokeStyle = color; ctx.lineCap = 'round';
+    for (const off of [-H, 0, H]) {              // copies décalées = tuile raccordable
+      for (const [x1, y1, x2, y2, d] of segs) {
+        ctx.lineWidth = Math.max(0.5, d * 0.32) + extra;
+        ctx.beginPath(); ctx.moveTo(x1, y1 + off); ctx.lineTo(x2, y2 + off); ctx.stroke();
+      }
+    }
+  }
+  stroke(P.edge, 1.2);                            // liseré
+  stroke(P.core, 0);                              // cristal
+  for (let i = 0; i < 70; i++) {                  // paillettes
+    const x = Math.pow(rnd(), 1.8) * W * 0.7, y = rnd() * H, r = 0.6 + rnd() * 1.4;
+    ctx.fillStyle = rnd() < 0.2 ? P.gold : P.spark;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  }
+  if (side === 'right') {                         // miroir pour la bordure droite
+    const m = document.createElement('canvas');
+    m.width = c.width; m.height = c.height;
+    const mc = m.getContext('2d');
+    mc.translate(m.width, 0); mc.scale(-1, 1); mc.drawImage(c, 0, 0);
+    return m.toDataURL('image/png');
+  }
+  return c.toDataURL('image/png');
+}
+try {
+  const root = document.documentElement.style;
+  root.setProperty('--frost-left-light',  `url(${makeFrostTexture(1234567, 'left',  'light')})`);
+  root.setProperty('--frost-left-dark',   `url(${makeFrostTexture(1234567, 'left',  'dark')})`);
+  root.setProperty('--frost-right-light', `url(${makeFrostTexture(7654321, 'right', 'light')})`);
+  root.setProperty('--frost-right-dark',  `url(${makeFrostTexture(7654321, 'right', 'dark')})`);
+} catch (e) {}
+
+// ════════════════════════════════════════
+// GIVRE - suivi des zones sombres à l'écran
+// Construit deux masques verticaux (en px de viewport) :
+// --zones-sombre : opaque là où une section sombre est visible
+// --zones-clair  : l'inverse
+// ════════════════════════════════════════
+const DARK_ZONES = ['.hero', '.contact-cta', 'footer.site-footer'];
+const FADE = 10; // px de fondu à chaque frontière
+function updateFrostZones() {
+  const vh = window.innerHeight;
+  const nav = document.getElementById('siteNav');
+  const navBottom = nav ? nav.getBoundingClientRect().bottom : 0; // la nav est claire
+  const spans = [];
+  DARK_ZONES.forEach(sel => document.querySelectorAll(sel).forEach(el => {
+    const r = el.getBoundingClientRect();
+    const top = Math.max(navBottom, r.top);
+    if (r.bottom > top && top < vh) spans.push([top, Math.min(vh, r.bottom)]);
+  }));
+  spans.sort((a, b) => a[0] - b[0]);
+  const build = (inDark) => {
+    const on = '#000', off = 'transparent';
+    const a = inDark ? on : off, b = inDark ? off : on;
+    if (!spans.length) return `linear-gradient(${b}, ${b})`;
+    const stops = [`${b} 0px`];
+    for (const [t, btm] of spans) {
+      stops.push(`${b} ${Math.max(0, t - FADE)}px`, `${a} ${t + (t > 0 ? FADE : 0)}px`,
+                 `${a} ${btm - (btm < vh ? FADE : 0)}px`, `${b} ${Math.min(vh, btm + FADE)}px`);
+    }
+    stops.push(`${b} ${vh}px`);
+    return `linear-gradient(to bottom, ${stops.join(', ')})`;
+  };
+  const root = document.documentElement.style;
+  root.setProperty('--zones-sombre', build(true));
+  root.setProperty('--zones-clair',  build(false));
+}
+let frostTick = false;
+function scheduleFrostZones() {
+  if (frostTick) return;
+  frostTick = true;
+  requestAnimationFrame(() => { frostTick = false; updateFrostZones(); });
+}
+window.addEventListener('scroll', scheduleFrostZones, { passive: true });
+window.addEventListener('resize', scheduleFrostZones);
+updateFrostZones();
 </script>
 </body>
 </html>
