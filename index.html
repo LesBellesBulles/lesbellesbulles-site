@@ -1153,6 +1153,18 @@ footer.site-footer {
   -webkit-mask-image: linear-gradient(to left, #000 35%, transparent 100%), var(--zones-clair, linear-gradient(#000, #000));
           mask-image: linear-gradient(to left, #000 35%, transparent 100%), var(--zones-clair, linear-gradient(#000, #000)); }
 @media (max-width: 1024px) { .givre-bordure { display: none; } }
+/* ════════════════════════════════════════
+   PAGES (une section affichée à la fois)
+   ════════════════════════════════════════ */
+[data-view].view-hidden { display: none !important; }
+[data-view].view-enter { animation: viewIn 0.6s ease both; }
+@keyframes viewIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.nav-links a.active { color: var(--or); }
+.nav-links a.active::after { width: 100%; }
+.nav-links a.nav-cta.active { background: var(--or); color: var(--blanc); }
 </style>
 </head>
 <body class="lock-scroll">
@@ -1195,7 +1207,7 @@ footer.site-footer {
 <div class="givre-bordure givre-droite givre-sur-sombre" aria-hidden="true"></div>
 <!-- ═══ NAV ═══ -->
 <nav class="site-nav" id="siteNav">
-  <a href="#" class="nav-brand" onclick="scrollTo({top:0,behavior:'smooth'});return false;">
+  <a href="#accueil" class="nav-brand">
     <img src="logo-summer.jpg" alt="Les Belles Bulles">
     <div class="nav-brand-text">
       <span class="nav-brand-name">Les Belles Bulles</span>
@@ -1219,7 +1231,7 @@ footer.site-footer {
 </div>
 </nav>
 <!-- ═══ HERO ═══ -->
-<header class="hero">
+<header class="hero" data-view="accueil">
   <canvas class="snow-field" id="heroSnow"></canvas>
   <div class="hero-inner">
     <p class="hero-eyebrow">Un jour, une occasion, un champagne : depuis Paris</p>
@@ -1237,7 +1249,7 @@ footer.site-footer {
 </header>
 <!--<div class="divider"></div>-->
 <!-- ═══ NOTRE MAISON ═══ -->
-<section class="s bg-white" id="maison">
+<section class="s bg-white" id="maison" data-view="maison">
   <div class="container">
     <div class="maison-grid">
       <div>
@@ -1289,7 +1301,7 @@ footer.site-footer {
   </div>
 </section>
 <!-- ═══ NOS MAISONS PARTENAIRES ═══ -->
-<section class="s bg-creme" id="maisons">
+<section class="s bg-creme" id="maisons" data-view="maisons">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow center">Nos Maisons</p>
@@ -1355,7 +1367,7 @@ footer.site-footer {
   </div>
 </section>
 <!-- ═══ NOS CUVÉES ═══ -->
-<section class="s bg-white" id="cuvees">
+<section class="s bg-white" id="cuvees" data-view="cuvees">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow center">Nos Cuvées</p>
@@ -1448,7 +1460,7 @@ footer.site-footer {
   </div>
 </section>
 <!-- ═══ LA SÉLECTION (Gallery) ═══ -->
-<section class="s bg-creme" id="selection">
+<section class="s bg-creme" id="selection" data-view="selection">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow center">La Sélection</p>
@@ -1472,7 +1484,7 @@ footer.site-footer {
   </div>
 </section>
 <!-- ═══ CONDITIONS DE COMMANDE ═══ -->
-<section class="conditions-band">
+<section class="conditions-band" data-view="selection">
   <div class="conditions-inner">
     <div class="conditions-head reveal">
       <p class="eyebrow center">Conditions de commande</p>
@@ -1524,7 +1536,7 @@ footer.site-footer {
   </div>
 </section>
 <!-- ═══ NOS SERVICES ═══ -->
-<section class="s bg-white" id="services">
+<section class="s bg-white" id="services" data-view="services">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow center">Nos Services</p>
@@ -1576,7 +1588,7 @@ footer.site-footer {
   </div>
 </section>
 <!-- ═══ CONTACT ═══ -->
-<section class="s bg-creme" id="contact">
+<section class="s bg-creme" id="contact" data-view="contact">
   <div class="container">
     <div class="contact-cta reveal">
       <canvas class="snow-field" id="contactSnow"></canvas>
@@ -1849,7 +1861,9 @@ document.getElementById('btnAgeOui').addEventListener('click', () => {
     stopSplashField();
     renderGallery();
     runReveal();
-    updateFrostZones();
+    // Toujours arriver sur l'accueil (hero « L'art du champagne ») après le splash
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (err) {}
+    showView('accueil', false);
   }, 250);
 });
 document.getElementById('btnAgeNon').addEventListener('click', () => {
@@ -2203,7 +2217,7 @@ const stopContactField = initSnowfall('contactSnow', { density: 0.00014, max: 10
 // ════════════════════════════════════════
 // Couleurs des deux variantes (même dessin, teintes différentes)
 const FROST_PALETTES = {
-  light: { edge: 'rgba(90,125,170,0.22)', core: 'rgba(225,236,248,0.50)', spark: 'rgba(235,243,252,0.9)', gold: 'rgba(229,199,126,0.7)' },
+  light: { edge: 'rgba(90,125,170,0.22)', core: 'rgba(225,236,248,0.30)', spark: 'rgba(235,243,252,0.9)', gold: 'rgba(229,199,126,0.7)' },
   dark:  { edge: 'rgba(40,75,125,0.16)',  core: 'rgba(95,130,180,0.10)',  spark: 'rgba(110,145,195,0.7)', gold: 'rgba(201,160,71,0.75)' }
 };
 function makeFrostTexture(seed, side, variant = 'light') {
@@ -2235,7 +2249,7 @@ function makeFrostTexture(seed, side, variant = 'light') {
   const BIG = 30;
   for (let i = 0; i < BIG; i++) {
     const y = (i + 0.2 + rnd() * 0.6) * (H / BIG);
-    const len = 40 + rnd() * 40;
+    const len = 25 + rnd() * 25;
     branch(rnd() * 8, y, (rnd() - 0.5) * 1.1, len, 6);
   }
   // 2) Couche de « rime » dense collée au bord : petites aiguilles serrées
@@ -2321,6 +2335,52 @@ function scheduleFrostZones() {
 window.addEventListener('scroll', scheduleFrostZones, { passive: true });
 window.addEventListener('resize', scheduleFrostZones);
 updateFrostZones();
+
+// ════════════════════════════════════════
+// PAGES - navigation par « vues »
+// Un clic sur le bandeau affiche une seule section,
+// change l'adresse (#maisons...) et remonte en haut.
+// Le bouton retour du navigateur fonctionne.
+// ════════════════════════════════════════
+const VIEWS = ['accueil', 'maison', 'maisons', 'cuvees', 'selection', 'services', 'contact'];
+const VIEW_TITLES = {
+  maison: 'Notre Maison', maisons: 'Nos Maisons', cuvees: 'Nos Cuvées',
+  selection: 'La Sélection', services: 'Nos Services', contact: 'Commander'
+};
+const BASE_TITLE = document.title;
+
+function currentView() {
+  const v = location.hash.replace(/^#\/?/, '');
+  return VIEWS.includes(v) ? v : 'accueil';
+}
+
+function showView(view, animate = true) {
+  document.querySelectorAll('[data-view]').forEach(el => {
+    const on = el.dataset.view === view;
+    el.classList.toggle('view-hidden', !on);
+    el.classList.remove('view-enter');
+    if (on && animate) { void el.offsetWidth; el.classList.add('view-enter'); }
+  });
+  navLinks.querySelectorAll('a').forEach(a =>
+    a.classList.toggle('active', a.getAttribute('href') === '#' + view));
+  document.title = view === 'accueil' ? BASE_TITLE : `${VIEW_TITLES[view]} · Les Belles Bulles`;
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  window.dispatchEvent(new Event('resize'));   // recalcule la neige des sections réaffichées
+  scheduleFrostZones();                        // recalcule les zones claires/sombres du givre
+}
+
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const v = a.getAttribute('href').slice(1) || 'accueil';
+  if (!VIEWS.includes(v)) return;
+  e.preventDefault();
+  // Met à jour l'adresse si possible (impossible dans certains aperçus isolés : la page change quand même)
+  try { history.pushState(null, '', v === 'accueil' ? location.pathname + location.search : '#' + v); } catch (err) {}
+  showView(v);
+});
+window.addEventListener('popstate', () => showView(currentView()));
+showView(currentView(), false);
 </script>
 </body>
 </html>
